@@ -1,0 +1,9 @@
+[submodule "VSTHost/modules/JUCE"]
+	path = VSTHost/modules/JUCE
+	url = https://github.com/juce-framework/JUCE.git
+[submodule "VSTHost/modules/vst3sdk"]
+	path = VSTHost/modules/vst3sdk
+	url = https://github.com/steinbergmedia/vst3sdk
+[submodule "VSTHost/modules/webrtc"]
+	path = VSTHost/modules/webrtc
+	url = https://github.com/pion/webrtc.git
