@@ -21,7 +21,9 @@ add_executable(VSTHost main.cpp
         vst_hosting/PluginManager.cpp
         vst_hosting/PluginManager.h
         utils/PluginEnum.h
-        utils/PluginEnum.cpp)
+        utils/PluginEnum.cpp
+        audio_engine/SpeakerAudioEngine.cpp
+        audio_engine/SpeakerAudioEngine.h)
 
 target_compile_definitions(VSTHost
     PRIVATE

@@ -1,8 +1,4 @@
 #include "PluginManager.h"
-#include "../utils/PluginEnum.h"
-#include <juce_audio_processors/juce_audio_processors.h>
-#define SAMPLE_RATE 48000
-#define BLOCK_SIZE 1024
 
 using namespace juce;
 
@@ -43,6 +39,5 @@ std::unique_ptr<AudioPluginInstance> PluginManager::loadPlugin(
         std::cout<<"The plugin could not be instantiated."<< std::endl;
         return nullptr;
     }
-    instance->prepareToPlay(SAMPLE_RATE, BLOCK_SIZE);
     return instance;
 }

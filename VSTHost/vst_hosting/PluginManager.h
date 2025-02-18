@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PLUGINMANAGER_H
+#define PLUGINMANAGER_H
 #include "../utils/PluginEnum.h"
 #include <juce_audio_processors/juce_audio_processors.h>
 
@@ -17,3 +18,4 @@ public:
 private:
     juce::AudioPluginFormatManager formatManager;
 };
+#endif
