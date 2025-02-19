@@ -17,7 +17,23 @@ SpeakerAudioEngine::~SpeakerAudioEngine() {
 
 void SpeakerAudioEngine::start() {
     // Set up device
-    deviceManager.initialise(0, 2, nullptr, true);
+    deviceManager.initialise(1, 2, nullptr, true);
+
+    auto allDevices = juce::MidiInput::getAvailableDevices();
+    for (auto& dev : allDevices)
+    {
+        if (dev.name.containsIgnoreCase("Minilab3 MIDI"))  // or something matching your device
+        {
+            // Enable that specific device
+            deviceManager.setMidiInputDeviceEnabled (dev.identifier, true);
+
+            // Now add our midiInputCollector as a callback for that device only
+            deviceManager.addMidiInputDeviceCallback (dev.identifier, &midiInputCollector);
+            std::cout << "Opened specific MIDI device: " << dev.name << std::endl;
+            break;
+        }
+    }
+
     deviceManager.addAudioCallback(this);
 
     // Prepare the plugin
@@ -28,6 +44,7 @@ void SpeakerAudioEngine::start() {
 void SpeakerAudioEngine::stop() {
     deviceManager.removeAudioCallback(this);
     deviceManager.closeAudioDevice();
+    deviceManager.removeMidiInputDeviceCallback({}, &midiInputCollector);
 
     if (plugin)
         plugin->releaseResources();
@@ -48,13 +65,7 @@ void SpeakerAudioEngine::audioDeviceIOCallbackWithContext(const float* const* in
 
         // Build or retrieve a MidiBuffer with note events
         juce::MidiBuffer midi;
-        static bool noteOnSent = false;
-        if (!noteOnSent) {
-            midi.addEvent(juce::MidiMessage::noteOn(1, 60, (juce::uint8)100), 0);
-            midi.addEvent(juce::MidiMessage::noteOn (1, 64, (juce::uint8)100), 256);
-            midi.addEvent(juce::MidiMessage::noteOn (1, 67, (juce::uint8)100), 256);
-            noteOnSent = true;
-        }
+        midiInputCollector.removeNextBlockOfMessages(midi, numSamples);
 
         // Let the plugin process
         plugin->processBlock(buffer, midi);
@@ -72,6 +83,7 @@ void SpeakerAudioEngine::audioDeviceAboutToStart(juce::AudioIODevice *device) {
     const int blockSize = device->getCurrentBufferSizeSamples();
     if (plugin)
         plugin->prepareToPlay(sampleRate, blockSize);
+    midiInputCollector.getMidiMessageCollector().reset(SAMPLE_RATE);
 }
 
 void SpeakerAudioEngine::audioDeviceStopped() {
@@ -82,4 +94,8 @@ void SpeakerAudioEngine::audioDeviceStopped() {
 void SpeakerAudioEngine::setPlugin(std::unique_ptr<juce::AudioPluginInstance> plugin) {
     plugin->prepareToPlay(SAMPLE_RATE, BLOCK_SIZE);
     this->plugin = std::move(plugin);
+}
+
+MidiInputCollector &SpeakerAudioEngine::getMidiInputCollector() {
+    return midiInputCollector;
 }

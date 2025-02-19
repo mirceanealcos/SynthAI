@@ -6,6 +6,8 @@
 #define SPEAKERAUDIOENGINE_H
 #include <juce_audio_devices/juce_audio_devices.h>
 #include <juce_audio_processors/juce_audio_processors.h>
+
+#include "../midi/MidiInputCollector.h"
 #define SAMPLE_RATE 48000
 #define BLOCK_SIZE 1024
 
@@ -33,9 +35,13 @@ public:
 
     void setPlugin(std::unique_ptr<juce::AudioPluginInstance> plugin);
 
+    MidiInputCollector& getMidiInputCollector();
+
 private:
     juce::AudioDeviceManager deviceManager;
     std::unique_ptr<juce::AudioPluginInstance> plugin;
+    MidiInputCollector midiInputCollector;
+
 };
 
 

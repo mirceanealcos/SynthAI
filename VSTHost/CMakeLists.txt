@@ -23,7 +23,11 @@ add_executable(VSTHost main.cpp
         utils/PluginEnum.h
         utils/PluginEnum.cpp
         audio_engine/SpeakerAudioEngine.cpp
-        audio_engine/SpeakerAudioEngine.h)
+        audio_engine/SpeakerAudioEngine.h
+        midi/MidiInputCollector.cpp
+        midi/MidiInputCollector.h
+        midi/MidiDeviceManager.cpp
+        midi/MidiDeviceManager.h)
 
 target_compile_definitions(VSTHost
     PRIVATE
