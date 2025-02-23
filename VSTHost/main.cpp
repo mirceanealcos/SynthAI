@@ -10,12 +10,10 @@ int main() {
     auto instance = manager.loadPlugin(PluginEnum::SERUM, 48000, 1024, errorMsg);
     SpeakerAudioEngine speakerAudioEngine;
     MidiDeviceManager midiDeviceManager;
-    // midiDeviceManager.openMidiDevice(speakerAudioEngine.getMidiInputCollector());
     speakerAudioEngine.start();
     speakerAudioEngine.setPlugin(std::move(instance));
     while (true)
     {
         juce::Thread::sleep(100);
     }
-    return 0;
 }

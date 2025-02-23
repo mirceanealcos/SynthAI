@@ -27,7 +27,11 @@ add_executable(VSTHost main.cpp
         midi/MidiInputCollector.cpp
         midi/MidiInputCollector.h
         midi/MidiDeviceManager.cpp
-        midi/MidiDeviceManager.h)
+        midi/MidiDeviceManager.h
+        utils/serum/Presets.cpp
+        utils/serum/Presets.h
+        utils/serum/SerumEditor.cpp
+        utils/serum/SerumEditor.h)
 
 target_compile_definitions(VSTHost
     PRIVATE

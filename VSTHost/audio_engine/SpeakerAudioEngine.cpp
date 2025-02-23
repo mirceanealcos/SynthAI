@@ -5,6 +5,8 @@
 #include "SpeakerAudioEngine.h"
 #define SAMPLE_RATE 48000
 #define BLOCK_SIZE 256
+#include "../utils/serum/SerumEditor.h"
+
 
 SpeakerAudioEngine::SpeakerAudioEngine()
 {
@@ -92,6 +94,7 @@ void SpeakerAudioEngine::audioDeviceStopped() {
 }
 
 void SpeakerAudioEngine::setPlugin(std::unique_ptr<juce::AudioPluginInstance> plugin) {
+    SerumEditor::loadSerumPreset(Presets::OFFRECORD, plugin.get());
     plugin->prepareToPlay(SAMPLE_RATE, BLOCK_SIZE);
     this->plugin = std::move(plugin);
 }
