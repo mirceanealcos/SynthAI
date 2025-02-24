@@ -94,10 +94,14 @@ void SpeakerAudioEngine::audioDeviceStopped() {
 }
 
 void SpeakerAudioEngine::setPlugin(std::unique_ptr<juce::AudioPluginInstance> plugin) {
-    SerumEditor::loadSerumPreset(Presets::OFFRECORD, plugin.get());
     plugin->prepareToPlay(SAMPLE_RATE, BLOCK_SIZE);
     this->plugin = std::move(plugin);
 }
+
+void SpeakerAudioEngine::setPreset(Preset preset) {
+    SerumEditor::loadSerumPreset(preset, this->plugin.get());
+}
+
 
 MidiInputCollector &SpeakerAudioEngine::getMidiInputCollector() {
     return midiInputCollector;

@@ -9,9 +9,9 @@ int main() {
     juce::String errorMsg;
     auto instance = manager.loadPlugin(PluginEnum::SERUM, 48000, 1024, errorMsg);
     SpeakerAudioEngine speakerAudioEngine;
-    MidiDeviceManager midiDeviceManager;
     speakerAudioEngine.start();
     speakerAudioEngine.setPlugin(std::move(instance));
+    speakerAudioEngine.setPreset(Presets::SUBNET);
     while (true)
     {
         juce::Thread::sleep(100);

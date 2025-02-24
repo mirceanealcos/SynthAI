@@ -6,6 +6,7 @@
 #define SPEAKERAUDIOENGINE_H
 #include <juce_audio_devices/juce_audio_devices.h>
 #include <juce_audio_processors/juce_audio_processors.h>
+#include "../utils/serum/Presets.h"
 
 #include "../midi/MidiInputCollector.h"
 #define SAMPLE_RATE 48000
@@ -37,11 +38,12 @@ public:
 
     MidiInputCollector& getMidiInputCollector();
 
+    void setPreset(Preset preset);
+
 private:
     juce::AudioDeviceManager deviceManager;
     std::unique_ptr<juce::AudioPluginInstance> plugin;
     MidiInputCollector midiInputCollector;
-
 };
 
 
