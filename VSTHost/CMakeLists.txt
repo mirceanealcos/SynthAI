@@ -31,7 +31,13 @@ add_executable(VSTHost main.cpp
         utils/serum/Presets.cpp
         utils/serum/Presets.h
         utils/serum/SerumEditor.cpp
-        utils/serum/SerumEditor.h)
+        utils/serum/SerumEditor.h
+        audio_engine/HeadlessAudioEngine.cpp
+        audio_engine/HeadlessAudioEngine.h
+        audio_engine/utils/AudioRingBuffer.cpp
+        audio_engine/utils/AudioRingBuffer.h
+        streaming/SerumAudioDeviceModule.cpp
+        streaming/SerumAudioDeviceModule.h)
 
 target_compile_definitions(VSTHost
     PRIVATE

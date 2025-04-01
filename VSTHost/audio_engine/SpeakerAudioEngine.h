@@ -12,7 +12,7 @@
 #define SAMPLE_RATE 48000
 #define BLOCK_SIZE 1024
 
-
+// LEGACY AUDIO ENGINE FOR PLAYING SOUND THROUGH SPEAKERS
 class SpeakerAudioEngine : public juce::AudioIODeviceCallback {
 public:
     SpeakerAudioEngine();
