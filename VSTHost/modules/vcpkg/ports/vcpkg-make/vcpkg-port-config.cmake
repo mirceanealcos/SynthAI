@@ -1,0 +1,6 @@
+include("../vcpkg-cmake-get-vars/vcpkg-port-config.cmake")
+include("vcpkg_make_configure.cmake")
+include("vcpkg_make_install.cmake")
+include("vcpkg_make_common.cmake")
+include("vcpkg_make.cmake")
+include("vcpkg_scripts.cmake")
