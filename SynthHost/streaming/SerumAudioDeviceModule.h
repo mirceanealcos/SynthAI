@@ -2,14 +2,10 @@
 
 #include "modules/audio_device/include/audio_device.h"
 #include "../audio_engine/utils/AudioRingBuffer.h"
-#include "rtc_base/ref_counted_object.h"
 #include "api/scoped_refptr.h"
 #include <thread>
 #include <atomic>
 #include <mutex>
-#include <vector>
-#include <string>
-#include <cstring>
 #include <memory>
 
 

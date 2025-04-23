@@ -1,14 +1,17 @@
 cmake_minimum_required(VERSION 3.30)
-project(VSTHost)
+project(SynthHost)
 
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(modules/JUCE)
 
-set(WEBRTC_ROOT "D:/Software/WebRTC/webrtc-checkout/src")
+set(WEBRTC_ROOT "D:/Projects/SynthAI/WebRTC/webrtc-checkout/src")
 
-include_directories(${WEBRTC_ROOT})
-include_directories(${WEBRTC_ROOT}/out/Release)
+include_directories(
+        ${WEBRTC_ROOT}
+        ${WEBRTC_ROOT}/third_party/abseil-cpp
+        ${WEBRTC_ROOT}/out/Release
+)
 
 set(VST3_SDK_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/modules/vst3sdk" CACHE PATH "Path to VST3 SDK")
 if(NOT EXISTS "${VST3_SDK_ROOT}/pluginterfaces/base/fplatform.h")
@@ -17,7 +20,7 @@ endif()
 
 set(JUCE_VST3_SDK_PATH "${VST3_SDK_ROOT}")
 
-add_executable(VSTHost main.cpp
+add_executable(SynthHost main.cpp
         vst_hosting/PluginManager.cpp
         vst_hosting/PluginManager.h
         utils/PluginEnum.h
@@ -39,12 +42,12 @@ add_executable(VSTHost main.cpp
         streaming/SerumAudioDeviceModule.cpp
         streaming/SerumAudioDeviceModule.h)
 
-target_compile_definitions(VSTHost
+target_compile_definitions(SynthHost
     PRIVATE
         JUCE_PLUGINHOST_VST3=1
 )
 
-target_link_libraries(VSTHost
+target_link_libraries(SynthHost
         PRIVATE
         juce::juce_core
         juce::juce_audio_basics
