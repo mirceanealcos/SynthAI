@@ -4,7 +4,7 @@ vcpkg_from_github(
     REF v1.4.0
     SHA512 ca036aa2c31911e0bfaeab9665188c97726201267314693a1c333c4efe13ea598b39a55a19bc1d48e65462ac9d1716adfda5af86c645d59c3247192631247cc6
     HEAD_REF master
-    PATCHES
+    PATCHES 
         only-install-one-flavor.patch
         fix-build-error.patch
         glib.link.patch

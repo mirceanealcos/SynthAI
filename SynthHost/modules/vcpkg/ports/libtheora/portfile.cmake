@@ -8,9 +8,9 @@ vcpkg_from_github(
         0001-fix-uwp.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "libtheora.def" DESTINATION "${SOURCE_PATH}")
-file(COPY "unofficial-theora-config.cmake.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/libtheora.def" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/unofficial-theora-config.cmake.in" DESTINATION "${SOURCE_PATH}")
 
 if(VCPKG_TARGET_ARCHITECTURE STREQUAL "x86")
     set(THEORA_X86_OPT ON)

@@ -32,9 +32,9 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
         tools   DISABLE_INSTALL_TOOLS
 )
 
-file(COPY "CMakeLists.txt"
-          "minizip-win32.def"
-          "unofficial-minizipConfig.cmake.in"
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+          "${CMAKE_CURRENT_LIST_DIR}/minizip-win32.def"
+          "${CMAKE_CURRENT_LIST_DIR}/unofficial-minizipConfig.cmake.in"
     DESTINATION "${SOURCE_PATH}/contrib/minizip"
 )
 
@@ -64,11 +64,11 @@ if ("bzip2" IN_LIST FEATURES)
     endforeach()
 endif()
 
-configure_file("minizipConfig.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/minizipConfig.cmake" @ONLY)
-file(COPY "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+configure_file("${CMAKE_CURRENT_LIST_DIR}/minizipConfig.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/minizipConfig.cmake" @ONLY)
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/contrib/minizip/MiniZip64_info.txt")
 
 if(GENERATE_SYMBOLS)
-    include("lib-to-def.cmake")
+    include("${CMAKE_CURRENT_LIST_DIR}/lib-to-def.cmake")
     lib_to_def(BASENAME minizip REGEX "(call|fill|unz|win32|zip)")
 endif()

@@ -7,7 +7,7 @@ project(liblzf LANGUAGES C)
 add_library(liblzf
     lzf_c.c
     lzf_d.c
-        liblzf.def
+    liblzf.def
 )
 set_target_properties(liblzf PROPERTIES OUTPUT_NAME lzf)
 target_include_directories(liblzf INTERFACE $<INSTALL_INTERFACE:include>)

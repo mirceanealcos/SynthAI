@@ -13,7 +13,7 @@ vcpkg_from_github(
 
 file(REMOVE_RECURSE "${SOURCE_PATH}/lib")
 file(MAKE_DIRECTORY "${SOURCE_PATH}/lib")
-configure_file("CMakeLists.txt" "${SOURCE_PATH}/lib/CMakeLists.txt")
+configure_file("${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" "${SOURCE_PATH}/lib/CMakeLists.txt")
 
 if(VCPKG_TARGET_IS_WINDOWS)
     set(PLATFORM WIN32)

@@ -1,4 +1,4 @@
-get_filename_component(_DIR "json11-config.cmake" PATH)
+get_filename_component(_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 
 if(NOT JSON11_FIND_COMPONENTS)
     set(JSON11_FIND_COMPONENTS json11 json11)

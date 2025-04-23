@@ -23,4 +23,4 @@ vcpkg_cmake_install()
 vcpkg_cmake_config_fixup()
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENCE.md")
-configure_file("usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)

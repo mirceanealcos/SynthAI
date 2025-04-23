@@ -13,7 +13,7 @@ ignition_modular_library(
    SHA512 c90c72a700889289aec71582c6484c6c7a5d06cfa2d01f3634fa194b4271fc1723c6746ed82610dc8463c0f3eb146b46111ba90e2c30f44cafc63d1fa46b56f4
    OPTIONS 
    PATCHES
-        dependencies.patch
+      dependencies.patch
 )
 
 if(VCPKG_TARGET_IS_WINDOWS)   

@@ -7,8 +7,8 @@ vcpkg_from_github(
     SHA512 1cbee4f6b3569587986774447ad9ec4190f597310c4d6865ffa7cd8865ece2492e4a42fa369b633d9d7a9da782560d49deaa62a18601ea4f56396bdf1a6a5f52
     HEAD_REF devel
     PATCHES
-        001-fix-exported-targets.patch
-        fix-isnan.patch # Remove this patch in the next update
+      001-fix-exported-targets.patch
+      fix-isnan.patch # Remove this patch in the next update
 )
 
 vcpkg_cmake_configure(
@@ -36,7 +36,7 @@ if(VCPKG_LIBRARY_LINKAGE STREQUAL static)
   file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin" "${CURRENT_PACKAGES_DIR}/debug/bin")
 endif()
 
-file(INSTALL "vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/octomap")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/octomap")
 
 # Handle copyright
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/octomap/LICENSE.txt")

@@ -6,7 +6,7 @@ vcpkg_from_github(
     HEAD_REF master
 )
 
-file(COPY "CMakeLists.txt" DESTINATION  "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION  "${SOURCE_PATH}")
 file(GLOB_RECURSE test_files LIST_DIRECTORIES false "${SOURCE_PATH}/src/zk/*_tests.cpp")
 if (NOT "${test_files}" STREQUAL "")
 	file(REMOVE ${test_files})

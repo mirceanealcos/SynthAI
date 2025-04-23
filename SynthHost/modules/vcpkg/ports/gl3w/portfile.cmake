@@ -5,10 +5,10 @@ vcpkg_from_github(
   SHA512 217f65644c73c33383b09893fa5ede066cc4b1cddab051feac11d7e939dba14ed637b297ea42a0426bc0a1a3bc665998a91c27ca10d28704ce9e2d3d90e73595
   HEAD_REF master
   PATCHES
-        0001-enable-shared-build.patch
+      0001-enable-shared-build.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 file(COPY "${CURRENT_INSTALLED_DIR}/include/GL/glcorearb.h" DESTINATION "${SOURCE_PATH}/include/GL")
 file(COPY "${CURRENT_INSTALLED_DIR}/include/KHR/khrplatform.h" DESTINATION "${SOURCE_PATH}/include/KHR")
 

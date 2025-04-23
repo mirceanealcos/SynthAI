@@ -8,7 +8,7 @@ vcpkg_from_github(
     REF 5bf7b46558e1c5595bf3b8c9b0b1f9d8d257040a
     SHA512 04b645d09e60b65cb1e5065a1623ad01737f0dd9415cf620288ace0db10b1c424d72f304b34c52fa08684f3fecdaad9db91088134f34ed374cb1eb9d58c635b5
     HEAD_REF master
-    PATCHES
+    PATCHES 
         devendor.patch
         cmake-config.patch
         fix-boost.patch

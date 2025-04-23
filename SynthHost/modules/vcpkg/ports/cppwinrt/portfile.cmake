@@ -64,9 +64,9 @@ file(INSTALL "${CPPWINRT_TOOL}" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/cppwi
 set(tool_path "tools/cppwinrt/cppwinrt.exe")
 set(lib_name "cppwinrt_fast_forwarder.lib")
 
-configure_file("cppwinrt-config.cmake.in"
+configure_file("${CMAKE_CURRENT_LIST_DIR}/cppwinrt-config.cmake.in"
   "${CURRENT_PACKAGES_DIR}/share/${PORT}/${PORT}-config.cmake"
   @ONLY)
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${src}/LICENSE")

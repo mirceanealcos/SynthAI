@@ -161,8 +161,8 @@ else()
         
     endif()
 
-    file(COPY "magnumdeploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/bin/magnum")
-    file(COPY "magnumdeploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin/${debug_dir}")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/magnumdeploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/bin/magnum")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/magnumdeploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin/${debug_dir}")
 endif()
 
 file(INSTALL "${SOURCE_PATH}/COPYING" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

@@ -65,7 +65,7 @@ if(INSTALL_HEADERS)
     export(PACKAGE soil2)
 
     # Create the soil2Config.cmake and soil2ConfigVersion.cmake
-    configure_file(soil2Config.cmake.in "${PROJECT_BINARY_DIR}/soil2Config.cmake"        @ONLY)
+    configure_file(soil2Config.cmake.in        "${PROJECT_BINARY_DIR}/soil2Config.cmake"        @ONLY)
 
     # Install the soil2Config.cmake and soil2ConfigVersion.cmake
     install(FILES

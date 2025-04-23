@@ -30,7 +30,7 @@ endif()
 target_include_directories(lmdb INTERFACE "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 include(CMakePackageConfigHelpers)
-configure_package_config_file("cmake/package-config.cmakein" "${CMAKE_CURRENT_BINARY_DIR}/unofficial-lmdb-config.cmake"
+configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/package-config.cmakein" "${CMAKE_CURRENT_BINARY_DIR}/unofficial-lmdb-config.cmake"
     INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/lmdb"
 )
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/unofficial-lmdb-config-version.cmake"
@@ -67,6 +67,6 @@ if(LMDB_BUILD_TESTS)
         add_executable(${test} ${test}.c)
         target_link_libraries(${test} lmdb)
         add_test(NAME ${test}
-            COMMAND "${CMAKE_COMMAND}" "-DTEST=$<TARGET_FILE:${test}" -P "cmake/runtest.cmake")
+            COMMAND "${CMAKE_COMMAND}" "-DTEST=$<TARGET_FILE:${test}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/runtest.cmake")
     endforeach()
 endif()

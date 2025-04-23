@@ -84,7 +84,7 @@ file(REMOVE_RECURSE
     "${CURRENT_PACKAGES_DIR}/debug/share"
 )
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 set(arbiter_license "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/arbiter LICENSE")
 file(COPY_FILE "${SOURCE_PATH}/vendor/arbiter/LICENSE" "${arbiter_license}")

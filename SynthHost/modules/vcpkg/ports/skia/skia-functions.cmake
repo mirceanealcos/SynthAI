@@ -135,7 +135,7 @@ function(third_party_from_pkgconfig gn_group)
             endif()
         endforeach()
     endforeach()
-    configure_file("third-party.gn.in" "${SOURCE_PATH}/${arg_PATH}/BUILD.gn" @ONLY)
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/third-party.gn.in" "${SOURCE_PATH}/${arg_PATH}/BUILD.gn" @ONLY)
 endfunction()
 
 # Setup a third-party dependency from vcpkg installed tree
@@ -163,7 +163,7 @@ function(third_party_from_vcpkg gn_group)
             endif()
         endforeach()
     endforeach()
-    configure_file("third-party.gn.in" "${SOURCE_PATH}/${arg_PATH}/BUILD.gn" @ONLY)
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/third-party.gn.in" "${SOURCE_PATH}/${arg_PATH}/BUILD.gn" @ONLY)
 endfunction()
 
 # Turn a space separated string into a gn list:

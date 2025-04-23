@@ -60,7 +60,7 @@ file(
         "${CURRENT_PACKAGES_DIR}/debug/lib"
 )
 
-configure_file("Config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/unofficial-${PORT}/unofficial-${PORT}-config.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/Config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/unofficial-${PORT}/unofficial-${PORT}-config.cmake" @ONLY)
 
 # Handle copyright
 file(INSTALL "${KINECTSDK10_DIR}/SDKEula.rtf" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

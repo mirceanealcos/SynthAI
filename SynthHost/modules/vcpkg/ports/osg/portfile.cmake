@@ -134,7 +134,7 @@ vcpkg_cmake_configure(
 )
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
-configure_file("unofficial-osg-config.cmake" "${CURRENT_PACKAGES_DIR}/share/unofficial-osg/unofficial-osg-config.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/unofficial-osg-config.cmake" "${CURRENT_PACKAGES_DIR}/share/unofficial-osg/unofficial-osg-config.cmake" @ONLY)
 vcpkg_cmake_config_fixup(PACKAGE_NAME unofficial-osg)
 
 # Add debug folder prefix for plugin targets. vcpkg_cmake_config_fixup only handles this for targets in bin/ and lib/.
@@ -181,5 +181,5 @@ if(NOT VCPKG_BUILD_TYPE)
 endif()
 vcpkg_fixup_pkgconfig()
 
-file(COPY "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.txt")

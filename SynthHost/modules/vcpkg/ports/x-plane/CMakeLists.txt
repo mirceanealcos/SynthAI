@@ -85,7 +85,7 @@ install(FILES ${HEADERS} DESTINATION "include")
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
-  "unofficial-x-plane-config.cmake.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/unofficial-x-plane-config.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/unofficial-x-plane-config.cmake"
   INSTALL_DESTINATION "share/unofficial-x-plane")
 

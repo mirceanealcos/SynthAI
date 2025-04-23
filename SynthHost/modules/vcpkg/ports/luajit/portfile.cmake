@@ -28,7 +28,7 @@ if(VCPKG_DETECTED_MSVC)
     endif()
 
     vcpkg_install_nmake(SOURCE_PATH "${SOURCE_PATH}"
-        PROJECT_NAME "Makefile.nmake"
+        PROJECT_NAME "${CMAKE_CURRENT_LIST_DIR}/Makefile.nmake"
         OPTIONS
             ${options}
     )
@@ -37,9 +37,9 @@ if(VCPKG_DETECTED_MSVC)
         vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/include/luajit/luaconf.h" "defined(LUA_BUILD_AS_DLL)" "1")
     endif()
 
-    file(INSTALL "luajit.pc" DESTINATION "${CURRENT_PACKAGES_DIR}/lib/pkgconfig")
+    file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/luajit.pc" DESTINATION "${CURRENT_PACKAGES_DIR}/lib/pkgconfig")
     if(NOT VCPKG_BUILD_TYPE)
-        file(INSTALL "luajit.pc" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
+        file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/luajit.pc" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
     endif()
 
     vcpkg_copy_pdbs()
@@ -75,7 +75,7 @@ else()
         string(APPEND dasm_archs " arm64 x64")
     endif()
 
-    file(COPY "configure" DESTINATION "${SOURCE_PATH}")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/configure" DESTINATION "${SOURCE_PATH}")
     vcpkg_configure_make(SOURCE_PATH "${SOURCE_PATH}"
         COPY_SOURCE
         OPTIONS

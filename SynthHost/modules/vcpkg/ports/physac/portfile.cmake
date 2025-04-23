@@ -11,4 +11,4 @@ vcpkg_from_github(
 
 file(INSTALL "${SOURCE_PATH}/src/physac.h"  DESTINATION "${CURRENT_PACKAGES_DIR}/include")
 
-vcpkg_install_copyright(FILE_LIST "LICENSE")
+vcpkg_install_copyright(FILE_LIST "${CMAKE_CURRENT_LIST_DIR}/LICENSE")

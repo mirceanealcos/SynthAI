@@ -11,8 +11,8 @@ vcpkg_from_sourceforge(
         buffer_uninitialized.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "config.h" DESTINATION "${SOURCE_PATH}/libaiff")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/config.h" DESTINATION "${SOURCE_PATH}/libaiff")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

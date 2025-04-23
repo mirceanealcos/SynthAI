@@ -57,8 +57,8 @@ vcpkg_from_gitlab(GITLAB_URL "https://gitlab.kitware.com"
 
                   SHA512 fa08bd597e1918d10e7fed9f6b9667fd53f4a14589580e68691aad3cfb240f7de80fa0c5001712f100911c2262b5af3105b8f21da21b945a88e1204ea82b92a6
                   PATCHES
-        omp.patch
-        fix-build.patch
+                    omp.patch
+                    fix-build.patch
 )
 vcpkg_cmake_configure(
   SOURCE_PATH "${SOURCE_PATH}"

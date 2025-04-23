@@ -8,8 +8,8 @@ vcpkg_from_github(
 
 
 file(COPY
-"CMakeLists.txt"
-"fastfeat.def"
+"${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+"${CMAKE_CURRENT_LIST_DIR}/fastfeat.def"
 DESTINATION "${SOURCE_PATH}"
 )
 

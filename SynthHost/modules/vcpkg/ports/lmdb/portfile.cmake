@@ -8,7 +8,7 @@ vcpkg_from_gitlab(
     PATCHES
         getopt-win32.diff
 )
-file(COPY "cmake" DESTINATION "${SOURCE_PATH}/libraries/liblmdb")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/cmake/" DESTINATION "${SOURCE_PATH}/libraries/liblmdb")
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS options_release
     FEATURES

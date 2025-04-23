@@ -1,7 +1,7 @@
 
 if(NOT TARGET unofficial::libexif::libexif)
     add_library(unofficial::libexif::libexif UNKNOWN IMPORTED)
-    get_filename_component(z_vcpkg_LIBEXIF_root "unofficial-libexif-config.cmake" PATH)
+    get_filename_component(z_vcpkg_LIBEXIF_root "${CMAKE_CURRENT_LIST_FILE}" PATH)
     get_filename_component(z_vcpkg_LIBEXIF_ROOT "${z_vcpkg_LIBEXIF_root}" PATH)
     get_filename_component(z_VCPKG_LIBEXIF_ROOT "${z_vcpkg_LIBEXIF_ROOT}" PATH)
     set_target_properties(unofficial::libexif::libexif PROPERTIES

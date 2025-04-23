@@ -96,5 +96,5 @@ else()
     file(COPY "${SOURCE_PATH}/include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
     # clean up mpir stuff
     file(REMOVE "${CURRENT_PACKAGES_DIR}/lib/mpir.lib" "${CURRENT_PACKAGES_DIR}/debug/lib/mpir.lib")
-    file(INSTALL "unofficial-pbc-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-${PORT}")
+    file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/unofficial-pbc-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-${PORT}")
 endif()

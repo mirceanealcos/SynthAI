@@ -5,15 +5,15 @@ vcpkg_from_github(
     SHA512 de7d24ac7ed78ac14673011cbecc477cae688b74222a972e553c95a557b5cb8e5913f97db525421d6a72af30998ca300112fa0b285daed65f65832eb2cf7241a
     HEAD_REF master
     PATCHES
-        0001-install-options.patch
-        0002-fix-paths-containing-symbols.patch
-        0003-force-package-requirements.patch
-        0004-enable-pkgconf.patch
-        0005-fix-config.patch
-        0006-fix-jasper.patch
-        0007-fix-openexr.patch
-        0008-missing-include.patch
-        0009-pkgconfig-suffix.patch
+      0001-install-options.patch
+      0002-fix-paths-containing-symbols.patch
+      0003-force-package-requirements.patch
+      0004-enable-pkgconf.patch
+      0005-fix-config.patch
+      0006-fix-jasper.patch
+      0007-fix-openexr.patch
+      0008-missing-include.patch
+      0009-pkgconfig-suffix.patch
 )
 
 vcpkg_find_acquire_program(PKGCONFIG)

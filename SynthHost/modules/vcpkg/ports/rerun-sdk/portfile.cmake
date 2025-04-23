@@ -46,6 +46,6 @@ vcpkg_install_copyright(FILE_LIST
     "${SOURCE_PATH}/LICENSE-APACHE"
 )
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")

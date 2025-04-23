@@ -10,7 +10,7 @@ vcpkg_from_github(
         "fix-sleep_for.patch"
 )
 
-file(COPY tacopie/CMakeLists.txt DESTINATION ${SOURCE_PATH}/tacopie)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/tacopie/CMakeLists.txt DESTINATION ${SOURCE_PATH}/tacopie)
 
 if(VCPKG_CRT_LINKAGE STREQUAL "dynamic")
     set(MSVC_RUNTIME_LIBRARY_CONFIG "/MD")

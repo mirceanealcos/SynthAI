@@ -14,7 +14,7 @@ vcpkg_extract_source_archive(
         dont_use_lib64.patch
 )
 
-file(COPY "exports.def" DESTINATION "${SOURCE_PATH}/src")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/exports.def" DESTINATION "${SOURCE_PATH}/src")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

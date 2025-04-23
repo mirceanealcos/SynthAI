@@ -13,8 +13,8 @@ ignition_modular_library(
       -DSKIP_PYBIND11=ON
       "-DPython3_EXECUTABLE=${PYTHON3}"
    PATCHES
-        dependencies.patch
-        cxx_flags.patch
+      dependencies.patch
+      cxx_flags.patch
 )
 
 IF(EXISTS "${CURRENT_PACKAGES_DIR}/lib/${PORT}-${VERSION_MAJOR}/")

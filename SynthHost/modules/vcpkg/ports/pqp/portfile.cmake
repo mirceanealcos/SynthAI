@@ -13,7 +13,7 @@ vcpkg_extract_source_archive(
         fix-math-functions.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
@@ -22,4 +22,4 @@ vcpkg_cmake_configure(
 vcpkg_cmake_install()
 
 # Handle copyright
-file(INSTALL "LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

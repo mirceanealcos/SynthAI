@@ -14,10 +14,10 @@ vcpkg_extract_source_archive(
   SOURCE_PATH
   ARCHIVE "${ARCHIVE}"
   PATCHES
-        remove_internal_blas.patch
-        fix-ConfigFile.patch
-        fix-install.patch
-        support-uwp.patch
+      remove_internal_blas.patch
+      fix-ConfigFile.patch
+      fix-install.patch
+      support-uwp.patch
 )
 
 set(ARITH_PATH)
@@ -59,7 +59,7 @@ vcpkg_cmake_config_fixup(CONFIG_PATH share/clapack)
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
 # Install clapack wrappers.
-file(INSTALL "vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}/wrapper")
-file(INSTALL "FindLAPACK.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}/wrapper")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/FindLAPACK.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 file(INSTALL "${SOURCE_PATH}/COPYING" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

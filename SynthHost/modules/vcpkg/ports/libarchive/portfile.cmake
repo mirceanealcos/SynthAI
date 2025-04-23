@@ -81,7 +81,7 @@ vcpkg_fixup_pkgconfig()
 
 vcpkg_copy_pdbs()
 
-configure_file("vcpkg-cmake-wrapper.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-cmake-wrapper.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-cmake-wrapper.cmake" @ONLY)
 
 file(REMOVE_RECURSE
       "${CURRENT_PACKAGES_DIR}/debug/include"

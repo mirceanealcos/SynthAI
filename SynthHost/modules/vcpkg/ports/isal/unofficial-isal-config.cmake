@@ -1,6 +1,6 @@
 if(NOT TARGET unofficial::isal::isal)
     add_library(unofficial::isal::isal UNKNOWN IMPORTED)
-    get_filename_component(z_vcpkg_isal_prefix "unofficial-isal-config.cmake" PATH)
+    get_filename_component(z_vcpkg_isal_prefix "${CMAKE_CURRENT_LIST_FILE}" PATH)
     get_filename_component(z_vcpkg_isal_prefix "${z_vcpkg_isal_prefix}" PATH)
     get_filename_component(z_vcpkg_isal_prefix "${z_vcpkg_isal_prefix}" PATH)
     find_library(Z_VCPKG_ISAL_LIBRARY_RELEASE NAMES isal isa-l_static isa-l PATHS "${z_vcpkg_isal_prefix}/lib" NO_DEFAULT_PATH REQUIRED)

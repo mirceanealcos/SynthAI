@@ -9,11 +9,11 @@ vcpkg_from_github(
 )
 
 foreach(_cmake_module
-        Findlibcurl.cmake
-        Findlibmicrohttpd.cmake
-        Findlibzmq.cmake
-        Findlz4.cmake
-        Finduuid.cmake
+    Findlibcurl.cmake
+    Findlibmicrohttpd.cmake
+    Findlibzmq.cmake
+    Findlz4.cmake
+    Finduuid.cmake
 )
     file(COPY
         ${CMAKE_CURRENT_LIST_DIR}/${_cmake_module}
@@ -59,7 +59,7 @@ endif()
 vcpkg_fixup_pkgconfig()
 
 file(COPY
-    "vcpkg-cmake-wrapper.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake"
     DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}"
 )
 

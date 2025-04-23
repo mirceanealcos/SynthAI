@@ -8,7 +8,7 @@ vcpkg_from_github(
     REF "v${VERSION}"
     SHA512 7e3a897a0df438d43dc860febe813f84b671caa26195cea1e8df75769d418d5456852200b8f546107c97214e88e77015e044a95d0c45d4c19341288136e11fbc
     PATCHES
-        config.patch
+      config.patch
 )
 
 

@@ -11,7 +11,7 @@ set(INSTALL_INC_DIR "${CMAKE_INSTALL_PREFIX}/include"
     CACHE PATH "Installation directory for headers"
 )
 
-file(GLOB CPPUNIT_SRC RELATIVE "."
+file(GLOB CPPUNIT_SRC RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/cppunit/*.cpp")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 

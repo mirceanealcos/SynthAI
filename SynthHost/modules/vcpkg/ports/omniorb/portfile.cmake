@@ -5,8 +5,8 @@ vcpkg_download_distfile(ARCHIVE
 )
 
 if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
-set (PATCHES
-        hardcode_vaargs_for_msvc.patch
+set (PATCHES 
+      hardcode_vaargs_for_msvc.patch
     )
 set (OPTIONS 
       ac_cv_prog_cc_g=yes
@@ -19,13 +19,13 @@ endif()
 vcpkg_extract_source_archive(
     SOURCE_PATH
     ARCHIVE "${ARCHIVE}"
-    PATCHES
-        fix_dependency.patch
-        def_gen_fix.patch
-        msvc-src-build-fixes.patch
-        release-debug-static.patch
-        add_win_into_autotools.patch
-        python-fixes.patch
+    PATCHES 
+      fix_dependency.patch
+      def_gen_fix.patch
+      msvc-src-build-fixes.patch
+      release-debug-static.patch
+      add_win_into_autotools.patch
+      python-fixes.patch
       ${PATCHES}
 )
 
@@ -79,7 +79,7 @@ if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
           endif()
       endif()
   endforeach()
-  configure_file("vcpkg.mk" "${SOURCE_PATH}/mk/platforms/vcpkg.mk" @ONLY NEWLINE_STYLE UNIX)
+  configure_file("${CMAKE_CURRENT_LIST_DIR}/vcpkg.mk" "${SOURCE_PATH}/mk/platforms/vcpkg.mk" @ONLY NEWLINE_STYLE UNIX)
   file(GLOB_RECURSE wrappers "${SOURCE_PATH}/bin/x86_win32/*")
   file(COPY ${wrappers} DESTINATION "${SOURCE_PATH}/bin")
 endif()

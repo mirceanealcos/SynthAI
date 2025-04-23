@@ -109,7 +109,7 @@ if(WIN32)
     file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/rsvg.def" "EXPORTS\n${rsvg_symbols}")
     list(APPEND LIBRSVG_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/rsvg.def")
 else()
-    configure_file("config.h.linux" "${CMAKE_CURRENT_BINARY_DIR}/config.h" COPYONLY)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.linux" "${CMAKE_CURRENT_BINARY_DIR}/config.h" COPYONLY)
     list(APPEND LIBRSVG_SOURCES rsvg.symbols)
 endif()
 
@@ -117,7 +117,7 @@ add_library(${LIBRSVG_TARGET} ${LIBRSVG_SOURCES})
 target_compile_definitions(${LIBRSVG_TARGET} PRIVATE
     -DRSVG_COMPILATION
     -D_CRT_SECURE_NO_WARNINGS
-    -DSRCDIR="."
+    -DSRCDIR="${CMAKE_CURRENT_SOURCE_DIR}" 
     -DGDK_PIXBUF_ENABLE_BACKEND 
     -DG_LOG_DOMAIN="libpixbufloader-svg"
     -DSRCDIR=""
@@ -172,7 +172,7 @@ add_library(pixbufloader-svg MODULE ${PIXBUFLOADERSVG_SOURCES})
 target_include_directories(pixbufloader-svg
     PRIVATE
         "${CMAKE_CURRENT_BINARY_DIR}"
-        "."
+        "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 target_compile_definitions(pixbufloader-svg PRIVATE
     -DRSVG_COMPILATION

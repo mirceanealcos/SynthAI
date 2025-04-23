@@ -33,8 +33,8 @@ else()
     message(FATAL_ERROR "Unable to determine version of exe4cpp")
 endif()
 
-file(COPY "opendnp3-config.cmake.in" DESTINATION "${SOURCE_PATH}")
-file(COPY "deps" DESTINATION "${SOURCE_PATH}/deps/")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/opendnp3-config.cmake.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/deps/" DESTINATION "${SOURCE_PATH}/deps/")
 
 string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" STATICLIBS)
 

@@ -18,10 +18,10 @@ vcpkg_extract_source_archive(
     src_path
     ARCHIVE "${dist_file}"
     PATCHES
-        disable-openmp-msvc.patch
-        no-tests.patch
-        clang-cuda.patch
-        fix-min-max.patch
+      disable-openmp-msvc.patch
+      no-tests.patch
+      clang-cuda.patch
+      fix-min-max.patch
 )
 
 vcpkg_cmake_configure(

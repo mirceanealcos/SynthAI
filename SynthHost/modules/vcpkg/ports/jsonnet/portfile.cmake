@@ -9,12 +9,12 @@ vcpkg_from_github(
   SHA512 d46d2521d4389d05f91a16ecd9f181be1853f674a9264e9fac23e413f1084dee947e80682af59603e15e443061a0beb50a30c14c858853e10ed1ae7187d09730
   HEAD_REF master
   PATCHES
-        001-enable-msvc.patch
-        002-fix-dependency-and-install.patch
-        0003-use-upstream-nlohmann-json.patch
-        0004-incorporate-md5.patch
-        0005-use-upstream-rapidyaml.patch
-        0006-use-cxx17.patch
+    001-enable-msvc.patch
+    002-fix-dependency-and-install.patch
+    0003-use-upstream-nlohmann-json.patch
+    0004-incorporate-md5.patch
+    0005-use-upstream-rapidyaml.patch
+    0006-use-cxx17.patch
 )
 
 # see https://github.com/google/jsonnet/blob/v0.18.0/Makefile#L220

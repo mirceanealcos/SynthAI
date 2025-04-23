@@ -441,7 +441,7 @@ install (FILES ${HEADERS} DESTINATION "include/7zip/CPP/7zip/Archive")
 
 include(CMakePackageConfigHelpers)
 configure_package_config_file(
-  "7zip-config.cmake.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/7zip-config.cmake.in"
   "${CMAKE_CURRENT_BINARY_DIR}/7zip-config.cmake"
   INSTALL_DESTINATION "share/7zip"
 )

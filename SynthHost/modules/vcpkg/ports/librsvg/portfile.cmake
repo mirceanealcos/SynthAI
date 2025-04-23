@@ -15,7 +15,7 @@ vcpkg_extract_source_archive(
         fix-libxml2-2.13.5.patch
 )
 
-file(COPY "CMakeLists.txt" "config.h.linux" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" "${CMAKE_CURRENT_LIST_DIR}/config.h.linux" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_find_acquire_program(PKGCONFIG)
 vcpkg_cmake_configure(

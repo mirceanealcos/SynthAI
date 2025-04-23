@@ -21,9 +21,9 @@ ignition_modular_library(
       "-DCMAKE_PROJECT_INCLUDE=${CURRENT_PORT_DIR}/cmake-project-include.cmake"
       "-DPython3_EXECUTABLE=${PYTHON3}"
    PATCHES
-        remove_ruby.patch
-        move_bin_to_tools.patch
-        pthread.diff
+      remove_ruby.patch
+      move_bin_to_tools.patch
+      pthread.diff
 )
 
 file(GLOB python_files_debug "${CURRENT_PACKAGES_DIR}/debug/bin/${PORT}${VERSION_MAJOR}_*.py")

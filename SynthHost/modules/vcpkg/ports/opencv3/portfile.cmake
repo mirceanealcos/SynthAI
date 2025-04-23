@@ -7,21 +7,21 @@ vcpkg_from_github(
     SHA512 e7efc912113f27428fb85f033e8b18146c9a5899bf10e687f8c279ed736ee3006ac330e843979df7572f046f41cb8820e291b4303dcfdc4f12deb6df0e0be27b
     HEAD_REF master
     PATCHES
-        0001-disable-downloading.patch
-        0002-install-options.patch
-        0003-force-package-requirements.patch
-        0004-fix-eigen.patch
-        0005-fix-vtk9.patch
-        0006-fix-uwp.patch
-        0008-devendor-quirc.patch
-        0009-fix-protobuf.patch
-        0010-fix-uwp-tiff-imgcodecs.patch
-        0011-remove-python2.patch
-        0012-fix-zlib.patch
-        0014-fix-pkgconf-name.patch
-        0015-fix-supportqnx.patch
-        0017-enable-gtk.patch
-        0019-enable-pkgconf.patch
+      0001-disable-downloading.patch
+      0002-install-options.patch
+      0003-force-package-requirements.patch
+      0004-fix-eigen.patch
+      0005-fix-vtk9.patch
+      0006-fix-uwp.patch
+      0008-devendor-quirc.patch
+      0009-fix-protobuf.patch
+      0010-fix-uwp-tiff-imgcodecs.patch
+      0011-remove-python2.patch
+      0012-fix-zlib.patch
+      0014-fix-pkgconf-name.patch
+      0015-fix-supportqnx.patch
+      0017-enable-gtk.patch
+      0019-enable-pkgconf.patch
 )
 
 vcpkg_find_acquire_program(PKGCONFIG)
@@ -133,9 +133,9 @@ if("contrib" IN_LIST FEATURES)
     SHA512 98f4e3113fb65b6d52d39388ae616d3107969040dc70248be194566904cf8a4f165a61fd5e88b1d799d7bc8107f1a3c3951365de45f3b19cb8b888a63c6d8f2d
     HEAD_REF master
     PATCHES
-          0007-contrib-fix-hdf5.patch
-          0013-contrib-fix-tesseract.patch
-          0016-contrib-fix-freetype.patch
+      0007-contrib-fix-hdf5.patch
+      0013-contrib-fix-tesseract.patch
+      0016-contrib-fix-freetype.patch
   )
   set(BUILD_WITH_CONTRIB_FLAG "-DOPENCV_EXTRA_MODULES_PATH=${CONTRIB_SOURCE_PATH}/modules")
 

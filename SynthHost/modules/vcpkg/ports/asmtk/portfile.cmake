@@ -5,7 +5,7 @@ vcpkg_from_github(
     SHA512 d825f488c66dca9ca4c3279992e4ea36a4d1b7ad65fa3e0c70b151ce0d2b1f9b5ad053ff1d447da38475bf843fe3b130706e3c9916a64f76560add9c8d796a5b
     HEAD_REF master
     PATCHES
-        fix-link-amsjit.patch
+      fix-link-amsjit.patch
 )
 
 set(ASMJIT_EXTERNAL ON)

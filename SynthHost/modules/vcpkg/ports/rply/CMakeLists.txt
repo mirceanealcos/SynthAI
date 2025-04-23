@@ -32,7 +32,7 @@ if (MSVC)
     set_target_properties(${target_name} PROPERTIES
         VS_DEBUGGER_WORKING_DIRECTORY $<TARGET_FILE_DIR:${target_name}>
     )
-    set_property(DIRECTORY . PROPERTY VS_STARTUP_PROJECT ${target_name})
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${target_name})
 endif()
 
 install (TARGETS ${target_name} EXPORT ${target_name}-targets

@@ -12,4 +12,4 @@ else()
     vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/include/strtk.hpp" "#ifndef strtk_no_tr1_or_boost" "#if 0")
 endif()
 
-vcpkg_install_copyright(FILE_LIST "copyright")
+vcpkg_install_copyright(FILE_LIST "${CMAKE_CURRENT_LIST_DIR}/copyright")

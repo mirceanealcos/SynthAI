@@ -730,7 +730,7 @@ if (NOT VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL "release")
     set(CONFIGURE_OPTIONS "${OPTIONS} ${OPTIONS_RELEASE}")
     set(INST_PREFIX       "${CURRENT_PACKAGES_DIR}")
 
-    configure_file("build.sh.in" "${BUILD_DIR}/build.sh" @ONLY)
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/build.sh.in" "${BUILD_DIR}/build.sh" @ONLY)
 
     z_vcpkg_setup_pkgconfig_path(CONFIG RELEASE)
 
@@ -771,7 +771,7 @@ if (NOT VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL "debug")
     set(CONFIGURE_OPTIONS "${OPTIONS} ${OPTIONS_DEBUG}")
     set(INST_PREFIX       "${CURRENT_PACKAGES_DIR}/debug")
 
-    configure_file("build.sh.in" "${BUILD_DIR}/build.sh" @ONLY)
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/build.sh.in" "${BUILD_DIR}/build.sh" @ONLY)
 
     z_vcpkg_setup_pkgconfig_path(CONFIG DEBUG)
 
@@ -993,10 +993,10 @@ else()
     message(FATAL_ERROR "Failed to identify license (${LICENSE_STRING})")
 endif()
 
-configure_file("FindFFMPEG.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/FindFFMPEG.cmake" @ONLY)
-configure_file("vcpkg-cmake-wrapper.cmake" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-cmake-wrapper.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/FindFFMPEG.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/FindFFMPEG.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-cmake-wrapper.cmake" @ONLY)
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "static" AND NOT VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_OSX AND NOT VCPKG_TARGET_IS_IOS)
     file(APPEND "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" "
 To use the static libraries to build your own shared library,

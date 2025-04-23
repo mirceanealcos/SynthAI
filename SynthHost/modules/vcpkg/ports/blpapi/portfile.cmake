@@ -55,6 +55,6 @@ file(COPY "${SOURCE_PATH}/include" DESTINATION "${CURRENT_PACKAGES_DIR}")
 file(GLOB CMAKE_FILES LIST_DIRECTORIES false "${SOURCE_PATH}/cmake/*.cmake")
 file(COPY ${CMAKE_FILES} DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
-configure_file("usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" @ONLY)
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/License.txt")

@@ -9,8 +9,8 @@ vcpkg_from_github(
   SHA512 c3650ffbf5855aaf04d03930f01c6efd76e1f2b2d47365348721f16531a14653ae5b3aff8fefa8e5fa1c769fdf1a9b441a88bc687f97f8c579b84f17c6984c9e
   HEAD_REF master
   PATCHES
-        fix-build.patch
-        unofficial-export.patch
+      fix-build.patch
+      unofficial-export.patch
 )
 
 vcpkg_cmake_configure(
@@ -19,7 +19,7 @@ vcpkg_cmake_configure(
 
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
-file(COPY "unofficial-cld3Config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-cld3")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/unofficial-cld3Config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-cld3")
 vcpkg_cmake_config_fixup(CONFIG_PATH share/unofficial-cld3 PACKAGE_NAME unofficial-cld3)
 
 file(GLOB PUBLIC_HEADER_FILES LIST_DIRECTORIES false "${SOURCE_PATH}/src/*.h")

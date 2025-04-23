@@ -21,7 +21,7 @@ else()
 endif()
 
 # Install unofficial CMake package
-configure_file("unofficial-inihConfig.cmake.in" "${CURRENT_PACKAGES_DIR}/share/unofficial-inih/unofficial-inihConfig.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/unofficial-inihConfig.cmake.in" "${CURRENT_PACKAGES_DIR}/share/unofficial-inih/unofficial-inihConfig.cmake" @ONLY)
 
 # meson build
 string(REPLACE "OFF" "false" FEATURE_OPTIONS "${FEATURE_OPTIONS}")
@@ -41,4 +41,4 @@ vcpkg_copy_pdbs()
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.txt")
 
-configure_file("usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)

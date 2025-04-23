@@ -9,7 +9,7 @@ vcpkg_extract_source_archive(SOURCE_PATH
     ARCHIVE "${ARCHIVE}"
 )
 
-file(COPY "configure" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/configure" DESTINATION "${SOURCE_PATH}")
 
 if(VCPKG_CROSSCOMPILING)
     file(TOUCH "${SOURCE_PATH}/libcap/_makenames")

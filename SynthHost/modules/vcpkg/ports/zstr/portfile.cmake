@@ -16,4 +16,4 @@ file(INSTALL "${SOURCE_PATH}/src/strict_fstream.hpp"
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
 
 # Install usage
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

@@ -4,17 +4,17 @@ vcpkg_from_github(
     REF v${VERSION}
     SHA512 82095c51f2486d9f2a59d8fd696e305096ef63df5c40fef1fd95a8e8c3eb3735f7be29929105e588b8c1b6d6941d1e4c05f7f09e0d1c866c1105d5c1c064f932
     HEAD_REF master
-    PATCHES
-        git-ver.patch
-        static-exports.patch
-        cmake-adjustments.patch
-        vcpkg-fix-cgns-link.patch
-        cgns-scoped-enum.patch
-        downstream-fixes.patch
-        add_filesystem.patch
-        occ-78.patch
-        142.diff
-        cross-build.patch
+    PATCHES 
+      git-ver.patch
+      static-exports.patch
+      cmake-adjustments.patch
+      vcpkg-fix-cgns-link.patch
+      cgns-scoped-enum.patch
+      downstream-fixes.patch
+      add_filesystem.patch
+      occ-78.patch
+      142.diff
+      cross-build.patch
 )
 
 set(OPTIONS "")

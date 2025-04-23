@@ -6,7 +6,7 @@
 set(QT_IS_LATEST ON)
 
 ## All above goes into the qt_port_hashes in the future
-include("cmake/qt_install_submodule.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/qt_install_submodule.cmake")
 
 set(${PORT}_PATCHES
         allow_outside_prefix.patch
@@ -33,7 +33,7 @@ if("shared-mime-info" IN_LIST FEATURES)
     list(APPEND ${PORT}_PATCHES use-shared-mime-info.patch)
 endif()
 
-list(APPEND ${PORT}_PATCHES
+list(APPEND ${PORT}_PATCHES 
         dont_force_cmakecache_latest.patch
     )
 
@@ -341,7 +341,7 @@ qt_install_submodule(PATCHES    ${${PORT}_PATCHES}
 
 # Install CMake helper scripts
 file(COPY
-    "cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/cmake/"
     DESTINATION
         "${CURRENT_PACKAGES_DIR}/share/${PORT}"
     )
@@ -447,16 +447,16 @@ endif()
 file(RELATIVE_PATH installed_to_host "${CURRENT_INSTALLED_DIR}" "${CURRENT_HOST_INSTALLED_DIR}")
 file(RELATIVE_PATH host_to_installed "${CURRENT_HOST_INSTALLED_DIR}" "${CURRENT_INSTALLED_DIR}")
 if(installed_to_host)
-    string(APPEND installed_to_host ".")
-    string(APPEND host_to_installed ".")
+    string(APPEND installed_to_host "/")
+    string(APPEND host_to_installed "/")
 endif()
-set(_file "qt.conf.in")
+set(_file "${CMAKE_CURRENT_LIST_DIR}/qt.conf.in")
 set(REL_PATH "")
 set(REL_HOST_TO_DATA "\${CURRENT_INSTALLED_DIR}/")
 configure_file("${_file}" "${CURRENT_PACKAGES_DIR}/tools/Qt6/qt_release.conf" @ONLY) # For vcpkg-qmake
 set(BACKUP_CURRENT_INSTALLED_DIR "${CURRENT_INSTALLED_DIR}")
 set(BACKUP_CURRENT_HOST_INSTALLED_DIR "${CURRENT_HOST_INSTALLED_DIR}")
-set(CURRENT_INSTALLED_DIR "../../../..")
+set(CURRENT_INSTALLED_DIR "./../../../")
 set(CURRENT_HOST_INSTALLED_DIR "${CURRENT_INSTALLED_DIR}${installed_to_host}")
 
 ## Configure installed qt.conf
@@ -522,15 +522,15 @@ set(configfile "${CURRENT_PACKAGES_DIR}/share/Qt6CoreTools/Qt6CoreToolsTargets-d
 if(EXISTS "${configfile}")
     file(READ "${configfile}" _contents)
     if(EXISTS "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin/qmake.exe")
-        file(INSTALL "qmake.debug.bat" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin")
+        file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/qmake.debug.bat" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin")
         string(REPLACE [[ "${_IMPORT_PREFIX}/tools/Qt6/bin/qmake.exe"]] [[ "${_IMPORT_PREFIX}/tools/Qt6/bin/qmake.debug.bat"]] _contents "${_contents}")
     endif()
     if(EXISTS "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin/qtpaths.exe")
-        file(INSTALL "qtpaths.debug.bat" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin")
+        file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/qtpaths.debug.bat" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin")
         string(REPLACE [[ "${_IMPORT_PREFIX}/tools/Qt6/bin/qtpaths.exe"]] [[ "${_IMPORT_PREFIX}/tools/Qt6/bin/qtpaths.debug.bat"]] _contents "${_contents}")
     endif()
     if(EXISTS "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin/windeployqt.exe")
-        file(INSTALL "windeployqt.debug.bat" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin")
+        file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/windeployqt.debug.bat" DESTINATION "${CURRENT_PACKAGES_DIR}/tools/Qt6/bin")
         string(REPLACE [[ "${_IMPORT_PREFIX}/tools/Qt6/bin/windeployqt.exe"]] [[ "${_IMPORT_PREFIX}/tools/Qt6/bin/windeployqt.debug.bat"]] _contents "${_contents}")
     endif()
     file(WRITE "${configfile}" "${_contents}")

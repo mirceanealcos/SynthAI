@@ -33,7 +33,7 @@ vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.txt")
 
 vcpkg_fixup_pkgconfig()
 
-configure_file("usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 vcpkg_copy_tools(TOOL_NAMES casadi-cli AUTO_CLEAN)

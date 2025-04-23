@@ -4,7 +4,7 @@ if(NOT X_VCPKG_FORCE_VCPKG_X_LIBRARIES AND NOT VCPKG_TARGET_IS_WINDOWS)
 else()
 
 if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
-    set(PATCHES
+    set(PATCHES 
             vcxserver-xw32defs.patch
             windows-long64.patch
             windows-io.patch
@@ -21,7 +21,7 @@ vcpkg_from_gitlab(
     REF 57acac1d4c7967f4661fb1c9f86f48f34a46c48d # 2021.5
     SHA512 5d2b6096e7f6ec6a3414f4370da583f6660fbd287474e8b4cd3e51ccc35514181352d3b0b9cd4b8d6e30de7b54f4ce01a9fbf17be75cf8de18aa28e9f774b8c4
     HEAD_REF master
-    PATCHES
+    PATCHES 
         upstream-1.patch
         ${PATCHES}
 )

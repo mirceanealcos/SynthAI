@@ -49,7 +49,7 @@ endif()
 
 vcpkg_copy_pdbs()
 
-file(INSTALL "unofficial-qscintilla-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/unofficial-qscintilla-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-${PORT}")
 
 # Handle copyright
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

@@ -5,8 +5,8 @@ vcpkg_from_github(
     SHA512 de14a872bb2c3cd871d7f98e6a0d62f9f3c23386200f0c63d11fec0877d69639e45f004f3f18217bad68fc52d02d285ac3f5d70dcc89a8c23edaea9fe365b527
     HEAD_REF master
     PATCHES
-        link-gmp.patch
-        fix-dep.patch
+      link-gmp.patch
+      fix-dep.patch
 )
 
 vcpkg_find_acquire_program(FLEX)
@@ -64,4 +64,4 @@ file(REMOVE "${CURRENT_PACKAGES_DIR}/include/pthread.h"
             "${CURRENT_PACKAGES_DIR}/include/unistd.h")
 
 file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME "copyright")
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

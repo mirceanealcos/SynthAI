@@ -9,7 +9,7 @@ vcpkg_from_github(
         visibility-for-tool.patch
         thread-header.patch
 )
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
@@ -29,10 +29,10 @@ vcpkg_cmake_configure(
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
 vcpkg_fixup_pkgconfig()
-file(COPY "unofficial-argon2-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-argon2")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/unofficial-argon2-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-argon2")
 vcpkg_cmake_config_fixup(CONFIG_PATH share/unofficial-argon2 PACKAGE_NAME unofficial-argon2)
 # Migration path
-file(COPY "unofficial-libargon2-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-libargon2")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/unofficial-libargon2-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-libargon2")
 
 if(BUILD_TOOL)
     vcpkg_copy_tools(TOOL_NAMES argon2 AUTO_CLEAN)
@@ -44,5 +44,5 @@ endif()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
 
-file(COPY "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

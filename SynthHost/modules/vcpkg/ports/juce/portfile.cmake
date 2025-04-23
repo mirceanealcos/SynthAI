@@ -7,16 +7,16 @@ vcpkg_from_github(
   SHA512 c1cb2f315c2b3b9c534d21b16d31e641661fbb9ad55b29a0949c038cb69cce65d35c8c669a400e33fdcedd7fc5ef578a1eba787826d525402330551c4d240fe6
   HEAD_REF master
   PATCHES
-        0001-build-allow-setting-JUCE_PLUGINHOST_LADSPA.patch
-        0004-install-paths.patch
-        gcc-has-builtin.diff
-        devendor-oboe.diff
-        install-extras.diff
-        juceaide.diff
-        missing-modules.diff
-        prefer-cmake.diff
-        vcpkg-compile-definitions.diff
-        avoid-macos-15-deprecations.patch
+    0001-build-allow-setting-JUCE_PLUGINHOST_LADSPA.patch
+    0004-install-paths.patch
+    gcc-has-builtin.diff
+    devendor-oboe.diff
+    install-extras.diff
+    juceaide.diff
+    missing-modules.diff
+    prefer-cmake.diff
+    vcpkg-compile-definitions.diff
+    avoid-macos-15-deprecations.patch
 )
 file(REMOVE_RECURSE "${SOURCE_PATH}/modules/juce_audio_devices/native/oboe")
 
@@ -171,5 +171,5 @@ if(EXISTS "${CURRENT_PACKAGES_DIR}/lib")
   file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/lib")
 endif()
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.md")

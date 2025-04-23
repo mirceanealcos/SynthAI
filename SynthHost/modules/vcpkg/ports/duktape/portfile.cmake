@@ -10,7 +10,7 @@ vcpkg_extract_source_archive(
     ARCHIVE "${ARCHIVE}"
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
     vcpkg_replace_string("${SOURCE_PATH}/src/duk_config.h" "#undef DUK_F_DLL_BUILD" "#define DUK_F_DLL_BUILD")

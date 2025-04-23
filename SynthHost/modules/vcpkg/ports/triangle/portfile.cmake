@@ -11,8 +11,8 @@ vcpkg_extract_source_archive(
     PATCHES
         "enable_64bit_architecture.patch"
 )
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "exports.def" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/exports.def" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS options
     FEATURES

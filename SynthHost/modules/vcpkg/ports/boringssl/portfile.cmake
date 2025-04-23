@@ -21,9 +21,9 @@ vcpkg_from_github(
   SHA512 bfb36d7d0a90bbede3f77967525cd9377e7488114c3d0fb576015d0361e7f4460801aab8ef8a470908541bc9d7f76cdbdd823af4fd6aaebb4cac711ee5b5b9fa
   HEAD_REF master
   PATCHES
-        0001-static-gtest.patch
-        0002-remove-WX-Werror.patch
-        0003-fix-shared-symbol-visibility.patch
+    0001-static-gtest.patch
+    0002-remove-WX-Werror.patch
+    0003-fix-shared-symbol-visibility.patch
 )
 
 if(VCPKG_TARGET_IS_WINDOWS)
@@ -47,7 +47,7 @@ if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
   file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin" "${CURRENT_PACKAGES_DIR}/debug/bin")
 endif()
 
-include("install-pc-files.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/install-pc-files.cmake")
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

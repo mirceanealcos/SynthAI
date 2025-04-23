@@ -4,7 +4,7 @@ vcpkg_from_github(
     REF 6b2fcf79435656be7797d396203adcc6c11ecc52
     SHA512 a2efe81f7fe6267418cc1e98f74283a10481b995815131324b7587c82f451d4bd35aa0190ef59efe46a057369208d4bf0658eaba44ae1a8532c6162cfb6e34f5
     HEAD_REF master
-    PATCHES
+    PATCHES 
         fix-dependency.patch
         fix-android.patch
 )

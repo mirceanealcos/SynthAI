@@ -9,7 +9,7 @@ vcpkg_from_github(
 )
 file(REMOVE_RECURSE "${SOURCE_PATH}/lzf/lzf")
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}/lzf")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}/lzf")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}/lzf"

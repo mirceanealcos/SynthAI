@@ -36,7 +36,7 @@ if(NOT DEFINED VCPKG_BUILD_TYPE)
     file(INSTALL ${DEBUG_DLL_FILES} DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin/")
 endif()
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${PACKAGE_PATH}/LICENSE.txt")
 
-configure_file("dxsdk-d3dx-config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/${PORT}-config.cmake" COPYONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/dxsdk-d3dx-config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/${PORT}-config.cmake" COPYONLY)

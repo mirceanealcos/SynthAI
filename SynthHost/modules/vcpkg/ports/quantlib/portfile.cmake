@@ -31,7 +31,7 @@ if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
 endif()
 
 # Install custom usage
-configure_file("usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" @ONLY)
 
 # Handle copyright
 file(INSTALL "${SOURCE_PATH}/LICENSE.TXT" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

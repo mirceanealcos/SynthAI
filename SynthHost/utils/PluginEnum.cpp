@@ -3,4 +3,4 @@
 //
 #include "PluginEnum.h"
 
-PluginDef PluginEnum::SERUM = PluginDef("Serum","../resources/plugins/Serum.vst3");
+PluginDef PluginEnum::SERUM = PluginDef("Serum","D:/Projects/SynthAI/SynthHost/resources/plugins/Serum.vst3");

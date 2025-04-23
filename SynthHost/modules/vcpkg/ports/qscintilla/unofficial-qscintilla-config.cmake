@@ -6,7 +6,7 @@ if(NOT TARGET unofficial::qscintilla::qscintilla)
     endif()
 
     add_library(unofficial::qscintilla::qscintilla UNKNOWN IMPORTED)
-    get_filename_component(z_vcpkg_qscintilla_root "unofficial-qscintilla-config.cmake" PATH)
+    get_filename_component(z_vcpkg_qscintilla_root "${CMAKE_CURRENT_LIST_FILE}" PATH)
     get_filename_component(z_vcpkg_qscintilla_root "${z_vcpkg_qscintilla_root}" PATH)
     get_filename_component(z_vcpkg_qscintilla_root "${z_vcpkg_qscintilla_root}" PATH)
     

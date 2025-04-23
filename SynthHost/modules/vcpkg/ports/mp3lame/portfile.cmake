@@ -139,6 +139,6 @@ endif()
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/share/${PORT}/doc" "${CURRENT_PACKAGES_DIR}/share/${PORT}/man1")
 
 file(COPY "${SOURCE_PATH}/include/lame.h" DESTINATION "${CURRENT_PACKAGES_DIR}/include/lame")
-configure_file("Config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/mp3lame-config.cmake" @ONLY)
-file(COPY "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+configure_file("${CMAKE_CURRENT_LIST_DIR}/Config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/mp3lame-config.cmake" @ONLY)
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")

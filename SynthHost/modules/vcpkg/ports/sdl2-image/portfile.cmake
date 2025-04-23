@@ -4,7 +4,7 @@ vcpkg_from_github(
     REF "release-${VERSION}"
     SHA512 3fef846eb0ad51a8b346bb421c87eb81f0e2f186d700a219ebf17146397da404b3683853322989ed939b1672cc36b799582f24bc58a0393fc6c698a65cda2b82
     HEAD_REF main
-    PATCHES
+    PATCHES 
         fix-findwebp.patch
 )
 
@@ -52,5 +52,5 @@ file(REMOVE_RECURSE
     "${CURRENT_PACKAGES_DIR}/debug/SDL2_image.framework"
 )
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.txt")

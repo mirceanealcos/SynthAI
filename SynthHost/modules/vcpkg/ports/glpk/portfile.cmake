@@ -55,9 +55,9 @@ vcpkg_configure_make(
 
 vcpkg_install_make()
 set(libname glpk)
-configure_file("glpk.pc.in" "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/glpk.pc" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/glpk.pc.in" "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/glpk.pc" @ONLY)
 if(NOT VCPKG_BUILD_TYPE)
-  configure_file("glpk.pc.in" "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/glpk.pc" @ONLY)
+  configure_file("${CMAKE_CURRENT_LIST_DIR}/glpk.pc.in" "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/glpk.pc" @ONLY)
 endif()
 vcpkg_fixup_pkgconfig()
 

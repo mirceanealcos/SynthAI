@@ -29,4 +29,4 @@ vcpkg_copy_pdbs()
 vcpkg_fixup_pkgconfig()
 
 
-vcpkg_install_copyright(FILE_LIST "copyright")
+vcpkg_install_copyright(FILE_LIST "${CMAKE_CURRENT_LIST_DIR}/copyright")

@@ -1,6 +1,6 @@
 if(VCPKG_TARGET_IS_WINDOWS)
     set(PATCHES
-            plugin-base-disable-no-unused.patch
+        plugin-base-disable-no-unused.patch
     )
 endif()
 

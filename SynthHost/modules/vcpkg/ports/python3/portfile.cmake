@@ -33,18 +33,18 @@ set(PYTHON_VERSION_MINOR "${CMAKE_MATCH_2}")
 set(PYTHON_VERSION_PATCH "${CMAKE_MATCH_3}")
 
 set(PATCHES
-        0001-only-build-required-projects.patch
-        0003-use-vcpkg-zlib.patch
-        0004-devendor-external-dependencies.patch
-        0005-dont-copy-vcruntime.patch
-        0008-python.pc.patch
-        0010-dont-skip-rpath.patch
-        0012-force-disable-modules.patch
-        0015-dont-use-WINDOWS-def.patch
-        0016-undup-ffi-symbols.patch # Required for lld-link.
-        0018-fix-sysconfig-include.patch
-        0019-fix-ssl-linkage.patch
-        0020-Py_NO_LINK_LIB.patch # Remove in 3.14 https://github.com/python/cpython/pull/19740
+    0001-only-build-required-projects.patch
+    0003-use-vcpkg-zlib.patch
+    0004-devendor-external-dependencies.patch
+    0005-dont-copy-vcruntime.patch
+    0008-python.pc.patch
+    0010-dont-skip-rpath.patch
+    0012-force-disable-modules.patch
+    0015-dont-use-WINDOWS-def.patch
+    0016-undup-ffi-symbols.patch # Required for lld-link.
+    0018-fix-sysconfig-include.patch
+    0019-fix-ssl-linkage.patch
+    0020-Py_NO_LINK_LIB.patch # Remove in 3.14 https://github.com/python/cpython/pull/19740
 )
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
@@ -128,8 +128,8 @@ if(VCPKG_TARGET_IS_WINDOWS)
     list(APPEND add_libs_dbg "${ZLIB_DEBUG}")
 
     configure_file("${SOURCE_PATH}/PC/pyconfig.h" "${SOURCE_PATH}/PC/pyconfig.h")
-    configure_file("python_vcpkg.props.in" "${SOURCE_PATH}/PCbuild/python_vcpkg.props")
-    configure_file("openssl.props.in" "${SOURCE_PATH}/PCbuild/openssl.props")
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/python_vcpkg.props.in" "${SOURCE_PATH}/PCbuild/python_vcpkg.props")
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/openssl.props.in" "${SOURCE_PATH}/PCbuild/openssl.props")
     file(WRITE "${SOURCE_PATH}/PCbuild/libffi.props"
         "<?xml version='1.0' encoding='utf-8'?>"
         "<Project xmlns='http://schemas.microsoft.com/developer/msbuild/2003' />"
@@ -332,15 +332,15 @@ endif()
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
 
-file(READ "usage" usage)
+file(READ "${CMAKE_CURRENT_LIST_DIR}/usage" usage)
 if(VCPKG_TARGET_IS_WINDOWS)
     if(PYTHON_HAS_EXTENSIONS)
-        file(READ "usage.win" usage_extra)
+        file(READ "${CMAKE_CURRENT_LIST_DIR}/usage.win" usage_extra)
     else()
         set(usage_extra "")
     endif()
 else()
-    file(READ "usage.unix" usage_extra)
+    file(READ "${CMAKE_CURRENT_LIST_DIR}/usage.unix" usage_extra)
 endif()
 string(REPLACE "@PYTHON_VERSION_MINOR@" "${PYTHON_VERSION_MINOR}" usage_extra "${usage_extra}")
 file(WRITE "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" "${usage}\n${usage_extra}")
@@ -348,7 +348,7 @@ file(WRITE "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" "${usage}\n${usage_extr
 function(_generate_finder)
     cmake_parse_arguments(PythonFinder "NO_OVERRIDE" "DIRECTORY;PREFIX" "" ${ARGN})
     configure_file(
-        "vcpkg-cmake-wrapper.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake"
         "${CURRENT_PACKAGES_DIR}/share/${PythonFinder_DIRECTORY}/vcpkg-cmake-wrapper.cmake"
         @ONLY
     )
@@ -386,7 +386,7 @@ if(NOT VCPKG_TARGET_IS_WINDOWS)
   file(COPY_FILE "${CURRENT_PACKAGES_DIR}/tools/python3/python3.${PYTHON_VERSION_MINOR}" "${CURRENT_PACKAGES_DIR}/tools/python3/python3")
 endif()
 
-configure_file("vcpkg-port-config.cmake" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-port-config.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/vcpkg-port-config.cmake" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-port-config.cmake" @ONLY)
 
 # For testing
 block()

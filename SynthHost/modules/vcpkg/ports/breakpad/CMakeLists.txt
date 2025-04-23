@@ -70,7 +70,7 @@ list(FILTER LIBBREAKPAD_CLIENT_SOURCES EXCLUDE REGEX "/sender|/tests|/unittests|
 if(WIN32)
     list(FILTER LIBBREAKPAD_CLIENT_SOURCES EXCLUDE REGEX "language.cc|path_helper.cc|stabs_to_module.cc|stabs_reader.cc|minidump_file_writer.cc")
 elseif(NOT APPLE)
-    try_compile(HAVE_GETCONTEXT ${CMAKE_BINARY_DIR}/check_getcontext check_getcontext.cc OUTPUT_VARIABLE BUILD_OUT)
+    try_compile(HAVE_GETCONTEXT ${CMAKE_BINARY_DIR}/check_getcontext ${CMAKE_CURRENT_LIST_DIR}/check_getcontext.cc OUTPUT_VARIABLE BUILD_OUT)
     if (NOT HAVE_GETCONTEXT)
         enable_language(ASM)
         list(APPEND LIBBREAKPAD_CLIENT_SOURCES src/common/linux/breakpad_getcontext.S)
@@ -218,4 +218,4 @@ install(
     DESTINATION share/unofficial-breakpad
 )
 
-configure_file("unofficial-breakpadConfig.cmake" "${CMAKE_INSTALL_PREFIX}/share/unofficial-breakpad/unofficial-breakpadConfig.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/unofficial-breakpadConfig.cmake" "${CMAKE_INSTALL_PREFIX}/share/unofficial-breakpad/unofficial-breakpadConfig.cmake" @ONLY)

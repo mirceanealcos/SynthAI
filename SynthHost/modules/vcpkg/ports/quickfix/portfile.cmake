@@ -6,7 +6,7 @@ vcpkg_from_github(
     REF v1.15.1
     SHA512 6c3dc53f25932c9b7516ab9228f634511ae0f399719f87f0ec2b38c380c0a7d1c808f0f9a14a70a063e1956118550d1121222283a9139f23cd4f8f038f595f70
     HEAD_REF master
-    PATCHES
+    PATCHES 
         00001-fix-build.patch
         fix_wsl_symlink_error.patch
 )
@@ -45,5 +45,5 @@ vcpkg_cmake_config_fixup(CONFIG_PATH share/cmake/quickfix)
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 
-file(COPY "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

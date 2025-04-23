@@ -15,29 +15,29 @@ set(PYTHON_VERSION        ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTH
 set(_PYTHON_PATCHES "")
 if (VCPKG_TARGET_IS_WINDOWS)
     list(APPEND _PYTHON_PATCHES
-        "001-build-msvc.patch"
-        "002-build-msvc.patch"
-        "003-build-msvc.patch"
+        "${CMAKE_CURRENT_LIST_DIR}/001-build-msvc.patch"
+        "${CMAKE_CURRENT_LIST_DIR}/002-build-msvc.patch"
+        "${CMAKE_CURRENT_LIST_DIR}/003-build-msvc.patch"
     )
 endif()
 
 if (VCPKG_LIBRARY_LINKAGE STREQUAL static)
     list(APPEND _PYTHON_PATCHES
-        "004-static-library-msvc.patch"
-        "006-static-fix-headers.patch"
+        "${CMAKE_CURRENT_LIST_DIR}/004-static-library-msvc.patch"
+        "${CMAKE_CURRENT_LIST_DIR}/006-static-fix-headers.patch"
     )
 endif()
 if (VCPKG_CRT_LINKAGE STREQUAL static)
-    list(APPEND _PYTHON_PATCHES "005-static-crt-msvc.patch")
+    list(APPEND _PYTHON_PATCHES "${CMAKE_CURRENT_LIST_DIR}/005-static-crt-msvc.patch")
 endif()
 
 if (VCPKG_TARGET_IS_WINDOWS)
     list(APPEND _PYTHON_PATCHES
-        "007-fix-build-path.patch"
+        "${CMAKE_CURRENT_LIST_DIR}/007-fix-build-path.patch"
     )
 else()
     list(APPEND _PYTHON_PATCHES
-        "008-bz2d.patch"
+        "${CMAKE_CURRENT_LIST_DIR}/008-bz2d.patch"
     )
 endif()
 

@@ -12,8 +12,8 @@ file(COPY ${HEADER_FILES} DESTINATION "${CURRENT_PACKAGES_DIR}/include/jigson")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
 
-configure_file("jigson-config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/jigson-config.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/jigson-config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/${PORT}/jigson-config.cmake" @ONLY)
 
 # Copy usage examples
-file(INSTALL "usage"
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage"
      DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

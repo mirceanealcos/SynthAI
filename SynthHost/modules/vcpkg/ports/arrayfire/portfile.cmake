@@ -12,10 +12,10 @@ vcpkg_from_github(
   SHA512 d8ddf6ba254744e62acf5ecf680f0ae56b05f8957b5463572923977ba2ffea7fa37cc1b6179421a1188a6f9e66565ca0f8cd00807513ccbe66ba1e9bbd41a3da
   HEAD_REF master
   PATCHES
-        build.patch
-        Fix-constexpr-error-with-vs2019-with-half.patch
-        fix-dependency-clfft.patch
-        fix-miss-header-file.patch
+    build.patch
+    Fix-constexpr-error-with-vs2019-with-half.patch
+    fix-dependency-clfft.patch
+    fix-miss-header-file.patch
     "${CUDA_PATCHES}"
 )
 

@@ -7,8 +7,8 @@ vcpkg_from_github(
     SHA512 a8546bf565a389b919dd1dd5b88b4985c1803cbb09fab0715d1b0abfda92a6bf3adea7e4b3329ad82a6f6892f1747a73a632687fd79fb77c937e7ba07c62268a
     HEAD_REF master
     PATCHES
-        gasol.patch
-        fix-install.patch
+       gasol.patch
+       fix-install.patch
 )
 
 vcpkg_cmake_configure(

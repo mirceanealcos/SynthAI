@@ -14,7 +14,7 @@ vcpkg_extract_source_archive(
     ARCHIVE ${ARCHIVE}
     SOURCE_BASE ${LIBGXPS_VERSION}
     PATCHES
-        "libgxps-0.3.2_fix_meson_warnings.patch" # https://gitlab.gnome.org/GNOME/libgxps/-/commit/a18e1260
+        "${CMAKE_CURRENT_LIST_DIR}/libgxps-0.3.2_fix_meson_warnings.patch" # https://gitlab.gnome.org/GNOME/libgxps/-/commit/a18e1260
 )
 
 vcpkg_configure_meson(

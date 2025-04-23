@@ -9,7 +9,7 @@ include(${CMAKE_ROOT}/Modules/SelectLibraryConfigurations.cmake)
 
 if(NOT TARGET unofficial::omniverse-physx-sdk)
     # Find include and library directories (up one level multiple times)
-    get_filename_component(z_vcpkg_omniverse_physx_sdk_prefix "omniverse-physx-sdk-config.cmake" PATH)
+    get_filename_component(z_vcpkg_omniverse_physx_sdk_prefix "${CMAKE_CURRENT_LIST_FILE}" PATH)
     get_filename_component(z_vcpkg_omniverse_physx_sdk_prefix "${z_vcpkg_omniverse_physx_sdk_prefix}" PATH)
     get_filename_component(z_vcpkg_omniverse_physx_sdk_prefix "${z_vcpkg_omniverse_physx_sdk_prefix}" PATH)
 

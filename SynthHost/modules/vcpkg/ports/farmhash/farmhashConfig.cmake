@@ -9,7 +9,7 @@ function(set_library_target NAMESPACE LIB_NAME DEBUG_LIB_FILE_NAME RELEASE_LIB_F
     set(${NAMESPACE}_${LIB_NAME}_FOUND 1)
 endfunction()
 
-get_filename_component(ROOT "farmhashConfig.cmake" PATH)
+get_filename_component(ROOT "${CMAKE_CURRENT_LIST_FILE}" PATH)
 get_filename_component(ROOT "${ROOT}" PATH)
 get_filename_component(ROOT "${ROOT}" PATH)
 

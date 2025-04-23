@@ -10,7 +10,7 @@ vcpkg_from_github(
         0001_fix_uwp.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
 file(INSTALL "${SOURCE_PATH}/src/binn.h" DESTINATION "${CURRENT_PACKAGES_DIR}/include/binn")
 

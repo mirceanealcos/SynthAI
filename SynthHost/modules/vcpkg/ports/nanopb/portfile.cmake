@@ -6,7 +6,7 @@ vcpkg_from_github(
     REF ${VERSION}
     SHA512 13b395e5bd5a356119a0139a5b3cb13aa821f9077a311714b88b71bd12b9b633f4158b09b5628eda39c90e52d3b78bf51314f16bc0e15621e43b09392049a284
     HEAD_REF master
-    PATCHES
+    PATCHES 
         fix-cmakelist.patch
 )
 

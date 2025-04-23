@@ -5,7 +5,7 @@ configure_file(config.unix.h.in
     ${CMAKE_CURRENT_SOURCE_DIR}/odb/details/config.h COPYONLY)
 
 file(GLOB_RECURSE libodb_src LIST_DIRECTORIES False
-    RELATIVE .
+    RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     *.cxx)
 if (WIN32)
   list(FILTER libodb_src EXCLUDE REGEX /posix/.*)

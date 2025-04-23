@@ -4,7 +4,7 @@ vcpkg_from_github(
     REF "v${VERSION}"
     SHA512 cb150562b09c5a79df1e2c730481ceda340f235e1efb7824564d1f95a9981eada087af06bc3907a777a55d315a1521fb8a09249f2aeefd9e40e6c783b9c7a11c
     HEAD_REF master
-    PATCHES
+    PATCHES 
         fix_install_paths_lastools.patch
         fix_include_directories_lastools.patch
         build-tools.diff

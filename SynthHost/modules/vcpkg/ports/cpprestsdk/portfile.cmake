@@ -4,7 +4,7 @@ vcpkg_from_github(
     REF 411a109150b270f23c8c97fa4ec9a0a4a98cdecf
     SHA512 4f604763f05d53e50dec5deaba283fa4f82d5e7a94c7c8142bf422f4c0bc24bcef00666ddbdd820f64c14e552997d6657b6aca79a29e69db43799961b44b2a1a
     HEAD_REF master
-    PATCHES
+    PATCHES 
         fix-find-openssl.patch
         fix_narrowing.patch
         fix-uwp.patch

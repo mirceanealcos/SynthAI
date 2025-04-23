@@ -13,9 +13,9 @@ vcpkg_extract_source_archive(
     ARCHIVE "${ARCHIVE}"
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "config.h" DESTINATION "${SOURCE_PATH}")
-file(COPY "libmspack.def" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/config.h" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/libmspack.def" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

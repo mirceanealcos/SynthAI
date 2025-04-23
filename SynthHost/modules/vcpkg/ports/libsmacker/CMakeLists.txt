@@ -32,12 +32,12 @@ install(EXPORT libsmackerTargets
 
 if(LIBSMACKER_BUILD_TOOLS)
     add_executable(driver driver.c)
-    target_include_directories(driver PRIVATE ".")
+    target_include_directories(driver PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
     target_link_libraries(driver libsmacker)
     install(TARGETS driver RUNTIME DESTINATION bin)
 
     add_executable(smk2avi smk2avi.c)
-    target_include_directories(driver PRIVATE ".")
+    target_include_directories(driver PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
     target_link_libraries(smk2avi libsmacker)
     install(TARGETS smk2avi RUNTIME DESTINATION bin)
 endif()

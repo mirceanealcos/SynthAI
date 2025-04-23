@@ -8,8 +8,8 @@ vcpkg_from_github(
     SHA512 ab24722bb8513f64eed59bb2770276b91615033b494a0492a331f36c5fcd2e32b7a9f3bd7ef0bb74c107f1e0e955522c83ddba6c482fca7f18cf275334707c4d
     HEAD_REF master
     PATCHES
-        generate-blocktags-command.patch
-        disable-deprecated-warnings.patch
+      generate-blocktags-command.patch
+      disable-deprecated-warnings.patch
 )
 
 set(GENERATE_BLOCKTAGS ON)

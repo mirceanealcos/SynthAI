@@ -4,9 +4,9 @@ vcpkg_from_github(
   REF "v${VERSION}"
   SHA512 0357f1b61a07e594aff118dec54bd7233f37b69ccdfa393b91f46f32f08238fa7dd44df70d1df858464c866e114868ae1bec66dc685703d425cbd4c86baddfb8
   PATCHES
-        disable-warning-nonnull.patch
-        only-libsystemd.patch
-        pkgconfig.patch
+    disable-warning-nonnull.patch
+    only-libsystemd.patch
+    pkgconfig.patch
 )
 
 set(static false)

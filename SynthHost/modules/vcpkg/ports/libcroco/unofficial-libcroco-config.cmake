@@ -1,4 +1,4 @@
-file(READ "usage" usage)
+file(READ "${CMAKE_CURRENT_LIST_DIR}/../libcroco/usage" usage)
 message(WARNING "find_package(unofficial-libcroco) is deprecated.\n${usage}")
 
 include(CMakeFindDependencyMacro)

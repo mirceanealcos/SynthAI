@@ -8,7 +8,7 @@ vcpkg_from_github(
     HEAD_REF master
 )
 
-file(COPY CMakeLists.txt DESTINATION ${SOURCE_PATH})
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
 if(VCPKG_TARGET_IS_LINUX OR VCPKG_TARGET_IS_ANDROID)
     vcpkg_configure_make(

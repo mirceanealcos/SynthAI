@@ -7,14 +7,14 @@ vcpkg_from_github(
     REF "v${VERSION}"
     SHA512 2a5e59a2bb6c4b5462758d824747fee0edaf177dc64f30fe698fd2d2cc21cddab1a19ec2b2d63bd3d2e209330a13519f399395398379370b15daa39e6ee6b2bf
     HEAD_REF master
-    PATCHES
+    PATCHES 
         disable-update-version.patch
         fix-build-type.patch
         cmake-config-export.patch
         fix-python.patch # Upstream PRs #1389 and #1401.
 )
 
-file(COPY "build-version.inc" DESTINATION "${SOURCE_PATH}/glslc/src")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/build-version.inc" DESTINATION "${SOURCE_PATH}/glslc/src")
 
 set(OPTIONS "")
 if(VCPKG_CRT_LINKAGE STREQUAL "dynamic")
@@ -44,5 +44,5 @@ vcpkg_copy_tools(TOOL_NAMES glslc AUTO_CLEAN)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

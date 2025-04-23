@@ -275,7 +275,7 @@ file(REMOVE_RECURSE
 )
 
 # Install the cmake config that users will use, replace -if any- only @variables@
-configure_file("omniverse-physx-sdk-config.cmake" "${CURRENT_PACKAGES_DIR}/share/omniverse-physx-sdk/unofficial-omniverse-physx-sdk-config.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/omniverse-physx-sdk-config.cmake" "${CURRENT_PACKAGES_DIR}/share/omniverse-physx-sdk/unofficial-omniverse-physx-sdk-config.cmake" @ONLY)
 
 if(NOT VCPKG_BUILD_TYPE)
   file(MAKE_DIRECTORY "${CURRENT_PACKAGES_DIR}/debug/share")
@@ -300,6 +300,6 @@ endif()
 
 # Install license and usage file
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.md")
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 message("[VCPKG Omniverse PhysX port execution completed]")

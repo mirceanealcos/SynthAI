@@ -9,8 +9,8 @@ vcpkg_from_github(
   SHA512 c788bba1530aec463e755e901f9342f4b599e3a07f54645fef1dc388ab5d5c30625535e5dd38e9e792e04a640574baa50eeefb6b7338ab403755f4a4e0c3044d
   HEAD_REF master
   PATCHES
-        0001-unofficial-brotli.patch
-        0002-stdint-include.patch
+    0001-unofficial-brotli.patch
+    0002-stdint-include.patch
 )
 
 vcpkg_cmake_configure(

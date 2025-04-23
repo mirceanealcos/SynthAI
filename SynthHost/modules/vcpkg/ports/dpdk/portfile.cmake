@@ -31,11 +31,11 @@ vcpkg_from_github(
   SHA512 1599ae78228307f612776e43160e8002c71024940813bc655b3e2631bfe3de9a93b09f2d5caae48d3d83e07c48e953838ba45f4965d2eb21d1e7955edbaa7d0d
   HEAD_REF main
   PATCHES
-        enable-either-static-or-shared-build.patch
-        fix-dependencies.patch
-        remove-examples-src-from-datadir.patch
-        stop-building-apps.patch
-        no-absolute-driver-path.patch
+      enable-either-static-or-shared-build.patch
+      fix-dependencies.patch
+      remove-examples-src-from-datadir.patch
+      stop-building-apps.patch
+      no-absolute-driver-path.patch
 )
 
 macro(append_bool_option feature_name option_name)
@@ -82,5 +82,5 @@ endif()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share" "${CURRENT_PACKAGES_DIR}/share/doc")
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/license/README")

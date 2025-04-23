@@ -11,7 +11,7 @@ vcpkg_extract_source_archive(
 
 if(VCPKG_TARGET_IS_WINDOWS)
     # Use a simple CMakeLists.txt to build CppUnit on windows
-    file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
     vcpkg_cmake_configure(
         SOURCE_PATH "${SOURCE_PATH}"
@@ -53,7 +53,7 @@ vcpkg_fixup_pkgconfig()
 file(INSTALL "${SOURCE_PATH}/COPYING" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
 
 # Install CppUnitConfig.cmake
-file(INSTALL "CppUnitConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/CppUnitConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 # Cleanup
 file(REMOVE_RECURSE

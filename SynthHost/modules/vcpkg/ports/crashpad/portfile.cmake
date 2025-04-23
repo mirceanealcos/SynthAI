@@ -72,7 +72,7 @@ function(replace_gn_dependency INPUT_FILE OUTPUT_FILE LIBRARY_NAMES)
 endfunction()
 
 replace_gn_dependency(
-    "zlib.gn"
+    "${CMAKE_CURRENT_LIST_DIR}/zlib.gn"
     "${SOURCE_PATH}/third_party/zlib/BUILD.gn"
     "z;zlib;zlibd"
 )
@@ -169,7 +169,7 @@ file(REMOVE_RECURSE
     "${PACKAGES_INCLUDE_DIR}/util/net/testdata"
     "${PACKAGES_INCLUDE_DIR}/build/ios")
 
-configure_file("crashpadConfig.cmake.in"
+configure_file("${CMAKE_CURRENT_LIST_DIR}/crashpadConfig.cmake.in"
         "${CURRENT_PACKAGES_DIR}/share/${PORT}/crashpadConfig.cmake" @ONLY)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/include/${PORT}/build/config")

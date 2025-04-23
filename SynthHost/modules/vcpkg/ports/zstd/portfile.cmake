@@ -59,7 +59,7 @@ if(VCPKG_TARGET_IS_WINDOWS AND ZSTD_BUILD_PROGRAMS)
     vcpkg_copy_tools(TOOL_NAMES zstd AUTO_CLEAN)
 endif()
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(
     COMMENT "ZSTD is dual licensed under BSD and GPLv2."
     FILE_LIST

@@ -11,8 +11,8 @@ vcpkg_extract_source_archive(
         0001-remove-unistd-h.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "config.h" DESTINATION "${SOURCE_PATH}/ragel")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/config.h" DESTINATION "${SOURCE_PATH}/ragel")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

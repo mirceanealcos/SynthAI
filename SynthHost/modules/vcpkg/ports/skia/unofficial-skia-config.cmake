@@ -31,7 +31,7 @@ if(NOT COMMAND z_vcpkg_@PORT@_get_link_libraries)
     endfunction()
 endif()
 
-get_filename_component(z_vcpkg_@PORT@_root "." PATH)
+get_filename_component(z_vcpkg_@PORT@_root "${CMAKE_CURRENT_LIST_DIR}" PATH)
 get_filename_component(z_vcpkg_@PORT@_root "${z_vcpkg_@PORT@_root}" PATH)
 
 file(GLOB z_vcpkg_@PORT@_config_files "${CMAKE_CURRENT_LIST_DIR}/unofficial-@PORT@-*-targets.cmake")

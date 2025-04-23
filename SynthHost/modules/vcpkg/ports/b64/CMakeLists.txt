@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.20)
 project(b64)
 
 if (BUILD_SHARED_LIBS)
-    configure_file(b64_dynamic_config.h ${CMAKE_CURRENT_BINARY_DIR}/b64_config.h)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/b64_dynamic_config.h ${CMAKE_CURRENT_BINARY_DIR}/b64_config.h)
 else()
-    configure_file(b64_static_config.h ${CMAKE_CURRENT_BINARY_DIR}/b64_config.h)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/b64_static_config.h ${CMAKE_CURRENT_BINARY_DIR}/b64_config.h)
 endif()
 
 set(SRC_DIR src)

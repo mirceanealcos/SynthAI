@@ -8,9 +8,9 @@ vcpkg_from_sourceforge(
 )
 
 file(COPY
-    "CMakeLists.txt"
-    "config.linux.h"
-    "unofficial-libuuid-config.cmake.in"
+    "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+    "${CMAKE_CURRENT_LIST_DIR}/config.linux.h"
+    "${CMAKE_CURRENT_LIST_DIR}/unofficial-libuuid-config.cmake.in"
     DESTINATION "${SOURCE_PATH}"
 )
 

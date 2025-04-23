@@ -22,7 +22,7 @@ if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
     vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 
     file(REMOVE "${SOURCE_PATH}/src/rttopo_config.h")
-    configure_file("rttopo_config.h.in" "${SOURCE_PATH}/src/rttopo_config.h" @ONLY)
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/rttopo_config.h.in" "${SOURCE_PATH}/src/rttopo_config.h" @ONLY)
 
     set(OPTFLAGS "/nologo /fp:precise /W4 /D_CRT_SECURE_NO_WARNINGS /DDLL_EXPORT")
     vcpkg_build_nmake(

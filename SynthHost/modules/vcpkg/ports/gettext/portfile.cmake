@@ -52,7 +52,7 @@ if(subdirs)
         vcpkg_execute_required_process(
             COMMAND "${CMAKE_COMMAND}"
                 "-DSOURCE_DIRS=.;gettext-runtime;libtextstyle;gettext-tools"
-                -P "bashify.cmake"
+                -P "${CMAKE_CURRENT_LIST_DIR}/bashify.cmake"
             WORKING_DIRECTORY "${SOURCE_PATH}"
             LOGNAME "bashify-${TARGET_TRIPLET}"
         )
@@ -182,7 +182,7 @@ if("tools" IN_LIST FEATURES)
     vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/lib/gettext/user-email" "${CURRENT_INSTALLED_DIR}" "`dirname $0`/../.." IGNORE_UNCHANGED)
 else()
     # A fast installation of the autopoint tool and data, needed for autoconfig
-    include("install-autopoint.cmake")
+    include("${CMAKE_CURRENT_LIST_DIR}/install-autopoint.cmake")
     install_autopoint()
 endif()
 
@@ -205,7 +205,7 @@ file(INSTALL
 )
 
 if(NOT VCPKG_CROSSCOMPILING)
-    file(COPY "vcpkg-port-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/gettext")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/vcpkg-port-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/gettext")
 endif()
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/gettext-runtime/COPYING" "${SOURCE_PATH}/COPYING")

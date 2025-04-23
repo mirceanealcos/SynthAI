@@ -12,7 +12,7 @@ vcpkg_from_github(
     HEAD_REF        master
 )
 
-file(COPY           "CMakeLists.txt"
+file(COPY           "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
      DESTINATION    "${SOURCE_PATH}"
 )
 

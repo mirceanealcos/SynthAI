@@ -46,7 +46,7 @@ if (VCPKG_TARGET_IS_WINDOWS)
     vcpkg_cmake_install()
     vcpkg_cmake_config_fixup(CONFIG_PATH "lib/cmake/apr")
     file(
-        INSTALL "unofficial-apr-config.cmake"
+        INSTALL "${CMAKE_CURRENT_LIST_DIR}/unofficial-apr-config.cmake"
         DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-apr"
     )
     # There is no way to suppress installation of the headers in debug builds.
@@ -55,7 +55,7 @@ if (VCPKG_TARGET_IS_WINDOWS)
 
     vcpkg_copy_pdbs()
 
-    file(INSTALL "usage-cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME usage)
+    file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage-cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME usage)
 else()
     # To cross-compile you will need a triplet file that locates the tool chain and sets --host and --cache parameters of "./configure".
     # The ${VCPKG_PLATFORM_TOOLSET}.cache file must have been generated on the targeted host using "./configure -C".

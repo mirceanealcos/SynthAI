@@ -2,7 +2,7 @@ include(CMakeFindDependencyMacro)
 find_dependency(asio CONFIG)
 find_dependency(msgpack-cxx CONFIG)
 
-get_filename_component(vcpkg_rest_rpc_prefix_path "." PATH)
+get_filename_component(vcpkg_rest_rpc_prefix_path "${CMAKE_CURRENT_LIST_DIR}" PATH)
 get_filename_component(vcpkg_rest_rpc_prefix_path "${vcpkg_rest_rpc_prefix_path}" PATH)
 
 if(NOT TARGET unofficial::rest-rpc::rest-rpc)

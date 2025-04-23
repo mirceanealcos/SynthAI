@@ -3,7 +3,7 @@ vcpkg_from_github(
     REPO zeromq/libzmq
     REF "v${VERSION}"
     SHA512 108d9c5fa761c111585c30f9c651ed92942dda0ac661155bca52cc7b6dbeb3d27b0dd994abde206eacfc3bc88d19ed24e45b291050c38469e34dca5f8c9a037d
-    PATCHES
+    PATCHES 
         fix-arm.patch
 )
 
@@ -62,7 +62,7 @@ else()
 endif()
 
 file(COPY
-    "vcpkg-cmake-wrapper.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake"
     DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}"
 )
 

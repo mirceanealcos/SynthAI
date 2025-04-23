@@ -1,7 +1,7 @@
 if (VCPKG_TARGET_IS_EMSCRIPTEN)
     # emscripten has built-in glfw3 library
     set(VCPKG_BUILD_TYPE release)
-    file(INSTALL "glfw3Config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/glfw3")
+    file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/glfw3Config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/glfw3")
     set(VCPKG_POLICY_EMPTY_PACKAGE enabled)
     return()
 endif()

@@ -8,7 +8,7 @@ vcpkg_from_github(
         0001-CMakeLists.patch
 )
 file(REMOVE "${SOURCE_PATH}/PreLoad.cmake")
-file(COPY "libmem-config.cmake.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/libmem-config.cmake.in" DESTINATION "${SOURCE_PATH}")
 vcpkg_find_acquire_program(PKGCONFIG)
 string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" LIBMEM_BUILD_STATIC)
 vcpkg_cmake_configure(

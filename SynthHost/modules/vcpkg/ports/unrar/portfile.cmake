@@ -25,7 +25,7 @@ vcpkg_msbuild_install(
 #INCLUDE (named dll.hpp in source, and unrar.h in all rarlabs distributions)
 file(INSTALL "${SOURCE_PATH}/dll.hpp" DESTINATION "${CURRENT_PACKAGES_DIR}/include" RENAME unrar.h)
 
-configure_file("Config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/unofficial-unrar/unofficial-unrar-config.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/Config.cmake.in" "${CURRENT_PACKAGES_DIR}/share/unofficial-unrar/unofficial-unrar-config.cmake" @ONLY)
 
 #COPYRIGHT
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.txt")

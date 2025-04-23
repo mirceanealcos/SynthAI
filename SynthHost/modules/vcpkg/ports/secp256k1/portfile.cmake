@@ -7,7 +7,7 @@ vcpkg_from_github(
     SHA512 6d792943f9277a1b4c36dad62389cb38e0b93efb570b6af6c41afdb936d10ca30d4c2e4e743fc0f113d1f9785891d1e9d1fe224d7b8abd4197a9f5febf0febd6
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES

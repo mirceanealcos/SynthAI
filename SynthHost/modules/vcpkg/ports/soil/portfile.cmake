@@ -8,8 +8,8 @@ vcpkg_from_github(
 )
 
 file(COPY
-    "soilConfig.cmake.in"
-    "soilConfigVersion.cmake.in"
+    "${CMAKE_CURRENT_LIST_DIR}/soilConfig.cmake.in"
+    "${CMAKE_CURRENT_LIST_DIR}/soilConfigVersion.cmake.in"
     DESTINATION ${SOURCE_PATH}
 )
 

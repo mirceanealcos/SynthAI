@@ -50,7 +50,7 @@ check_function_exists(malloc HAVE_MALLOC)
 configure_file(config.h.cmake config.h)
 
 include_directories(
-    "."
+    "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_BINARY_DIR}"
 )
 

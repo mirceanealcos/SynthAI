@@ -4,8 +4,8 @@ vcpkg_from_github(
     REF 1.4.4
     SHA512 b8aa0a45637dd1e0cc23f074d023b677aab570dd4a78cff94e4c2d832afb841c1b421077ae9c848a40aa4beb50ed2e31fdf075738496856ff8fe3ea1d0acba07
     HEAD_REF 1.4
-    PATCHES
-        correct_cmake_config_path.patch
+    PATCHES 
+       correct_cmake_config_path.patch
 )
 
 vcpkg_cmake_configure(

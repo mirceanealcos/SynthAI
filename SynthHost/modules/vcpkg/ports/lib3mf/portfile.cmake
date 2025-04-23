@@ -6,7 +6,7 @@ vcpkg_from_github(
     REF "v${VERSION}"
     SHA512 91d3928315bd5d1a8553284505d28c7d839a3cbd8b07a87bca5a21087fffa8ba7a1738ed14313212815a09e33f7a82318f7b069f1bbe40456b57ec528379ab4b
     PATCHES
-        lib3mf_vcpkg.patch
+    lib3mf_vcpkg.patch
 )
 
 vcpkg_cmake_configure(
@@ -26,6 +26,6 @@ vcpkg_fixup_pkgconfig()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

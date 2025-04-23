@@ -12,7 +12,7 @@ vcpkg_from_github(
     HEAD_REF master
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 configure_file("${SOURCE_PATH}/lodepng.cpp" "${SOURCE_PATH}/lodepng.c" COPYONLY)
 
 vcpkg_cmake_configure(
@@ -27,5 +27,5 @@ vcpkg_copy_pdbs()
 vcpkg_cmake_config_fixup()
 vcpkg_cmake_config_fixup(PACKAGE_NAME lodepng-c)
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)

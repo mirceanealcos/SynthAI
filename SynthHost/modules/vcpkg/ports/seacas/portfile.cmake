@@ -5,12 +5,12 @@ vcpkg_from_github(
     SHA512 13677746457edbd4b3619576a6c474f5d8ab2eb24f648fac687e655e3121282b62994575723d18db8d18b42266d219aa4d83344ecff53f5e9a737513a3461180
     HEAD_REF master
     PATCHES fix_tpl_libs.patch
-        fix-ioss-includes.patch
-        deps-and-shared.patch
-        fix-mpi.patch
-        fix-headers.patch
-        fix-fmt-10.patch
-        fix-build-error-with-fmt11.patch
+            fix-ioss-includes.patch
+            deps-and-shared.patch
+            fix-mpi.patch
+            fix-headers.patch
+            fix-fmt-10.patch
+            fix-build-error-with-fmt11.patch
 )
 file(REMOVE "${SOURCE_PATH}/cmake/tribits/common_tpls/find_modules/FindHDF5.cmake")
 

@@ -9,8 +9,8 @@ vcpkg_from_github(
 
 file(
     COPY 
-    "CMakeLists.txt"
-    "soil2Config.cmake.in"
+    "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+    "${CMAKE_CURRENT_LIST_DIR}/soil2Config.cmake.in"
     DESTINATION "${SOURCE_PATH}"
 )
 

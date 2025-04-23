@@ -158,7 +158,7 @@ if(NOT EXISTS "${CURRENT_PACKAGES_DIR}/include/wx/setup.h")
         string(REPLACE "/setup.h" "" WX_SETUP_H_DBG_RELATIVE "${WX_SETUP_H_FILES_DBG}")
     endif()
 
-    configure_file("setup.h.in" "${CURRENT_PACKAGES_DIR}/include/wx/setup.h" @ONLY)
+    configure_file("${CMAKE_CURRENT_LIST_DIR}/setup.h.in" "${CURRENT_PACKAGES_DIR}/include/wx/setup.h" @ONLY)
 endif()
 
 file(GLOB configs LIST_DIRECTORIES false "${CURRENT_PACKAGES_DIR}/lib/wx/config/*" "${CURRENT_PACKAGES_DIR}/tools/${PORT}/wx-config")
@@ -187,7 +187,7 @@ endif()
 
 if("example" IN_LIST FEATURES)
     file(INSTALL
-        "example/CMakeLists.txt"
+        "${CMAKE_CURRENT_LIST_DIR}/example/CMakeLists.txt"
         "${SOURCE_PATH}/samples/popup/popup.cpp"
         "${SOURCE_PATH}/samples/sample.xpm"
         DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}/example"
@@ -195,7 +195,7 @@ if("example" IN_LIST FEATURES)
     vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/share/${PORT}/example/popup.cpp" "../sample.xpm" "sample.xpm")
 endif()
 
-configure_file("vcpkg-cmake-wrapper.cmake" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-cmake-wrapper.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake" "${CURRENT_PACKAGES_DIR}/share/${PORT}/vcpkg-cmake-wrapper.cmake" @ONLY)
 
 file(REMOVE "${CURRENT_PACKAGES_DIR}/wxwidgets.props")
 file(REMOVE "${CURRENT_PACKAGES_DIR}/debug/wxwidgets.props")
@@ -203,5 +203,5 @@ file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/build")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/build")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/docs/licence.txt")

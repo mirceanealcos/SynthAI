@@ -16,6 +16,6 @@ vcpkg_replace_string(
     "#define ASIO_STANDALONE\n#include \"rest_rpc/rpc_server.h\""
 )
 
-file(INSTALL "unofficial-rest-rpc-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-rest-rpc-config")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/unofficial-rest-rpc-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-rest-rpc-config")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

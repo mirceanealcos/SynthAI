@@ -5,11 +5,11 @@ vcpkg_from_github(
     SHA512 5a0d05dbb32952e5aa81d2537d604192ca19710cd57289ae056acc5e3ae6d403d7f0ffc8cf6c1aada6c3c23a8df4a8d0eabb81433036ade810bca1894fdfde54
     HEAD_REF master
     PATCHES
-        fix-cmake.diff # https://github.com/frankheckenbach/ftgl/commit/835f2ba7911a6c15a1a314d5e3267fa089b5a319
-        fix-gl-flags.diff # https://github.com/frankheckenbach/ftgl/commit/778b8f21ba0b71289aef37e3422d008456445971
-        install-pkgconfig.diff # https://github.com/frankheckenbach/ftgl/commit/8763fa4e413e015e46376697fb8ab59ed31c2ff5
-        02_enable-cpp11-std.patch
-        freetype-usage.diff
+      fix-cmake.diff # https://github.com/frankheckenbach/ftgl/commit/835f2ba7911a6c15a1a314d5e3267fa089b5a319
+      fix-gl-flags.diff # https://github.com/frankheckenbach/ftgl/commit/778b8f21ba0b71289aef37e3422d008456445971
+      install-pkgconfig.diff # https://github.com/frankheckenbach/ftgl/commit/8763fa4e413e015e46376697fb8ab59ed31c2ff5
+      02_enable-cpp11-std.patch
+      freetype-usage.diff
 )
 
 vcpkg_cmake_configure(

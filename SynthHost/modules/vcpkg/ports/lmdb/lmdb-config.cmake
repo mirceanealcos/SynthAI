@@ -1,4 +1,4 @@
-file(READ "usage" usage)
+file(READ "${CMAKE_CURRENT_LIST_DIR}/../lmdb/usage" usage)
 message(WARNING "find_package(lmdb) is deprecated.\n${usage}")
 
 include(CMakeFindDependencyMacro)

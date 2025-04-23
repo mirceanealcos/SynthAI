@@ -1,5 +1,5 @@
 if(NOT TARGET lv2::lv2)
-    get_filename_component(_IMPORT_PREFIX "lv2-config.cmake" PATH)
+    get_filename_component(_IMPORT_PREFIX "${CMAKE_CURRENT_LIST_FILE}" PATH)
     get_filename_component(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
     get_filename_component(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
 

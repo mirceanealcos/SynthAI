@@ -14,12 +14,12 @@ vcpkg_extract_source_archive(
 )
 
 file(INSTALL 
-        "vcpkg_make_configure.cmake"
-        "vcpkg_make_install.cmake"
-        "vcpkg_make_common.cmake"
-        "vcpkg_make.cmake"
-        "vcpkg_scripts.cmake"
-        "vcpkg-port-config.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg_make_configure.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg_make_install.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg_make_common.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg_make.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg_scripts.cmake" 
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg-port-config.cmake"
     DESTINATION 
         "${CURRENT_PACKAGES_DIR}/share/${PORT}"
 )
@@ -27,7 +27,7 @@ file(INSTALL
 file(INSTALL 
         "${automake_source}/lib/ar-lib"
         "${automake_source}/lib/compile"
-        "wrappers"
+        "${CMAKE_CURRENT_LIST_DIR}/wrappers/"
     DESTINATION 
         "${CURRENT_PACKAGES_DIR}/share/${PORT}/wrappers"
 )

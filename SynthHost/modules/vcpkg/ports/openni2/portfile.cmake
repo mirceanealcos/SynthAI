@@ -13,8 +13,8 @@ vcpkg_from_github(
     SHA512 60a3a3043679f3069aea869e92dc5881328ce4393d4140ea8d089027321ac501ae27d283657214e2834d216d0d49bf4f29a4b3d3e43df27a6ed21f889cd0083f
     HEAD_REF master
     PATCHES upgrade_projects.patch
-        inherit_from_parent_or_project_defaults.patch
-        replace_environment_variable.patch
+            inherit_from_parent_or_project_defaults.patch
+            replace_environment_variable.patch
 )
 
 file(TO_NATIVE_PATH "${CURRENT_INSTALLED_DIR}" NATIVE_INSTALLED_DIR)
@@ -211,9 +211,9 @@ file(
 )
 
 # Deploy Script
-file(COPY "openni2deploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/bin/OpenNI2")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/openni2deploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/bin/OpenNI2")
 if(NOT VCPKG_BUILD_TYPE)
-file(COPY "openni2deploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin/OpenNI2")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/openni2deploy.ps1" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin/OpenNI2")
 endif()
 
 # Handle copyright

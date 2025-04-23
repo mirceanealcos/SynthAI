@@ -16,8 +16,8 @@ vcpkg_extract_source_archive(
         fix_gobal_vars_uninit_local_ptr.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "wordnet-config.cmake.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/wordnet-config.cmake.in" DESTINATION "${SOURCE_PATH}")
 
 if("dbfiles" IN_LIST FEATURES)
     vcpkg_download_distfile(WORDNET_DICT_DBFILES

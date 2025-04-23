@@ -29,12 +29,12 @@ else()
 endif()
 
 configure_file(
-        Config.cmake.in
+    ${CMAKE_CURRENT_LIST_DIR}/Config.cmake.in 
     ${CURRENT_PACKAGES_DIR}/share/sparsehash/sparsehash-config.cmake 
     @ONLY
 )
 
 configure_file(${SOURCE_PATH}/COPYING ${CURRENT_PACKAGES_DIR}/share/sparsehash/copyright COPYONLY)
-file(COPY usage DESTINATION ${CURRENT_PACKAGES_DIR}/share/sparsehash)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/usage DESTINATION ${CURRENT_PACKAGES_DIR}/share/sparsehash)
 
 vcpkg_fixup_pkgconfig()

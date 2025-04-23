@@ -32,8 +32,8 @@ vcpkg_cmake_install()
 vcpkg_cmake_config_fixup(CONFIG_PATH share/libmodman)
 vcpkg_copy_pdbs()
 
-file(COPY "vcpkg-cmake-wrapper.cmake"
-          "usage"
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake"
+          "${CMAKE_CURRENT_LIST_DIR}/usage"
           DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
 

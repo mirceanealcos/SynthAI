@@ -5,8 +5,8 @@ vcpkg_from_github(
   SHA512 4fcd509eb6b937277df7d09ab23039b445105352c4b153efd94b78f8bb2d5631699b0b551066a02f9e8f35e929550aaf78365fc9ac347882c59e85e97a9dc9d2
   HEAD_REF main
   PATCHES
-        0001-fix-dependencies.patch
-        0002-fix-android.patch
+    0001-fix-dependencies.patch
+    0002-fix-android.patch
 )
 
 string(COMPARE EQUAL "${VCPKG_CRT_LINKAGE}" "dynamic" WITH_MD_LIBRARY)

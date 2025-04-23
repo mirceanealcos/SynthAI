@@ -7,10 +7,10 @@ vcpkg_from_github(
     SHA512 cd5a2aa6cdfe6fa538067919aa49e5ecd901898e12929dc852068ce66efe386032eb1fe667ea7d9b7a3d73a7bef1d90a683c0b90b6fb0d6d9a27950b05c4ab6a
     HEAD_REF master
     PATCHES
-        fix_cmake_install.patch
+    fix_cmake_install.patch
 )
 
-file(COPY "EAThreadConfig.cmake.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/EAThreadConfig.cmake.in" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

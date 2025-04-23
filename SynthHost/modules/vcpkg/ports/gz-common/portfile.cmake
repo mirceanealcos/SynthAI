@@ -8,8 +8,8 @@ ignition_modular_library(
    VERSION ${VERSION}
    SHA512 0c652285b32d2d2f781595416fd80d6e52a6b765ba968d0018accc3688f4ee9d6ce62dbea74b98fa43ea40641c47020246e13645eac7940aa483057c958d3807
    PATCHES
-        gz-utils3-log.diff
-        gz_remotery_vis.patch
-        pthread.diff
-        003-include-chrono.patch
+      gz-utils3-log.diff
+      gz_remotery_vis.patch
+      pthread.diff
+      003-include-chrono.patch
 )

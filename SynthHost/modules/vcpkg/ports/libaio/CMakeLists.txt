@@ -7,7 +7,7 @@ target_include_directories(aio PUBLIC "${PROJECT_SOURCE_DIR}/src")
 install(TARGETS aio)
 install(FILES src/libaio.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 set(PKG_CONFIG_FILE_NAME "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc")
-configure_file("pkgconfig.pc.in" "${PKG_CONFIG_FILE_NAME}" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/pkgconfig.pc.in" "${PKG_CONFIG_FILE_NAME}" @ONLY)
 install(FILES "${PKG_CONFIG_FILE_NAME}"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
 )

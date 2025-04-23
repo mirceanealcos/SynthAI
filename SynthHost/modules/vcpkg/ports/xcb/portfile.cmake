@@ -11,10 +11,10 @@ vcpkg_from_gitlab(
     SHA512 d8382b04f2b00671cded9e22d6066164511ee4c08e2cf5de4ec28d09e41228e30d3ba7d0e6b5141abf4e4bc777aa662fe9d1d04f3e1e26e0b323549e845c8072
     HEAD_REF master
     PATCHES makefile.patch # without the patch target xproto.c is missing target XCBPROTO_XCBINCLUDEDIR
-        configure.patch
-        use_xwindows_includes.patch # use the X11 include wrappers for windows headers
-        getpid_include.patch # add include for getpid on windows
-        win-fixes.patch # avoid: 'close' undefined; assuming extern returning int
+            configure.patch 
+            use_xwindows_includes.patch # use the X11 include wrappers for windows headers
+            getpid_include.patch # add include for getpid on windows
+            win-fixes.patch # avoid: 'close' undefined; assuming extern returning int
 ) 
 
 set(ENV{ACLOCAL} "aclocal -I \"${CURRENT_INSTALLED_DIR}/share/xorg/aclocal/\"")

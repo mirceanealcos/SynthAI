@@ -11,7 +11,8 @@ vcpkg_from_github(
     SHA512 b19291021a338291cde5cee4f9d001309f1503448895d2ec2199901c5993ca5efd719283bc6bdc3d0ee262ae13907ae55995d7df404200c5b860e9e1643d2b0a
     HEAD_REF main
     PATCHES
-        XAudio2Redist-ARM64.patch
+      XAudio2Redist-ARM64.patch
+      GameInput-Connect.patch
 )
 
 vcpkg_check_features(
@@ -87,5 +88,5 @@ endif()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")

@@ -5,10 +5,10 @@ vcpkg_from_github(
     SHA512 2dabac87d44e4fe58beceb31b22be732b47df84c22f1af8c0e7d0f262de939889de1f16025c1256539f2833ef3393bc92034e983aa2886752bb8705801a68630
     HEAD_REF master
     PATCHES
-        fix_glog_CMAKE_MODULE_PATH.patch
-        glog_disable_debug_postfix.patch
-        fix_crosscompile_symbolize.patch
-        fix_cplusplus_macro.patch
+      fix_glog_CMAKE_MODULE_PATH.patch
+      glog_disable_debug_postfix.patch
+      fix_crosscompile_symbolize.patch
+      fix_cplusplus_macro.patch
 )
 
 vcpkg_check_features(
@@ -44,7 +44,7 @@ else()
 endif()
 
 if("unwind" IN_LIST FEATURES)
-    file(INSTALL "vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+    file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 endif()
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")

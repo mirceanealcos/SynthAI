@@ -9,8 +9,8 @@ vcpkg_from_github(
         pkgconfig.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "librtmp.def" DESTINATION "${SOURCE_PATH}/librtmp")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/librtmp.def" DESTINATION "${SOURCE_PATH}/librtmp")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

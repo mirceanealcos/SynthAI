@@ -1,4 +1,4 @@
-list(APPEND CMAKE_MODULE_PATH ".")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
 
 #Basic setup
 include(qt_port_hashes)

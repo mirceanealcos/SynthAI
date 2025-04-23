@@ -1,5 +1,5 @@
 include_guard(GLOBAL)
-include("vcpkg_make.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/vcpkg_make.cmake")
 
 function(vcpkg_make_configure)
     cmake_parse_arguments(PARSE_ARGV 0 arg

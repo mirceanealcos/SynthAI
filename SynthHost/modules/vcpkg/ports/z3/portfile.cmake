@@ -9,8 +9,8 @@ vcpkg_from_github(
   SHA512 5a3de3207b5c05f77f8369d7fdbb9e13a7db850f8c3edaa8f2adfcf58b186d34409e4a56d44646f853027850941135be5042e67a53ddf3302dc3b645c1ab3db4
   HEAD_REF master
   PATCHES
-        fix-install-path.patch
-        remove-flag-overrides.patch
+      fix-install-path.patch
+      remove-flag-overrides.patch
 )
 
 if (VCPKG_LIBRARY_LINKAGE STREQUAL "static")

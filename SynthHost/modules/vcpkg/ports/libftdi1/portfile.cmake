@@ -17,7 +17,7 @@ vcpkg_extract_source_archive(
         libusb.diff
 )
 
-file(COPY "exports.def" DESTINATION "${SOURCE_PATH}/src")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/exports.def" DESTINATION "${SOURCE_PATH}/src")
 
 string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" STATICLIBS)
 

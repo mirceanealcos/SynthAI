@@ -11,7 +11,7 @@ vcpkg_from_github(
         0002-fix-error-C2338.patch
 )
 
-file(COPY "EASTLConfig.cmake.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/EASTLConfig.cmake.in" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

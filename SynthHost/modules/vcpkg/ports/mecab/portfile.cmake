@@ -9,12 +9,12 @@ vcpkg_from_github(
 	SHA512 d3288cca7207daf66df4349819b64fc9cc069c775512cf0607ca855e9e5512509c36b0e2bb0e955478acae13ff0c35df7442f18a8458fab0ed664d62854c0b25
 	HEAD_REF master
 	PATCHES
-        fix_wpath_unsigned.patch
-        fix-missing-functional.patch
+		fix_wpath_unsigned.patch
+		fix-missing-functional.patch
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}/mecab/src")
-file(COPY "Config.cmake.in" DESTINATION "${SOURCE_PATH}/mecab/src")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}/mecab/src")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/Config.cmake.in" DESTINATION "${SOURCE_PATH}/mecab/src")
 file(COPY "${SOURCE_PATH}/mecab/COPYING" DESTINATION "${SOURCE_PATH}/mecab/src")
 
 vcpkg_cmake_configure(

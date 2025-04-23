@@ -53,9 +53,9 @@ set(ANGLE_COMMIT_HASH_SIZE 12)
 string(SUBSTRING "${ANGLE_COMMIT}" 0 ${ANGLE_COMMIT_HASH_SIZE} ANGLE_COMMIT_HASH)
 set(ANGLE_COMMIT_DATE "invalid-date")
 set(ANGLE_REVISION "${ANGLE_VERSION}")
-configure_file("angle_commit.h.in" "${SOURCE_PATH}/angle_commit.h" @ONLY)
-configure_file("angle_commit.h.in" "${SOURCE_PATH}/src/common/angle_commit.h" @ONLY)
-file(COPY "unofficial-angle-config.cmake" DESTINATION "${SOURCE_PATH}")
+configure_file("${CMAKE_CURRENT_LIST_DIR}/angle_commit.h.in" "${SOURCE_PATH}/angle_commit.h" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/angle_commit.h.in" "${SOURCE_PATH}/src/common/angle_commit.h" @ONLY)
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/unofficial-angle-config.cmake" DESTINATION "${SOURCE_PATH}")
 
 set(ANGLE_WEBKIT_BUILDSYSTEM_COMMIT "bb1da00b9ba878d228a5e9834a0767dbca2fee43")
 
@@ -132,7 +132,7 @@ vcpkg_download_distfile(WK_ANGLE_CMAKE_WEBKITMACROS
 file(COPY "${WK_ANGLE_CMAKE_WEBKITMACROS}" DESTINATION "${SOURCE_PATH}/cmake")
 
 # Copy additional custom CMake buildsystem into appropriate folders
-file(GLOB MAIN_BUILDSYSTEM "cmake-buildsystem/CMakeLists.txt" "${CMAKE_CURRENT_LIST_DIR}/cmake-buildsystem/*.cmake")
+file(GLOB MAIN_BUILDSYSTEM "${CMAKE_CURRENT_LIST_DIR}/cmake-buildsystem/CMakeLists.txt" "${CMAKE_CURRENT_LIST_DIR}/cmake-buildsystem/*.cmake")
 file(COPY ${MAIN_BUILDSYSTEM} DESTINATION "${SOURCE_PATH}")
 file(GLOB MODULES "${CMAKE_CURRENT_LIST_DIR}/cmake-buildsystem/cmake/*.cmake")
 file(COPY ${MODULES} DESTINATION "${SOURCE_PATH}/cmake")
@@ -190,4 +190,4 @@ unset(subdirectory_children)
 unset(directory_child)
 unset(directory_children)
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

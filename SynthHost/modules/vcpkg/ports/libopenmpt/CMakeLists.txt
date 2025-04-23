@@ -17,7 +17,7 @@ file(GLOB HEADERS libopenmpt/*.h libopenmpt/*.hpp src/openmpt/all/*.hpp)
 list(FILTER HEADERS EXCLUDE REGEX "_impl\\.hpp$|_internal\\.h$")
 
 include_directories(
-        .
+  .
   src
   build/svn_version
   libopenmpt

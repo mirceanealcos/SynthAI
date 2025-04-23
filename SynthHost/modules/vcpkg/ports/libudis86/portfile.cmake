@@ -9,7 +9,7 @@ vcpkg_from_github(
         python3.patch # from https://github.com/vmt/udis86/pull/133
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_find_acquire_program(PYTHON3)
 

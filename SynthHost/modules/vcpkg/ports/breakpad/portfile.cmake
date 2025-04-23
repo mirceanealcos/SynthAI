@@ -22,9 +22,9 @@ if(VCPKG_HOST_IS_LINUX OR VCPKG_TARGET_IS_LINUX OR VCPKG_TARGET_IS_ANDROID)
 endif()
 
 file(COPY
-        "check_getcontext.cc"
-        "CMakeLists.txt"
-        "unofficial-breakpadConfig.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/check_getcontext.cc"
+        "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+        "${CMAKE_CURRENT_LIST_DIR}/unofficial-breakpadConfig.cmake"
     DESTINATION
     "${SOURCE_PATH}")
 

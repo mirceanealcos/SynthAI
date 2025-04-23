@@ -5,9 +5,9 @@ vcpkg_from_github(
     SHA512 e9ee9ee6ca8f810c375f3310a119b518da8d15f6e3093aaa6069217f4e3d29a45426cc5e2233b6a8d90876867d9097c938a5b961fb6e46479c62145297f5bb82
     HEAD_REF master
     PATCHES fix-find-libuv.patch
-        fix-find-luajit.patch
-        fix-find-lua-compat53.patch
-        fix-msvc-build.patch
+            fix-find-luajit.patch
+            fix-find-lua-compat53.patch
+            fix-msvc-build.patch
 )
 
 string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" BUILD_STATIC_LIBS)

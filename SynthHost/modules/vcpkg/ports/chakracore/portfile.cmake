@@ -111,7 +111,7 @@ else()
 endif()
 
 file(INSTALL
-    "unofficial-chakracore-config.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/unofficial-chakracore-config.cmake"
     DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-${PORT}"
 )
 

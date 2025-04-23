@@ -7,21 +7,21 @@ vcpkg_from_github(
     SHA512 3b6e0da8169449944715de9e66380977791069a1d8288534ec768eaa2fb68533821fd8e06eac925a26656baf42185258b13aa80579e1e9be3ebc18fcea66f24d
     HEAD_REF master
     PATCHES
-        0001-disable-downloading.patch
-        0002-install-options.patch
-        0003-force-package-requirements.patch
-        0004-fix-eigen.patch
-        0005-fix-policy-CMP0057.patch
-        0006-fix-uwp.patch
-        0008-devendor-quirc.patch
-        0009-fix-protobuf.patch
-        0010-fix-uwp-tiff-imgcodecs.patch
-        0011-remove-python2.patch
-        0012-miss-openexr.patch
-        0014-fix-cmake-in-list.patch
-        0015-fix-freetype.patch
-        0017-fix-flatbuffers.patch
-        0019-opencl-kernel.patch
+      0001-disable-downloading.patch
+      0002-install-options.patch
+      0003-force-package-requirements.patch
+      0004-fix-eigen.patch
+      0005-fix-policy-CMP0057.patch
+      0006-fix-uwp.patch
+      0008-devendor-quirc.patch
+      0009-fix-protobuf.patch
+      0010-fix-uwp-tiff-imgcodecs.patch
+      0011-remove-python2.patch
+      0012-miss-openexr.patch
+      0014-fix-cmake-in-list.patch
+      0015-fix-freetype.patch
+      0017-fix-flatbuffers.patch
+      0019-opencl-kernel.patch
 )
 
 vcpkg_find_acquire_program(PKGCONFIG)
@@ -181,10 +181,10 @@ if("contrib" IN_LIST FEATURES)
     SHA512 a5ebb6810a3b5e40858b7fd533f9eb7b3d475dfda843a489bc5168e72c5eaad0a7a23629aace1f43e1b62d9c24e5e1923d841059c297728fac464e00759886c2
     HEAD_REF master
     PATCHES
-          0007-contrib-fix-hdf5.patch
-          0013-contrib-fix-ogre.patch
-          0016-contrib-fix-freetype.patch
-          0018-contrib-fix-tesseract.patch
+      0007-contrib-fix-hdf5.patch
+      0013-contrib-fix-ogre.patch
+      0016-contrib-fix-freetype.patch
+      0018-contrib-fix-tesseract.patch
   )
 
   set(BUILD_WITH_CONTRIB_FLAG "-DOPENCV_EXTRA_MODULES_PATH=${CONTRIB_SOURCE_PATH}/modules")

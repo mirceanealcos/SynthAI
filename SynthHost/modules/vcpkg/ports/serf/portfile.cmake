@@ -8,8 +8,8 @@ vcpkg_extract_source_archive(
     SOURCE_PATH
     ARCHIVE "${ARCHIVE}"
     PATCHES
-        serf-fix-expat.patch
-        serf-use-debug-libs.patch
+      serf-fix-expat.patch
+      serf-use-debug-libs.patch
 )
 
 # Note: custom architecture is not supported on Unix.

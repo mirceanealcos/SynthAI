@@ -1,6 +1,6 @@
 if(NOT TARGET unofficial::libconfuse::libconfuse)
     add_library(unofficial::libconfuse::libconfuse UNKNOWN IMPORTED)
-    get_filename_component(z_vcpkg_libconfuse_prefix "." PATH)
+    get_filename_component(z_vcpkg_libconfuse_prefix "${CMAKE_CURRENT_LIST_DIR}" PATH)
     get_filename_component(z_vcpkg_libconfuse_prefix "${z_vcpkg_libconfuse_prefix}" PATH)
     find_library(Z_VCPKG_libconfuse_LIBRARY_RELEASE NAMES confuse PATHS "${z_vcpkg_libconfuse_prefix}/lib" NO_DEFAULT_PATH REQUIRED)
     set_target_properties(unofficial::libconfuse::libconfuse PROPERTIES

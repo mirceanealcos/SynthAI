@@ -59,7 +59,7 @@ if (VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
     endforeach()
     file(REMOVE ${debug_tools_to_remove})
 
-    set(windows_pc_files
+    set(WINDOWS_PC_FILES 
         krb5-gssapi
         krb5
         mit-krb5-gssapi

@@ -79,7 +79,7 @@ else()
   )
   vcpkg_cmake_install()
   vcpkg_cmake_config_fixup()
-  file(COPY "SimdConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/simd/")
+  file(COPY "${CMAKE_CURRENT_LIST_DIR}/SimdConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/simd/")
   file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 endif()
 

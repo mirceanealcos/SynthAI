@@ -10,13 +10,13 @@ vcpkg_from_github(
   SHA512 51871253524b93a9622fa0f562019605b6034e4089cd955810050b4d43ff020813d632ea1e91bcaca0a8659638908c51df6eb686ba4f6583d4c15c04d5dc35bd
   HEAD_REF master
   PATCHES
-        fix-cmake-config.patch
-        fix-find-dependencies.patch
-        use-cpp-17.patch
-        fix-folly.patch
-        fix-rsockserver-build-error.patch
-        fix-yarpl.patch
-        fix-c2665.patch
+    fix-cmake-config.patch
+    fix-find-dependencies.patch
+    use-cpp-17.patch
+    fix-folly.patch
+    fix-rsockserver-build-error.patch
+    fix-yarpl.patch
+    fix-c2665.patch
 )
 
 vcpkg_cmake_configure(

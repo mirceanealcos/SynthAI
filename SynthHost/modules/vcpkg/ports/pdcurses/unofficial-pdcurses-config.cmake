@@ -1,6 +1,6 @@
 if(NOT TARGET unofficial::pdcurses::pdcurses)
     add_library(unofficial::pdcurses::pdcurses UNKNOWN IMPORTED)
-    get_filename_component(z_vcpkg_pdcurses_root "unofficial-pdcurses-config.cmake" PATH)
+    get_filename_component(z_vcpkg_pdcurses_root "${CMAKE_CURRENT_LIST_FILE}" PATH)
     get_filename_component(z_vcpkg_pdcurses_root "${z_vcpkg_pdcurses_root}" PATH)
     get_filename_component(z_vcpkg_pdcurses_root "${z_vcpkg_pdcurses_root}" PATH)
 

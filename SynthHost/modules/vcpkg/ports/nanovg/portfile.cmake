@@ -6,8 +6,8 @@ vcpkg_from_github(
     HEAD_REF master
 )
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
-file(COPY "nanovgConfig.cmake" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/nanovgConfig.cmake" DESTINATION "${SOURCE_PATH}")
 
 file(GLOB STB_SRCS "${SOURCE_PATH}/src/stb_*")
 if(STB_SRCS)

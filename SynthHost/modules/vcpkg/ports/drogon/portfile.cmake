@@ -5,11 +5,11 @@ vcpkg_from_github(
     SHA512 8e050a2545067492ab037acda6cbc628806617ef2494397d6940241556afaa2555b5cb5e2baa6790c5a20172bd5d61e0454f2a52f85b3d875b23774aac8bb36a
     HEAD_REF master
     PATCHES
-        0001-vcpkg.patch
-        0002-drogon-config.patch
-        0003-deps-redis.patch
-        0004-drogon-ctl.patch
-        0005-drogon-cross-compile.patch
+         0001-vcpkg.patch
+         0002-drogon-config.patch
+         0003-deps-redis.patch
+         0004-drogon-ctl.patch
+         0005-drogon-cross-compile.patch
 )
 
 set(DROGON_CTL_TOOL "")
@@ -65,7 +65,7 @@ if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
     file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin" "${CURRENT_PACKAGES_DIR}/debug/bin")
 endif()
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 file(INSTALL "${SOURCE_PATH}/LICENSE" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}" RENAME copyright)
 
 # Copy pdb files

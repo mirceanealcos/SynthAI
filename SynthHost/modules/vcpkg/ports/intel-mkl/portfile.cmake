@@ -156,7 +156,7 @@ else()
           COMMAND "${CMAKE_COMMAND}" "-Ddmg_path=${installer_path}"
                                      "-Doutput_dir=${extract_0_dir}/packages"
                                      "-DHDIUTIL=${HDIUTIL}"
-                                     -P "copy-from-dmg.cmake"
+                                     -P "${CMAKE_CURRENT_LIST_DIR}/copy-from-dmg.cmake"
           WORKING_DIRECTORY "${extract_0_dir}"
           LOGNAME "extract-${TARGET_TRIPLET}-0"
       )
@@ -257,4 +257,4 @@ file(REMOVE_RECURSE
     "${CURRENT_PACKAGES_DIR}/lib/intel64/pkgconfig"
 )
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

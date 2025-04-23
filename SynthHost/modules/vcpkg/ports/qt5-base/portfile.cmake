@@ -11,8 +11,8 @@ elseif(VCPKG_TARGET_IS_MINGW AND CMAKE_HOST_WIN32)
     find_program(MINGW32_MAKE mingw32-make PATHS ENV PATH NO_DEFAULT_PATH REQUIRED)
 endif()
 
-list(APPEND CMAKE_MODULE_PATH .)
-list(APPEND CMAKE_MODULE_PATH cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
 set(WITH_PGSQL_PLUGIN OFF)
 if("postgresqlplugin" IN_LIST FEATURES)
@@ -50,34 +50,34 @@ endif()
 ## Downloading Qt5-Base
 
 qt_download_submodule(  OUT_SOURCE_PATH SOURCE_PATH
-        patches
+                        PATCHES
                             # CVE fixes from https://download.qt.io/official_releases/qt/5.15/
-        patches/0001-CVE-2023-51714-qtbase-5.15.diff
-        patches/0002-CVE-2023-51714-qtbase-5.15.diff
-        patches/CVE-2024-25580-qtbase-5.15.diff
-        patches/CVE-2024-39936-qtbase-5.15.patch
+                            patches/0001-CVE-2023-51714-qtbase-5.15.diff
+                            patches/0002-CVE-2023-51714-qtbase-5.15.diff
+                            patches/CVE-2024-25580-qtbase-5.15.diff
+                            patches/CVE-2024-39936-qtbase-5.15.patch
 
-        patches/winmain_pro.patch          #Moves qtmain to manual-link
-        patches/windows_prf.patch          #fixes the qtmain dependency due to the above move
-        patches/qt_app.patch               #Moves the target location of qt5 host apps to always install into the host dir.
-        patches/gui_configure.patch        #Patches the gui configure.json to break freetype/fontconfig autodetection because it does not include its dependencies.
-        patches/xlib.patch                 #Patches Xlib check to actually use Pkgconfig instead of makeSpec only
-        patches/egl.patch                  #Fix egl detection logic.
-        patches/qtbug_96392.patch          #Backport fix for QTBUG-96392
-        patches/mysql_plugin_include.patch #Fix include path of mysql plugin
-        patches/mysql-configure.patch      #Fix mysql project
-        patches/patch-qtbase-memory_resource.diff # From https://bugreports.qt.io/browse/QTBUG-114316
+                            patches/winmain_pro.patch          #Moves qtmain to manual-link
+                            patches/windows_prf.patch          #fixes the qtmain dependency due to the above move
+                            patches/qt_app.patch               #Moves the target location of qt5 host apps to always install into the host dir.
+                            patches/gui_configure.patch        #Patches the gui configure.json to break freetype/fontconfig autodetection because it does not include its dependencies.
+                            patches/xlib.patch                 #Patches Xlib check to actually use Pkgconfig instead of makeSpec only
+                            patches/egl.patch                  #Fix egl detection logic.
+                            patches/qtbug_96392.patch          #Backport fix for QTBUG-96392
+                            patches/mysql_plugin_include.patch #Fix include path of mysql plugin
+                            patches/mysql-configure.patch      #Fix mysql project
+                            patches/patch-qtbase-memory_resource.diff # From https://bugreports.qt.io/browse/QTBUG-114316
                             #patches/static_opengl.patch       #Use this patch if you really want to statically link angle on windows (e.g. using -opengl es2 and -static).
                                                                #Be carefull since it requires definining _GDI32_ for all dependent projects due to redefinition errors in the
                                                                #the windows supplied gl.h header and the angle gl.h otherwise.
                             # CMake fixes
-        patches/Qt5BasicConfig.patch
-        patches/Qt5PluginTarget.patch
-        patches/create_cmake.patch
-        patches/Qt5GuiConfigExtras.patch   # Patches the library search behavior for EGL since angle is not build with Qt
-        patches/fix_angle.patch            # Failed to create OpenGL context for format QSurfaceFormat ...
-        patches/mingw9.patch               # Fix compile with MinGW-W64 9.0.0: Redefinition of 'struct _FILE_ID_INFO'
-        patches/qmake-arm64.patch          # Fix by Oliver Wolff to support ARM64 hosts on Windows
+                            patches/Qt5BasicConfig.patch
+                            patches/Qt5PluginTarget.patch
+                            patches/create_cmake.patch
+                            patches/Qt5GuiConfigExtras.patch   # Patches the library search behavior for EGL since angle is not build with Qt
+                            patches/fix_angle.patch            # Failed to create OpenGL context for format QSurfaceFormat ...
+                            patches/mingw9.patch               # Fix compile with MinGW-W64 9.0.0: Redefinition of 'struct _FILE_ID_INFO'
+                            patches/qmake-arm64.patch          # Fix by Oliver Wolff to support ARM64 hosts on Windows
                     )
 
 # Remove vendored dependencies to ensure they are not picked up by the build
@@ -435,12 +435,12 @@ else()
 
     if(NOT DEFINED VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL "release")
         qt_fix_prl("${CURRENT_INSTALLED_DIR}" "${PRL_FILES}")
-        file(COPY qtdeploy.ps1 DESTINATION ${CURRENT_PACKAGES_DIR}/plugins)
+        file(COPY ${CMAKE_CURRENT_LIST_DIR}/qtdeploy.ps1 DESTINATION ${CURRENT_PACKAGES_DIR}/plugins)
     endif()
 
     if(NOT DEFINED VCPKG_BUILD_TYPE OR VCPKG_BUILD_TYPE STREQUAL "debug")
         qt_fix_prl("${CURRENT_INSTALLED_DIR}/debug" "${PRL_FILES}")
-        file(COPY qtdeploy.ps1 DESTINATION ${CURRENT_PACKAGES_DIR}/debug/plugins)
+        file(COPY ${CMAKE_CURRENT_LIST_DIR}/qtdeploy.ps1 DESTINATION ${CURRENT_PACKAGES_DIR}/debug/plugins)
     endif()
 
     file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/share)
@@ -512,7 +512,7 @@ else()
         file(REMOVE "${CURRENT_PACKAGES_DIR}/tools/qt5/bin/qt.conf")
     endif()
     set(CURRENT_INSTALLED_DIR_BACKUP "${CURRENT_INSTALLED_DIR}")
-    set(CURRENT_INSTALLED_DIR "../../../.." ) # Making the qt.conf relative and not absolute
+    set(CURRENT_INSTALLED_DIR "./../../.." ) # Making the qt.conf relative and not absolute
     configure_file(${CURRENT_PACKAGES_DIR}/tools/qt5/qt_release.conf ${CURRENT_PACKAGES_DIR}/tools/qt5/bin/qt.conf) # This makes the tools at least useable for release
     set(CURRENT_INSTALLED_DIR "${CURRENT_INSTALLED_DIR_BACKUP}")
 
@@ -520,15 +520,15 @@ else()
 endif()
 #install scripts for other qt ports
 file(COPY
-        cmake/qt_port_hashes.cmake
-        cmake/qt_port_functions.cmake
-        cmake/qt_fix_makefile_install.cmake
-        cmake/qt_fix_cmake.cmake
-        cmake/qt_fix_prl.cmake
-        cmake/qt_download_submodule.cmake
-        cmake/qt_build_submodule.cmake
-        cmake/qt_install_copyright.cmake
-        cmake/qt_submodule_installation.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_port_hashes.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_port_functions.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_fix_makefile_install.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_fix_cmake.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_fix_prl.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_download_submodule.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_build_submodule.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_install_copyright.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/qt_submodule_installation.cmake
     DESTINATION
         ${CURRENT_PACKAGES_DIR}/share/qt5
 )

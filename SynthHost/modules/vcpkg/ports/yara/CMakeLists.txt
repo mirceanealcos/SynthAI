@@ -11,7 +11,7 @@ endif()
 find_package(OpenSSL REQUIRED)
 
 include_directories(
-        .
+  .
   libyara
   libyara/include
 )

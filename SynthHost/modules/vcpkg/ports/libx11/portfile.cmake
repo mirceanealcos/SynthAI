@@ -98,6 +98,6 @@ endif()
 
 endif()
 
-configure_file("vcpkg-cmake-wrapper.cmake"
+configure_file("${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake"
     "${CURRENT_PACKAGES_DIR}/share/x11/vcpkg-cmake-wrapper.cmake" @ONLY)
 

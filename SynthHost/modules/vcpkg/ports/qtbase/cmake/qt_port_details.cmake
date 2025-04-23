@@ -180,4 +180,4 @@ if(QT_UPDATE_VERSION)
     message(FATAL_ERROR "Done downloading version and emitting hashes.")
 endif()
 
-include("qt_port_data.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/qt_port_data.cmake")

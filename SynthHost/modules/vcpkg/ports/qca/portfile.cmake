@@ -41,7 +41,7 @@ file(DOWNLOAD https://raw.githubusercontent.com/mozilla/gecko-dev/master/securit
     TLS_VERIFY ON
 )
 vcpkg_execute_required_process(
-    COMMAND "${PERL}" "mk-ca-bundle.pl" -n "${SOURCE_PATH}/certs/rootcerts.pem"
+    COMMAND "${PERL}" "${CMAKE_CURRENT_LIST_DIR}/mk-ca-bundle.pl" -n "${SOURCE_PATH}/certs/rootcerts.pem"
     WORKING_DIRECTORY "${CURRENT_BUILDTREES_DIR}/cert"
     LOGNAME ca-bundle
 )

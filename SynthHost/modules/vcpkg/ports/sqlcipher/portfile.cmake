@@ -45,7 +45,7 @@ message(STATUS "Pre-building ${TARGET_TRIPLET} done")
 
 # The rest of the build process with the CMakeLists.txt is merely a copy of sqlite3
 
-file(COPY CMakeLists.txt DESTINATION "${SOURCE_PATH}")
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION "${SOURCE_PATH}")
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
@@ -73,7 +73,7 @@ if(NOT SQLITE3_SKIP_TOOLS AND EXISTS "${CURRENT_PACKAGES_DIR}/tools/${PORT}/sqlc
 endif()
 
 configure_file(
-    "sqlcipher-config.in.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/sqlcipher-config.in.cmake"
     "${CURRENT_PACKAGES_DIR}/share/${PORT}/sqlcipher-config.cmake"
     @ONLY
 )

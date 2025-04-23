@@ -2,7 +2,7 @@ include_guard(GLOBAL)
 
 include("${CURRENT_HOST_INSTALLED_DIR}/share/vcpkg-cmake/vcpkg-port-config.cmake")
 include("${CURRENT_HOST_INSTALLED_DIR}/share/vcpkg-cmake-config/vcpkg-port-config.cmake")
-include("qt_install_copyright.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/qt_install_copyright.cmake")
 
 if(NOT DEFINED QT6_DIRECTORY_PREFIX)
     set(QT6_DIRECTORY_PREFIX "Qt6/")
@@ -359,4 +359,4 @@ function(qt_install_submodule)
     set(SOURCE_PATH "${SOURCE_PATH}" PARENT_SCOPE)
 endfunction()
 
-include("qt_port_details.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/qt_port_details.cmake")

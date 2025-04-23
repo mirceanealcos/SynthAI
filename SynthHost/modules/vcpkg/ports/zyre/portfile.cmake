@@ -7,7 +7,7 @@ vcpkg_from_github(
 )
 
 configure_file(
-    "Config.cmake.in"
+    "${CMAKE_CURRENT_LIST_DIR}/Config.cmake.in"
     "${SOURCE_PATH}/builds/cmake/Config.cmake.in"
     COPYONLY
 )
@@ -43,7 +43,7 @@ elseif(EXISTS "${CURRENT_PACKAGES_DIR}/share/cmake/${PORT}")
 endif()
 
 file(COPY
-    "vcpkg-cmake-wrapper.cmake"
+    "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake"
     DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}"
 )
 

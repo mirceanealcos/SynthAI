@@ -7,7 +7,7 @@ vcpkg_from_github(
     PATCHES fix-static-linkage.patch
 )
 
-file(COPY "CMakeLists.txt" "config.h.cmake"
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" "${CMAKE_CURRENT_LIST_DIR}/config.h.cmake"
      DESTINATION "${SOURCE_PATH}"
 )
 

@@ -44,7 +44,7 @@ if(NOT VCPKG_BUILD_TYPE)
     file(COPY "${CURRENT_PACKAGES_DIR}/lib" DESTINATION "${CURRENT_PACKAGES_DIR}/debug")
 endif()
 
-file(COPY "unofficial-webview2-config.cmake"
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/unofficial-webview2-config.cmake"
     DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-webview2")
 
 # The import libraries for webview fail with "Could not find proper second linker member"

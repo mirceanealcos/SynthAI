@@ -8,8 +8,8 @@ vcpkg_from_github(
 
 # Install headers and a shim library with JackWeakAPI.c
 file(COPY
-  "CMakeLists.txt"
-  "jack.def"
+  "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+  "${CMAKE_CURRENT_LIST_DIR}/jack.def"
   DESTINATION "${SOURCE_PATH}"
 )
 

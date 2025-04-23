@@ -14,7 +14,7 @@ vcpkg_from_github(
         fix-cmake-usage.patch
         0009-fix-regression-f2bf049-85491b3.patch # extract from PR 4255
 )
-file(COPY "configure" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/configure" DESTINATION "${SOURCE_PATH}")
 
 if(VCPKG_TARGET_IS_MINGW)
     vcpkg_check_linkage(ONLY_STATIC_LIBRARY)

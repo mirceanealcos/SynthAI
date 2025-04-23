@@ -8,8 +8,8 @@ vcpkg_from_github(
         fix_build_with_vs2017.patch
 )
 
-file(COPY "config-public-compiler.h.in" DESTINATION "${SOURCE_PATH}")
-file(COPY "config-internal-compiler.h.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/config-public-compiler.h.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/config-internal-compiler.h.in" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

@@ -57,4 +57,4 @@ vcpkg_fixup_pkgconfig()
 vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/include/opus/opusfile.h" "# include <opus_multistream.h>" "# include \"opus_multistream.h\"")
 
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

@@ -12,7 +12,7 @@ vcpkg_from_github(
   SHA512 ca9ecacf3260f3915b7d2d90fb1d84f4083775043d592ac5d869a15debf5512d42488d43bd0d3d981180519359a423314e563f2065fa3effe2749904706f483a
   HEAD_REF main
   PATCHES
-        fix-cmake-install.patch
+    fix-cmake-install.patch
 )
 
 set(VCPKG_BUILD_TYPE release) # header-only

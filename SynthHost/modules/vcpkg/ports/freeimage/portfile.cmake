@@ -23,9 +23,9 @@ vcpkg_from_sourceforge(
         typedef-xcode.patch
 )
 
-file(COPY "CMakeLists.txt"
-          "FreeImageConfig-static.h"
-          "FreeImageConfig-dynamic.h"
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+          "${CMAKE_CURRENT_LIST_DIR}/FreeImageConfig-static.h"
+          "${CMAKE_CURRENT_LIST_DIR}/FreeImageConfig-dynamic.h" 
     DESTINATION "${SOURCE_PATH}"
 )
 

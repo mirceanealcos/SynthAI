@@ -16,7 +16,7 @@ add_library(opusenc
     src/resample.c
     src/unicode_support.c)
 
-get_filename_component(FOLDER . NAME)
+get_filename_component(FOLDER ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 string(REPLACE "libopusenc-" "" VERSION ${FOLDER})
 
 target_compile_definitions(opusenc PRIVATE

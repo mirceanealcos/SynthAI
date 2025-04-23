@@ -43,7 +43,7 @@ endforeach()
 
 vcpkg_cmake_config_fixup(PACKAGE_NAME unofficial-openvpn3)
 # Transitional
-file(INSTALL "unofficial-openvpnConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-openvpn")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/unofficial-openvpnConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-openvpn")
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.rst" "${SOURCE_PATH}/COPYRIGHT.AGPLV3")

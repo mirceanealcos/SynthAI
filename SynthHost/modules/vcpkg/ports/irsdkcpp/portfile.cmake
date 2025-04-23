@@ -31,5 +31,5 @@ if (EXISTS "${CURRENT_PACKAGES_DIR}/include/include")
     file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/include/include")
 endif()
 
-configure_file("usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/usage" "${CURRENT_PACKAGES_DIR}/share/${PORT}/usage" COPYONLY)
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE.md")

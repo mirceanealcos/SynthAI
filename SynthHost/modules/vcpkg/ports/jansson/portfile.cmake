@@ -5,7 +5,7 @@ vcpkg_from_github(
   SHA512 e2cac3567bc860d10d9aa386ce370876cb21ff083a970abeb48112b6586b91cd101694a98cb05a06795fb04498e6bc2df3615fedb86635f5a998b68e5670e5b3
   HEAD_REF master
   PATCHES
-        fix-linker-flags.patch
+    fix-linker-flags.patch
 )
 
 string(COMPARE EQUAL "${VCPKG_CRT_LINKAGE}" "static" JANSSON_STATIC_CRT)

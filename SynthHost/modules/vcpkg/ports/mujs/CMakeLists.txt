@@ -50,7 +50,7 @@ install(
   DESTINATION "share/unofficial-mujs"
 )
 
-configure_file("mujs.pc" "${CMAKE_CURRENT_BINARY_DIR}/mujs.pc" @ONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/mujs.pc" "${CMAKE_CURRENT_BINARY_DIR}/mujs.pc" @ONLY)
 install(
   FILES "${CMAKE_CURRENT_BINARY_DIR}/mujs.pc"
   DESTINATION "lib/pkgconfig"

@@ -1,1 +1,1 @@
-include("acquire_pciids.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/acquire_pciids.cmake")

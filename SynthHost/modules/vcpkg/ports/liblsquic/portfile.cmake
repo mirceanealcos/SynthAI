@@ -9,7 +9,7 @@ vcpkg_from_github(OUT_SOURCE_PATH SOURCE_PATH
     REF v${VERSION}
     SHA512 40d742779bfa2dc6fdaf0ee8e9349498d373dcffcc6dd27867c18d87309a288ea6811d693043b5d98364d816b818b49445214497475844201241193c0f37b349
     HEAD_REF master
-    PATCHES
+    PATCHES 
         disable-asan.patch
         fix-found-boringssl.patch
 )

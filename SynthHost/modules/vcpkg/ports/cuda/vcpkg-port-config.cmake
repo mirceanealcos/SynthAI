@@ -1,1 +1,1 @@
-include("vcpkg_find_cuda.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/vcpkg_find_cuda.cmake")

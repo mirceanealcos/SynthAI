@@ -17,7 +17,7 @@ vcpkg_cmake_install()
 file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/include/mman)
 file(RENAME ${CURRENT_PACKAGES_DIR}/include/sys ${CURRENT_PACKAGES_DIR}/include/mman/sys)
 
-file(COPY usage DESTINATION ${CURRENT_PACKAGES_DIR}/share/mman)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/usage DESTINATION ${CURRENT_PACKAGES_DIR}/share/mman)
 file(INSTALL ${SOURCE_PATH}/README.md DESTINATION ${CURRENT_PACKAGES_DIR}/share/mman RENAME copyright)
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/include)
 

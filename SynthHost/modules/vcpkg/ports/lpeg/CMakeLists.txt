@@ -13,7 +13,7 @@ add_library(lpeg
     lpcap.c
     lpcode.c
     lpcset.c
-        lpeg.def)
+    lpeg.def)
 
 target_include_directories(lpeg PRIVATE ${LPEG_INCLUDES})
 target_link_libraries(lpeg PRIVATE ${LPEG_LIBRARIES})

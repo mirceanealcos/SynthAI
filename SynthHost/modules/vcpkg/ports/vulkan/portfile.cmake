@@ -2,7 +2,7 @@ set(VCPKG_POLICY_EMPTY_PACKAGE enabled)
 
 set(vulkan_result_file "${CURRENT_BUILDTREES_DIR}/vulkan-${TARGET_TRIPLET}.cmake.log")
 vcpkg_cmake_configure(
-    SOURCE_PATH "."
+    SOURCE_PATH "${CMAKE_CURRENT_LIST_DIR}"
     OPTIONS_RELEASE
         "-DOUTFILE=${vulkan_result_file}"
 )
@@ -18,12 +18,12 @@ else()
     message(FATAL_ERROR "${message}")
 endif()
 
-file(INSTALL "CMakeLists.txt"
-             "vulkan-result.cmake.in"
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt"
+             "${CMAKE_CURRENT_LIST_DIR}/vulkan-result.cmake.in"
     DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}/detect-vulkan"
 )
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 file(WRITE "${CURRENT_PACKAGES_DIR}/share/${PORT}/copyright" [[
 This is a stub package. Copyright and license information
 is provided with Vulkan headers and loader.

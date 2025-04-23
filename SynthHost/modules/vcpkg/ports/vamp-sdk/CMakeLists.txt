@@ -74,7 +74,7 @@ endif()
 set_property(TARGET vamp-sdk PROPERTY CXX_STANDARD 11)
 set_property(TARGET vamp-hostsdk PROPERTY CXX_STANDARD 11)
 
-include_directories(.)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_definitions(-D_LIB -D_USE_MATH_DEFINES)
 
 target_link_libraries(vamp-hostsdk PUBLIC SndFile::sndfile)

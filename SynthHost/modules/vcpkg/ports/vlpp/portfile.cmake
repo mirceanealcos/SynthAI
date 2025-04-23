@@ -4,7 +4,7 @@ vcpkg_from_github(
     REF "${VERSION}"
     SHA512 327f62a03e45f90cdf84a973b097b0e7643848fe771919044c1b83635e74b26439fe96fb413d100b33ce030a013a0cb84b34597ca69de2478a4c773ba9b2ccf2
     HEAD_REF master
-    PATCHES
+    PATCHES 
         fix-tool-build.patch
         fix-install.patch
 )

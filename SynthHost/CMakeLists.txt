@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.30)
 project(SynthHost)
 
+find_package(Boost 1.88.0 REQUIRED
+        COMPONENTS system thread random chrono asio
+)
+
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(modules/JUCE)
@@ -54,4 +58,9 @@ target_link_libraries(SynthHost
         juce::juce_audio_devices
         juce::juce_audio_formats
         juce::juce_audio_processors
+        Boost::system
+        Boost::thread
+        Boost::random
+        Boost::chrono
+        Boost::asio
 )

@@ -69,9 +69,9 @@ pkg_check_modules(HARFBUZZ REQUIRED IMPORTED_TARGET harfbuzz)
 # libass use win32 api to open files on windows since https://github.com/libass/libass/commit/f664ced049394e2a5d4300ba526e206df73ec729
 # so remove dependency dirent.
 
-configure_file(config.h.in config.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in config.h)
 
-add_library(ass ${SOURCES} libass.def)
+add_library(ass ${SOURCES} ${CMAKE_CURRENT_SOURCE_DIR}/libass.def)
 
 target_include_directories(ass PRIVATE
   PkgConfig::FRIBIDI

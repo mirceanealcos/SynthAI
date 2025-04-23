@@ -5,9 +5,9 @@ vcpkg_from_github(
   SHA512 cf0baf477d053eb6ab2feaeda187f2d92211c7d28aa50318c1c8d7acf1b9c463258fa3a388dddce266bf44e0d4e4cf1bd3aa591c918f8a253515919e5c1b3f57
   HEAD_REF master
   PATCHES
-        fix_install.patch
-        fix_dependency.patch
-        fix_arm64_build.patch
+    fix_install.patch
+    fix_dependency.patch
+    fix_arm64_build.patch
 )
 
 # If generate dwg manipulation tools
@@ -49,5 +49,5 @@ endif()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include" "${CURRENT_PACKAGES_DIR}/debug/share")
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")

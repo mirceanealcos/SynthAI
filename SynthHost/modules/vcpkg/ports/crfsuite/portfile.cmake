@@ -11,7 +11,7 @@ vcpkg_from_github(
 list(REMOVE_ITEM SOURCE_FILE "${SOURCE_PATH}/win32/liblbfgs/lbfgs.lib")
 list(REMOVE_ITEM SOURCE_FILE "${SOURCE_PATH}/win32/liblbfgs/lbfgs_debug.lib")
 
-file(COPY "CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

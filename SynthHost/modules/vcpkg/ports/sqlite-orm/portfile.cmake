@@ -6,7 +6,7 @@ vcpkg_from_github(
     REF "v${VERSION}"
     SHA512 3e939ddb31e8f03a5f885e459b1ba8040b58e697a715148b829b075d612d1c8a5686ec889155ec9804929e11ec11285a39af3f1eb27a4edf0bcc56c4ee7530b1
     HEAD_REF master
-    PATCHES
+    PATCHES 
         fix-dependency.patch
 )
 

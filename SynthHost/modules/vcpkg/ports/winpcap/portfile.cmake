@@ -24,8 +24,8 @@ elseif(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
     set(lib_type DynamicLibrary)
 endif()
 
-configure_file("packetNtx.patch.in" "${CURRENT_BUILDTREES_DIR}/src/packetNtx.patch" @ONLY)
-configure_file("wpcap.patch.in" "${CURRENT_BUILDTREES_DIR}/src/wpcap.patch" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/packetNtx.patch.in" "${CURRENT_BUILDTREES_DIR}/src/packetNtx.patch" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/wpcap.patch.in" "${CURRENT_BUILDTREES_DIR}/src/wpcap.patch" @ONLY)
 
 vcpkg_extract_source_archive(
     SOURCE_PATH

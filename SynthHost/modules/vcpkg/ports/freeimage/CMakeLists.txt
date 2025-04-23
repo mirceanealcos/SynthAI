@@ -73,9 +73,9 @@ set(SRCS ${DEPRECATION_SRCS}
 # For this purpouse we include (depending on the BUILD_SHARED_LIBS )
 # the appropriate FreeImageConfig.h .
 if(BUILD_SHARED_LIBS)
-    configure_file(FreeImageConfig-dynamic.h ${CMAKE_CURRENT_BINARY_DIR}/FreeImageConfig.h)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/FreeImageConfig-dynamic.h ${CMAKE_CURRENT_BINARY_DIR}/FreeImageConfig.h)
 else()
-    configure_file(FreeImageConfig-static.h ${CMAKE_CURRENT_BINARY_DIR}/FreeImageConfig.h)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/FreeImageConfig-static.h ${CMAKE_CURRENT_BINARY_DIR}/FreeImageConfig.h)
 endif()
 list(APPEND PUBLIC_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/FreeImageConfig.h)
 

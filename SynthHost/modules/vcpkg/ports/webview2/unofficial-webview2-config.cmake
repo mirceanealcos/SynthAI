@@ -1,4 +1,4 @@
-get_filename_component(_IMPORT_PREFIX "." PATH)
+get_filename_component(_IMPORT_PREFIX "${CMAKE_CURRENT_LIST_DIR}" PATH)
 get_filename_component(_IMPORT_PREFIX "${_IMPORT_PREFIX}" PATH)
 
 if(NOT TARGET unofficial::webview2::webview2)

@@ -77,7 +77,7 @@ endif()
 
 # vcpkg legacy
 configure_file(
-    "sodiumConfig.cmake.in"
+    "${CMAKE_CURRENT_LIST_DIR}/sodiumConfig.cmake.in"
     "${CURRENT_PACKAGES_DIR}/share/unofficial-sodium/unofficial-sodiumConfig.cmake"
     @ONLY
 )

@@ -6,7 +6,7 @@ find_package(ZLIB REQUIRED)
 find_package(OpenSSL REQUIRED)
 
 include_directories(${ZLIB_INCLUDE_DIRS})
-include_directories(.)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_DEPRECATE)

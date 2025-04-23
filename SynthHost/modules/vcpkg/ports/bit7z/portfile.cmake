@@ -7,12 +7,12 @@ vcpkg_from_github(
     SHA512 c0577b07301b09726fb46164483dc277d681a74a80a90a1aa4881d949be28e6ec26678a0cfbf83e38b4915c8a724078e0771fecefba8c6dfbf9029f8db6063fa
     HEAD_REF master
     PATCHES
-        fix_install.patch
-        fix_dependency.patch
-        fix_compile_options.patch
+      fix_install.patch
+      fix_dependency.patch
+      fix_compile_options.patch
 )
 
-file(COPY "unofficial-bit7z-config.cmake.in" DESTINATION "${SOURCE_PATH}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/unofficial-bit7z-config.cmake.in" DESTINATION "${SOURCE_PATH}")
 
 vcpkg_check_features(
     OUT_FEATURE_OPTIONS FEATURE_OPTIONS

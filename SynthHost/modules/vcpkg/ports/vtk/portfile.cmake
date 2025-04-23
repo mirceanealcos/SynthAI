@@ -39,7 +39,7 @@ vcpkg_from_github(
         opencascade-7.8.0.patch
         no-libharu-for-ioexport.patch
         no-libproj-for-netcdf.patch
-        fix-tbbsmptool.patch #https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11530
+		fix-tbbsmptool.patch #https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11530
 )
 
 # =============================================================================
@@ -437,7 +437,7 @@ endif()
 
 vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/share/vtk/VTK-vtk-module-properties.cmake" "_vtk_module_import_prefix}/lib/vtk-9.3/hierarchy" "_vtk_module_import_prefix}$<$<CONFIG:Debug>:/debug>/lib/vtk-9.3/hierarchy")
 
-file(COPY "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 file(RENAME "${CURRENT_PACKAGES_DIR}/share/licenses" "${CURRENT_PACKAGES_DIR}/share/${PORT}/licenses")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/Copyright.txt" COMMENT [[

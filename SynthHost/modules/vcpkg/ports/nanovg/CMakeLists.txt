@@ -28,5 +28,5 @@ install(EXPORT nanovgTargets
   DESTINATION share/nanovg)
 
 install(FILES
-        nanovgConfig.cmake
+  ${CMAKE_CURRENT_SOURCE_DIR}/nanovgConfig.cmake
   DESTINATION share/nanovg)

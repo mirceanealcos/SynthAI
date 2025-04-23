@@ -5,8 +5,8 @@ vcpkg_from_github(
   SHA512 5576ac3531a5c707f92a02cbfb9d60710b42acd99f57bcde311aa224780267a5152e8b92a6b077afab4780ee236d5e0c2a0b8986453439bce4323758b3d4385b
   HEAD_REF master
   PATCHES
-        fix-unresolvedsymbol-arm.patch
-        fix-ODR-libuuid-linux.patch
+    fix-unresolvedsymbol-arm.patch
+    fix-ODR-libuuid-linux.patch
 )
 
 string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" PAHO_BUILD_STATIC)

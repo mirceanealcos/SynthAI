@@ -5,7 +5,7 @@ vcpkg_from_github(
     REF "v${VERSION}"
     SHA512 06d2c9f4c85a5ab66825701fa949f35756ff2f09acc65c2ac5c367bd245ee1b674214070a01f828124d8add3f9cdd06e68e0e93091e47501210c5686ae68f29f
     HEAD_REF master
-    PATCHES
+    PATCHES 
         qtfix.patch
         protobuf.patch
         cpack.patch

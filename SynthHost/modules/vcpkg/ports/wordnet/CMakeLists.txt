@@ -31,7 +31,7 @@ if (MSVC)
         COMPILE_FLAGS "/wd4996 /wd4267 /wd4244 /wd4047"
     )
     target_compile_definitions(${PROJECT_NAME} PRIVATE _CRT_SECURE_NO_WARNINGS)
-    set_property(DIRECTORY . PROPERTY VS_STARTUP_PROJECT ${target_name})
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${target_name})
 endif()
 
 install (TARGETS ${target_name} EXPORT ${target_name}-targets

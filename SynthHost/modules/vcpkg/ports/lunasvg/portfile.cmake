@@ -6,7 +6,7 @@ vcpkg_from_github(
   HEAD_REF master
   PATCHES
     # temporary patch. It should be removed once the new version of lunasvg is released.
-        fix-plutovg.patch
+    fix-plutovg.patch
 )
 
 vcpkg_cmake_configure(

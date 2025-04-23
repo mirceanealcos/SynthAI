@@ -262,7 +262,7 @@ add_library(libdb48
 	common/zerofill.c
 )
 
-include_directories(. build_windows dbinc)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR} build_windows dbinc)
 
 target_link_libraries(libdb48 PUBLIC ws2_32.lib)
 

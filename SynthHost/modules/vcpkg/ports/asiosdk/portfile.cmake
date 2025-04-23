@@ -23,10 +23,10 @@ file(
         "${SOURCE_PATH}/Steinberg ASIO Logo Artwork.zip"
         "${SOURCE_PATH}/Steinberg ASIO 2.3.3 Licensing Agreement V2.0.3 - 2023.pdf"
         "${SOURCE_PATH}/ASIO SDK 2.3.pdf"
-        "Findasiosdk.cmake"
-        "vcpkg-cmake-wrapper.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/Findasiosdk.cmake"
+        "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake"
     DESTINATION
         "${CURRENT_PACKAGES_DIR}/share/${PORT}"
 )
 
-file(COPY "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

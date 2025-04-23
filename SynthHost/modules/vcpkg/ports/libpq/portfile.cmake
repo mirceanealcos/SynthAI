@@ -70,7 +70,7 @@ if(VCPKG_DETECTED_MSVC)
         separate_arguments(LIBXSLT_LIBS_RELEASE NATIVE_COMMAND "${PC_LIBXSLT_LIBS_RELEASE}")
     endif()
 
-    include("build-msvc.cmake")
+    include("${CMAKE_CURRENT_LIST_DIR}/build-msvc.cmake")
     if(NOT VCPKG_BUILD_TYPE)
         build_msvc(DEBUG "${SOURCE_PATH}")
     endif()
@@ -86,7 +86,7 @@ if(VCPKG_DETECTED_MSVC)
         file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/tools")
     endif()
 else()
-    file(COPY "Makefile" DESTINATION "${SOURCE_PATH}")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/Makefile" DESTINATION "${SOURCE_PATH}")
 
     vcpkg_list(SET BUILD_OPTS)
     foreach(option IN ITEMS icu lz4 nls openssl readline xml xslt zlib zstd)
@@ -145,7 +145,7 @@ else()
 endif()
 
 vcpkg_fixup_pkgconfig()
-configure_file("vcpkg-cmake-wrapper.cmake" "${CURRENT_PACKAGES_DIR}/share/postgresql/vcpkg-cmake-wrapper.cmake" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake" "${CURRENT_PACKAGES_DIR}/share/postgresql/vcpkg-cmake-wrapper.cmake" @ONLY)
 
 file(REMOVE_RECURSE
     "${CURRENT_PACKAGES_DIR}/debug/doc"

@@ -1,6 +1,6 @@
 set(PATCHES
-        opensp_1.5.2-13.diff                   # http://deb.debian.org/debian/pool/main/o/opensp/opensp_1.5.2-13.diff.gz
-        use-cpp-using-declarations.patch
+    opensp_1.5.2-13.diff                   # http://deb.debian.org/debian/pool/main/o/opensp/opensp_1.5.2-13.diff.gz
+    use-cpp-using-declarations.patch
 )
 if (VCPKG_TARGET_IS_WINDOWS OR VCPKG_TARGET_IS_UWP)
     list(APPEND PATCHES windows_cmake_build.diff)   # https://invent.kde.org/packaging/craft-blueprints-kde/-/tree/master/libs/libopensp
@@ -45,7 +45,7 @@ else()
     vcpkg_install_make()
 endif()
 
-configure_file("opensp.pc.in" "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/opensp.pc" @ONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/opensp.pc.in" "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/opensp.pc" @ONLY)
 vcpkg_fixup_pkgconfig()
 vcpkg_copy_pdbs()
 

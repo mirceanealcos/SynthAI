@@ -11,7 +11,7 @@ vcpkg_from_github(
         0002-fix-compilation-macos.patch
 )
 
-file(COPY "FindCryptoPP.cmake" DESTINATION "${SOURCE_PATH}/cmake")
+file(COPY "${CMAKE_CURRENT_LIST_DIR}/FindCryptoPP.cmake" DESTINATION "${SOURCE_PATH}/cmake")
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"

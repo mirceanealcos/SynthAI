@@ -5,7 +5,7 @@ vcpkg_from_github(
     REF df46af8974ac6d4f955e76d01b80a8c7e00f1fc8
     SHA512 a6e11573759ced048cc9b9b97dd6abbfb70cbc29770e040b0472d529a1cff14e529b7ed62e647d9b318f6633a41918a29d66762da08e4b093582e1a45284e6d3
     HEAD_REF master
-    PATCHES
+    PATCHES 
         install.patch # See https://github.com/LukasBanana/LLGL/pull/81
 )
 

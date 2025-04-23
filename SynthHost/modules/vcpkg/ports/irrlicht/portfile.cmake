@@ -18,7 +18,7 @@ if(VCPKG_TARGET_IS_LINUX)
 These can be installed on Ubuntu systems via sudo apt-get install libgl1-mesa-dev libxxf86vm-dev")
 endif()
 
-configure_file("CMakeLists.txt" "${SOURCE_PATH}/CMakeLists.txt" COPYONLY)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" "${SOURCE_PATH}/CMakeLists.txt" COPYONLY)
 
 vcpkg_check_features(
     OUT_FEATURE_OPTIONS FEATURE_OPTIONS
@@ -50,7 +50,7 @@ file(WRITE "${CURRENT_PACKAGES_DIR}/share/irrlicht/irrlicht-config.cmake" "inclu
 vcpkg_copy_pdbs()
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
-    file(COPY "vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/irrlicht")
+    file(COPY "${CMAKE_CURRENT_LIST_DIR}/vcpkg-cmake-wrapper.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/irrlicht")
 endif()
 
-vcpkg_install_copyright(FILE_LIST "LICENSE.txt")
+vcpkg_install_copyright(FILE_LIST "${CMAKE_CURRENT_LIST_DIR}/LICENSE.txt")

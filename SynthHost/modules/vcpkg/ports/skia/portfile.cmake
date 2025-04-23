@@ -1,4 +1,4 @@
-include("skia-functions.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/skia-functions.cmake")
 
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
@@ -322,10 +322,10 @@ vcpkg_replace_string("${CURRENT_PACKAGES_DIR}/include/skia/include/private/base/
 file(COPY "${CURRENT_PACKAGES_DIR}/include/skia/include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include/skia")
 
 # vcpkg legacy
-file(INSTALL "skiaConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/skia")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/skiaConfig.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/skia")
 
 file(INSTALL
-    "example/CMakeLists.txt"
+    "${CMAKE_CURRENT_LIST_DIR}/example/CMakeLists.txt"
     "${SOURCE_PATH}/tools/convert-to-nia.cpp"
     DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}/example"
 )
@@ -334,7 +334,7 @@ file(APPEND "${CURRENT_PACKAGES_DIR}/share/${PORT}/example/convert-to-nia.cpp" [
 #include "include/core/SkColorSpace.h"
 ]])
 
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
 
 file(GLOB third_party_licenses "${SOURCE_PATH}/third_party_licenses/*")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE" ${third_party_licenses})

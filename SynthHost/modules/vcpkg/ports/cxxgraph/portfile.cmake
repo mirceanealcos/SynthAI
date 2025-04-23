@@ -12,4 +12,4 @@ vcpkg_cmake_configure(SOURCE_PATH "${SOURCE_PATH}")
 # cxxgraph provides no targets and is a header only lib designed to be copied to include dir
 file(INSTALL "${SOURCE_PATH}/include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
 vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
-file(INSTALL "usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+file(INSTALL "${CMAKE_CURRENT_LIST_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")

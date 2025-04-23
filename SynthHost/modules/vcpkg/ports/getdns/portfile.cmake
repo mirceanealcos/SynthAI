@@ -10,10 +10,10 @@ vcpkg_download_distfile(ARCHIVE
 vcpkg_extract_source_archive(
     SOURCE_PATH
     ARCHIVE "${ARCHIVE}"
-    PATCHES
+    PATCHES 
         disable-docs.patch
         fix-include.patch
-        fix-libuv-deps.patch
+	fix-libuv-deps.patch
 )
 
 if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)

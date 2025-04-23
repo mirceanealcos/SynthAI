@@ -4,7 +4,7 @@ vcpkg_from_github(
 	REF v0.4.0
 	SHA512 f8235af6832958de420a68d4465a6c63701ab4385f3430d32f77c1d5e8212001262aad1a8aae04261ba889d592798cd3963843b190d325bddc1fe7dcc4aebd7d 
     HEAD_REF master 
-    PATCHES
+    PATCHES 
         fix-build-error.patch
         fix-support-other-compilers.patch
         tbb.patch
