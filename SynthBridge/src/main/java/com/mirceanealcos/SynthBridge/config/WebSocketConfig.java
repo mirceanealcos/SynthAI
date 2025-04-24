@@ -1,6 +1,6 @@
 package com.mirceanealcos.SynthBridge.config;
 
-import com.mirceanealcos.SynthBridge.handler.RelayHandler;
+import com.mirceanealcos.SynthBridge.handler.AudioBinaryWebSocketHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -12,7 +12,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new RelayHandler(), "/audio/stream")
-                .setAllowedOriginPatterns("*");
+        registry.addHandler(new AudioBinaryWebSocketHandler(), "/user/audio")
+                .setAllowedOrigins("*");
     }
 }

@@ -3,8 +3,6 @@
 //
 
 #include "SpeakerAudioEngine.h"
-#define SAMPLE_RATE 48000
-#define BLOCK_SIZE 256
 #include "../utils/serum/SerumEditor.h"
 
 
