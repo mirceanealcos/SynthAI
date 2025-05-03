@@ -6,11 +6,10 @@
 HeadlessAudioEngine::HeadlessAudioEngine(double sr, int bs)
     : sampleRate(sr), blockSize(bs)
 {
-    ringBuffer = std::make_shared<AudioRingBuffer>();
-    midiQueue = std::make_shared<std::vector<juce::MidiMessage>>();
+    ringBuffer = std::make_shared<AudioRingBuffer>(2,  2 * blockSize);
 
     // Prepare the buffer to store plugin output
-    audioBuffer.setSize(2, blockSize); // stereo
+    audioBuffer.setSize(2, 2 * blockSize); // stereo
 }
 
 HeadlessAudioEngine::~HeadlessAudioEngine()
@@ -29,53 +28,51 @@ void HeadlessAudioEngine::setPreset(Preset preset) {
 
 void HeadlessAudioEngine::start()
 {
-    if (running) return;
-    running = true;
-    renderThread = std::thread(&HeadlessAudioEngine::renderThreadFunc, this);
+    if (!plugin)
+        return;
+    plugin->prepareToPlay(SAMPLE_RATE, BLOCK_SIZE);
+    std::cout << "Successfully prepared for audio: " << plugin->getName() << std::endl;
+    midiInputCollector.getMidiMessageCollector().reset(sampleRate);
+    auto devices = juce::MidiInput::getAvailableDevices();
+    for (auto& device : devices) {
+        if (device.name.containsIgnoreCase("Minilab3 MIDI")) {
+            auto inputDevice = juce::MidiInput::openDevice(device.identifier, &midiInputCollector);
+            inputDevice->start();
+            midiInputs.push_back(std::move(inputDevice));
+            std::cout << "Successfully set input device to : " << device.name << std::endl;
+        }
+    }
+    running.store(true);
+    renderThread = std::thread([this] { renderThreadFunc(); });
 }
 
 void HeadlessAudioEngine::stop()
 {
     running = false;
+    for (auto& in : midiInputs) {
+        in->stop();
+    }
+    midiInputs.clear();
     if (renderThread.joinable())
         renderThread.join();
 
-    if (pluginInstance)
-        pluginInstance->releaseResources();
+    if (plugin)
+        plugin->releaseResources();
 }
 
-void HeadlessAudioEngine::setMidiMessageQueue(std::shared_ptr<std::vector<juce::MidiMessage>> queue)
-{
-    midiQueue = queue;
-}
 
 void HeadlessAudioEngine::renderThreadFunc()
 {
     while (running)
     {
-        // Collect any MIDI messages
         midiBuffer.clear();
-        {
-            // e.g., copy from midiQueue
-            // For (auto& msg : *midiQueue) midiBuffer.addEvent(msg, 0);
-            // midiQueue->clear();
-        }
-
-        // Clear audioBuffer
+        midiInputCollector.removeNextBlockOfMessages(midiBuffer, blockSize);
         audioBuffer.clear();
-
-        // Let the plugin process
-        if (pluginInstance)
+        if (plugin)
         {
-            pluginInstance->processBlock(audioBuffer, midiBuffer);
+            plugin->processBlock(audioBuffer, midiBuffer);
         }
-
-        // Now audioBuffer contains the plugin's output for 'blockSize' frames
-        // at sampleRate (48k).
-        // Push it into the ring buffer
         ringBuffer->write(audioBuffer);
-
-        // Sleep for blockSize / sampleRate seconds => e.g. 512/48000 ~ 10.666 ms
         auto blockDurationMs = (int) std::round((blockSize / sampleRate) * 1000.0);
         std::this_thread::sleep_for(std::chrono::milliseconds(blockDurationMs));
     }

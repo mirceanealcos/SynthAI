@@ -5,15 +5,19 @@
 #include <atomic>
 #include <vector>
 #include <memory>
+
 #include "../utils/serum/Presets.h"
+#include "../midi/MidiInputCollector.h"
+#include "utils/AudioRingBuffer.h"
 
+#define SAMPLE_RATE 48000
+#define BLOCK_SIZE 512
 
-class AudioRingBuffer;
 
 class HeadlessAudioEngine
 {
 public:
-    HeadlessAudioEngine(double sampleRate = 48000.0, int blockSize = 512);
+    explicit HeadlessAudioEngine(double sampleRate = 48000.0, int blockSize = 512);
     ~HeadlessAudioEngine();
 
     void setPlugin(std::unique_ptr<juce::AudioPluginInstance> plugin);
@@ -26,25 +30,23 @@ public:
     // Provide access to the ring buffer (for the WebRTC module)
     std::shared_ptr<AudioRingBuffer> getRingBuffer() const { return ringBuffer; }
 
-    // Optionally handle MIDI
-    void setMidiMessageQueue(std::shared_ptr<std::vector<juce::MidiMessage>> midiQueue);
-
 private:
     void renderThreadFunc();
 
-    std::unique_ptr<juce::AudioPluginInstance> pluginInstance;
     double sampleRate;
     int blockSize;
 
+    std::shared_ptr<AudioRingBuffer> ringBuffer;
     std::thread renderThread;
     std::atomic<bool> running { false };
-
-    std::shared_ptr<AudioRingBuffer> ringBuffer;
-    std::shared_ptr<std::vector<juce::MidiMessage>> midiQueue;
 
     juce::AudioBuffer<float> audioBuffer;
     juce::MidiBuffer midiBuffer;
 
     std::unique_ptr<juce::AudioPluginInstance> plugin;
+
+    MidiInputCollector midiInputCollector;
+    std::vector<std::unique_ptr<juce::MidiInput>> midiInputs;
+
 
 };

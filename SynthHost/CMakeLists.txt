@@ -4,6 +4,8 @@ project(SynthHost)
 find_package(Boost 1.88.0 REQUIRED
         COMPONENTS system thread random chrono asio
 )
+find_package(Opus CONFIG REQUIRED)
+find_package(Ogg CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -34,7 +36,10 @@ add_executable(SynthHost main.cpp
         audio_engine/HeadlessAudioEngine.cpp
         audio_engine/HeadlessAudioEngine.h
         audio_engine/utils/AudioRingBuffer.cpp
-        audio_engine/utils/AudioRingBuffer.h)
+        audio_engine/utils/AudioRingBuffer.h
+        encoder/OpusEncoder.h
+        websocket/WebSocketClient.h
+        websocket/WebSocketClient.cpp)
 
 target_compile_definitions(SynthHost
     PRIVATE
@@ -53,4 +58,5 @@ target_link_libraries(SynthHost
         Boost::random
         Boost::chrono
         Boost::asio
+        "${CMAKE_SOURCE_DIR}/modules/vcpkg/installed/x64-windows/lib/opus.lib"
 )

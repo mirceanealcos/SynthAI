@@ -10,7 +10,7 @@
 
 #include "../midi/MidiInputCollector.h"
 #define SAMPLE_RATE 48000
-#define BLOCK_SIZE 1024
+#define BLOCK_SIZE 512
 
 // LEGACY AUDIO ENGINE FOR PLAYING SOUND THROUGH SPEAKERS
 class SpeakerAudioEngine : public juce::AudioIODeviceCallback {

@@ -6,7 +6,7 @@
 class AudioRingBuffer
 {
 public:
-    AudioRingBuffer(int channels = 2, int capacitySamples = 48000); // 1 second default
+    AudioRingBuffer(int channels = 1, int capacitySamples = 48000); // 1 second default
     ~AudioRingBuffer() = default;
 
     // Write from a JUCE AudioBuffer

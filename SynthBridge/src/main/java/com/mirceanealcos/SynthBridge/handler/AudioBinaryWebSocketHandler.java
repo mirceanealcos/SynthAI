@@ -33,6 +33,7 @@ public class AudioBinaryWebSocketHandler extends BinaryWebSocketHandler {
     @Override
     protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) throws Exception {
         ByteBuffer payload = message.getPayload();
+        log.info("Received binary message: " + payload);
         synchronized (sessions) {
             for (WebSocketSession s : sessions) {
                 if (s.isOpen() && s != session) {
