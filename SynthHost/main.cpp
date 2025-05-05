@@ -18,7 +18,7 @@ int main() {
     HeadlessAudioEngine audioEngine(48000, 512);
     PluginManager manager;
     juce::String errorMsg;
-    auto userSerumInstance = manager.loadPlugin(PluginEnum::SERUM, 48000, 512, errorMsg);
+    auto userSerumInstance = manager.loadPlugin(PluginEnum::SERUM_LAPTOP, 48000, 512, errorMsg);
     audioEngine.setPlugin(std::move(userSerumInstance));
     audioEngine.start();
 

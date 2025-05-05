@@ -17,7 +17,8 @@ public:
 
 class PluginEnum {
 public:
-    static PluginDef SERUM;
+    static PluginDef SERUM_PC;
+    static PluginDef SERUM_LAPTOP;
 };
 
 
