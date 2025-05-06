@@ -1,58 +1,90 @@
 using UnityEngine;
-using System.Collections.Concurrent;
 
 public class AudioPlayerStream : MonoBehaviour
 {
-    private ConcurrentQueue<short[]> queue = new ConcurrentQueue<short[]>();
-    private float[] floatBuffer = new float[0];
+    private float[] ringBuffer;
+    private int writePos = 0;
+    private int readPos = 0;
+    private int bufferSize;
     private int channels;
+    private object lockObj = new object();
+    private bool canPlay = false;
+    private float lastSample = 0f;
 
-    public AudioPlayerStream(int sampleRate, int channels)
+    public void Init(int sampleRate, int channels, int bufferSizeOverride = -1)
+{
+    this.channels = channels;
+    this.bufferSize = (bufferSizeOverride > 0)
+        ? bufferSizeOverride
+        : sampleRate * channels * 5; // default 5 seconds
+
+    this.ringBuffer = new float[bufferSize];
+}
+
+    public void UnpausePlayback()
     {
-        this.channels = channels;
-
-        GameObject go = new GameObject("AudioStreamPlayer");
-        go.AddComponent<AudioSource>();
-        go.AddComponent<InternalStreamBehaviour>().Init(this, sampleRate, channels);
-        GameObject.DontDestroyOnLoad(go);
+        canPlay = true;
     }
 
-    public void Enqueue(short[] samples)
+    public int GetBufferedSampleCount()
     {
-        queue.Enqueue(samples);
-    }
-
-    private void FillBuffer(float[] data)
-    {
-        int offset = 0;
-        while (offset < data.Length && queue.TryDequeue(out var block))
+        lock (lockObj)
         {
-            for (int i = 0; i < block.Length && offset < data.Length; i++)
-                data[offset++] = block[i] / 32768f;
+            return (writePos - readPos + bufferSize) % bufferSize;
+        }
+    }
+
+    public void Enqueue(float[] samples)
+    {
+        Debug.Log($"📤 Enqueuing {samples.Length} float samples");
+        if (samples.Length >= 10)
+{
+    string firstSamples = string.Join(", ", samples[..10]);
+    Debug.Log($"🧪 First 10 samples: {firstSamples}");
+}
+        lock (lockObj)
+        {
+            for (int i = 0; i < samples.Length; i++)
+            {
+                ringBuffer[writePos] = samples[i];
+                writePos = (writePos + 1) % bufferSize;
+
+                if (writePos == readPos)
+                    readPos = (readPos + 1) % bufferSize;
+            }
+        }
+    }
+
+    public void OnAudioFilterRead(float[] data, int channels)
+    {
+        if (!canPlay)
+        {
+            for (int i = 0; i < data.Length; i++)
+                data[i] = 0f;
+            return;
         }
 
-        while (offset < data.Length)
-            data[offset++] = 0f;
-    }
-
-    private class InternalStreamBehaviour : MonoBehaviour
-    {
-        private AudioPlayerStream parent;
-        private AudioSource source;
-
-        public void Init(AudioPlayerStream parent, int sampleRate, int channels)
+        lock (lockObj)
         {
-            this.parent = parent;
-            source = GetComponent<AudioSource>();
-            source.clip = AudioClip.Create("StreamClip", sampleRate * 10, channels, sampleRate, true, OnAudioRead);
-            source.loop = true;
-            source.Play();
-            source.volume = 1.0f;
-        }
+            int available = (writePos - readPos + bufferSize) % bufferSize;
+            int delta = available - data.Length;
+            Debug.Log($"🔊 Unity requested: {data.Length} | Buffered: {available} | Delta: {delta} | Channels: {channels}");
 
-        private void OnAudioRead(float[] data)
-        {
-            parent.FillBuffer(data);
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (readPos != writePos)
+                {
+                    data[i] = ringBuffer[readPos];
+                    lastSample = data[i];
+                    readPos = (readPos + 1) % bufferSize;
+                }
+                else
+                {
+                    data[i] = lastSample * 0.98f;
+                    lastSample = data[i];
+                }
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 using Concentus.Structs;
-using UnityEngine;
 
 public class OpusDecoderWrapper
 {
@@ -14,11 +13,11 @@ public class OpusDecoderWrapper
 
     public short[] Decode(byte[] opusBytes)
     {
-        short[] buffer = new short[1500 * channels]; // enough for max frame
-        int decodedSamples = decoder.Decode(opusBytes, 0, opusBytes.Length, buffer, 0, buffer.Length, false);
+        short[] pcm = new short[4096]; // Max for 1024 frames mono
+        int decoded = decoder.Decode(opusBytes, 0, opusBytes.Length, pcm, 0, pcm.Length, false);
 
-        short[] output = new short[decodedSamples * channels];
-        System.Array.Copy(buffer, output, output.Length);
+        short[] output = new short[decoded * channels];
+        System.Array.Copy(pcm, output, output.Length);
         return output;
     }
 }

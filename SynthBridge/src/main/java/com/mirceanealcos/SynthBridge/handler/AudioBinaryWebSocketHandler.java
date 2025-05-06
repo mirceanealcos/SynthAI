@@ -17,6 +17,7 @@ public class AudioBinaryWebSocketHandler extends BinaryWebSocketHandler {
 
     private static final Logger log = LoggerFactory.getLogger(AudioBinaryWebSocketHandler.class);
     private final Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<>());
+    private boolean doLog = true;
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -33,7 +34,10 @@ public class AudioBinaryWebSocketHandler extends BinaryWebSocketHandler {
     @Override
     protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) throws Exception {
         ByteBuffer payload = message.getPayload();
-        log.info("Received binary message: " + payload);
+        if (doLog) {
+            log.info("Sending message");
+            doLog = false;
+        }
         synchronized (sessions) {
             for (WebSocketSession s : sessions) {
                 if (s.isOpen() && s != session) {
