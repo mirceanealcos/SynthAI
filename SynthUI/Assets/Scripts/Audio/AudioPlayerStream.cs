@@ -3,32 +3,47 @@ using UnityEngine;
 public class AudioPlayerStream : MonoBehaviour
 {
     private float[] ringBuffer;
-    private int writePos = 0;
-    private int readPos = 0;
-    private int bufferSize;
-    private int channels;
+    private int writePos, readPos, bufferSize, channels;
     private object lockObj = new object();
     private bool canPlay = false;
     private float lastSample = 0f;
-    private int minSafeBufferSamples = 512; // threshold for underrun warnings
 
+    /// <summary>
+    /// Must be called once before Play(): sampleRate in Hz, number of interleaved channels, total buffer size in floats.
+    /// </summary>
     public void Init(int sampleRate, int channels, int bufferSizeOverride = -1)
     {
         this.channels = channels;
-        this.bufferSize = (bufferSizeOverride > 0)
+        bufferSize = (bufferSizeOverride > 0)
             ? bufferSizeOverride
-            : sampleRate * channels * 5; // default 5 seconds buffer
-
+            : sampleRate * channels * 5;  // default 5s
         ringBuffer = new float[bufferSize];
+        writePos = readPos = 0;
     }
 
-    public void UnpausePlayback()
+    /// <summary>
+    /// Called by network thread to inject decoded PCM floats.
+    /// </summary>
+    public void WriteRawSamples(float[] samples)
     {
-        canPlay = true;
+        lock (lockObj)
+        {
+            for (int i = 0; i < samples.Length; ++i)
+            {
+                ringBuffer[writePos] = samples[i];
+                writePos = (writePos + 1) % bufferSize;
+                if (writePos == readPos)
+                    readPos = (readPos + channels) % bufferSize;  // drop oldest
+            }
+        }
     }
 
-    public bool IsPlaying() => canPlay;
+    public void UnpausePlayback() => canPlay = true;
+    public bool IsPlaying()       => canPlay;
 
+    /// <summary>
+    /// Number of floats currently buffered.
+    /// </summary>
     public int GetBufferedSampleCount()
     {
         lock (lockObj)
@@ -37,63 +52,56 @@ public class AudioPlayerStream : MonoBehaviour
         }
     }
 
-    public void Enqueue(float[] samples)
-    {
-        lock (lockObj)
-        {
-            for (int i = 0; i < samples.Length; i++)
-            {
-                ringBuffer[writePos] = samples[i];
-                writePos = (writePos + 1) % bufferSize;
-                if (writePos == readPos)
-                    readPos = (readPos + 1) % bufferSize;
-            }
-        }
-    }
-
-    public void OnAudioFilterRead(float[] data, int channels)
+    /// <summary>
+    /// Unity callback: fill the provided data[] (interleaved) with PCM floats.
+    /// </summary>
+    void OnAudioFilterRead(float[] data, int ch)
     {
         if (!canPlay)
         {
-            // If not playing, output silence
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < data.Length; ++i)
                 data[i] = 0f;
             return;
         }
 
         lock (lockObj)
         {
-            int available = (writePos - readPos + bufferSize) % bufferSize;
-            int delta = available - data.Length;
-            Debug.Log($"🔊 Unity requested: {data.Length} | Buffered: {available} | Delta: {delta} | Channels: {channels}");
+            int available = GetBufferedSampleCount();
+            int delta     = available - data.Length;
+            Debug.Log($"🔊 OnAudioFilterRead: requested {data.Length} | buffered {available} | delta {delta} | ch {ch}");
 
-            if (available < minSafeBufferSamples)
-                Debug.LogWarning($"⚠️ Buffer very low: {available} samples");
+            if (available < data.Length)
+                Debug.LogWarning($"⚠️ Underrun imminent: available {available} < need {data.Length}");
 
-            for (int i = 0; i < data.Length; i++)
+            // Peek next sample for interpolation if underflow
+            float nextSample = available > 0
+                ? ringBuffer[readPos]
+                : lastSample;
+
+            for (int i = 0; i < data.Length; ++i)
             {
-                if (readPos != writePos)
+                if (available > 1)
                 {
                     float raw = ringBuffer[readPos];
-                    float sample;
-                    if (i == 0)
-                    {
-                        // Crossfade first sample to avoid boundary pop
-                        sample = (lastSample + raw) * 0.5f;
-                    }
-                    else
-                    {
-                        sample = raw;
-                    }
-                    data[i] = sample;
-                    lastSample = sample;
+                    float output = (i == 0)
+                        ? 0.5f * (lastSample + raw)   // crossfade first sample
+                        : raw;
+
+                    data[i] = output;
+                    lastSample = output;
+
                     readPos = (readPos + 1) % bufferSize;
+                    available--;
                 }
                 else
                 {
-                    // Underrun: apply soft tailing
-                    lastSample *= 0.95f;
-                    data[i] = lastSample;
+                    // Sub-block underrun: interpolate soft tail
+                    float t = (data.Length > 1)
+                        ? (float)i / (data.Length - 1)
+                        : 0f;
+                    float interp = Mathf.Lerp(lastSample, nextSample, t);
+                    data[i] = interp;
+                    lastSample = interp;
                 }
             }
         }

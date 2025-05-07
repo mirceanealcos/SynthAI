@@ -1,132 +1,83 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System;
 
 public class AudioStreamManager : MonoBehaviour
 {
+    [SerializeField] int udpPort    = 9000;
+    [SerializeField] int sampleRate = 48000;
+    [SerializeField] int channels   = 2;
+
     private AudioPlayerStream audioPlayer;
-    private UdpClient udpClient;
-    private Thread receiveThread;
+    private UdpClient         udpClient;
+    private Thread            receiveThread;
 
-    private Queue<float[]> decodeQueue = new Queue<float[]>();
-    private int bufferedFrames = 0;
-
-    [SerializeField] private int udpPort = 9000;
-    [SerializeField] private int sampleRate = 48000;
-    [SerializeField] private int channels = 1;
+    // we’ll start playback after this many floats are buffered:
+    private int startThresholdSamples;
 
     void Start()
     {
-        // Log current DSP buffer configuration
-        var cfg = AudioSettings.GetConfiguration();
-        Debug.Log($"🎚 DSP buffer size: {cfg.dspBufferSize} samples");
+        // Compute warm-up threshold: 3 × Unity’s DSP buffer (per channel)
+        int dspSize             = AudioSettings.GetConfiguration().dspBufferSize;  // e.g. 512
+        startThresholdSamples   = dspSize * 3 * channels;                       // e.g. 512*3*2 = 3072 floats
+        Debug.Log($"🎚 DSP buffer size: {dspSize} samples/ch → startThreshold = {startThresholdSamples} floats");
 
-        StartCoroutine(Initialize());
-    }
+        // Create player GameObject
+        var go = new GameObject("AudioStreamPlayer");
+        audioPlayer = go.AddComponent<AudioPlayerStream>();
+        audioPlayer.Init(sampleRate, channels, sampleRate);  // 1s buffer
 
-    private IEnumerator Initialize()
-    {
-        // Setup audio player
-        GameObject playerGO = new GameObject("AudioStreamPlayer");
-        audioPlayer = playerGO.AddComponent<AudioPlayerStream>();
-        audioPlayer.Init(sampleRate, channels, sampleRate); // 1 second buffer
+        var src = go.AddComponent<AudioSource>();
+        src.spatialBlend = 0;
+        src.loop         = true;
+        src.playOnAwake  = false;   // we’ll call Play() now, but audio doesn’t actually pass through until UnpausePlayback()
+        src.Play();
 
-        // Create and configure AudioSource
-        var audioSource = playerGO.AddComponent<AudioSource>();
-        audioSource.spatialBlend = 0;
-        audioSource.loop = true;
-        audioSource.playOnAwake = false; // start manually
-        DontDestroyOnLoad(playerGO);
+        DontDestroyOnLoad(go);
 
-        // Setup UDP
-        udpClient = new UdpClient(udpPort);
-        udpClient.Client.ReceiveBufferSize = 1024 * 1024;
-
-        // Start receive thread
+        // UDP setup
+        udpClient = new UdpClient(udpPort) {
+            Client = { ReceiveBufferSize = 1024 * 1024 }
+        };
         receiveThread = new Thread(ReceiveLoop) { IsBackground = true };
         receiveThread.Start();
-
-        Debug.Log("✅ Starting UDP PCM buffer loop...");
-        StartCoroutine(BufferLoop());
-        yield return null;
     }
 
     void ReceiveLoop()
     {
-        IPEndPoint remoteEP = new IPEndPoint(IPAddress.Any, udpPort);
+        var endpoint = new IPEndPoint(IPAddress.Any, udpPort);
+        int blockCount = 0;
+
         while (true)
         {
             try
             {
-                byte[] data = udpClient.Receive(ref remoteEP);
-                int floatCount = data.Length / 4;
-                float[] samples = new float[floatCount];
+                byte[] data = udpClient.Receive(ref endpoint);
+                int floatCount = data.Length / sizeof(float);
+                var samples    = new float[floatCount];
                 Buffer.BlockCopy(data, 0, samples, 0, data.Length);
 
-                Debug.Log($"📥 Received frame: {floatCount} samples");
-                lock (decodeQueue)
+                blockCount++;
+                Debug.Log($"📥 Received block #{blockCount}: {floatCount} floats");
+
+                // Direct write to ring buffer
+                audioPlayer.WriteRawSamples(samples);
+
+                int buffered = audioPlayer.GetBufferedSampleCount();
+                Debug.Log($"   → Buffered after write: {buffered} floats");
+
+                // Warm-up: unpause once we have enough
+                if (!audioPlayer.IsPlaying() && buffered >= startThresholdSamples)
                 {
-                    decodeQueue.Enqueue(samples);
+                    Debug.Log($"🟢 Buffer warmed ({buffered} ≥ {startThresholdSamples}). Unpausing.");
+                    audioPlayer.UnpausePlayback();
                 }
             }
             catch (Exception ex)
             {
-                Debug.LogError("UDP receive error: " + ex.Message);
-            }
-        }
-    }
-
-    IEnumerator BufferLoop()
-    {
-        Debug.Log("🌀 BufferLoop started");
-        while (true)
-        {
-            yield return null; // minimal polling delay
-
-            // Dequeue next block if available
-            float[] block = null;
-            lock (decodeQueue)
-            {
-                if (decodeQueue.Count > 0)
-                    block = decodeQueue.Dequeue();
-            }
-
-            if (block == null)
-                continue;
-
-            Debug.Log($"▶ Dequeued block: {block.Length} samples");
-
-            // Compute thresholds based on DSP buffer size
-            int dspSize = AudioSettings.GetConfiguration().dspBufferSize;
-            int slack = dspSize / 2;             // half-block slack (~256)
-            int maxBuffered = dspSize * 3;       // allow up to ~3 blocks (~32ms)
-            int startThreshold = dspSize + slack; // ~1.5 blocks (~768 samples ~16ms)
-
-            int buffered = audioPlayer.GetBufferedSampleCount();
-
-            // Drop new blocks if buffer is too full
-            if (audioPlayer.IsPlaying() && buffered > maxBuffered)
-            {
-                Debug.Log($"⚠️ Skipping block — buffer too full: {buffered} samples");
-                continue;
-            }
-
-            // Enqueue and track
-            audioPlayer.Enqueue(block);
-            bufferedFrames++;
-            Debug.Log($"⏱ Enqueued block. Frames enqueued: {bufferedFrames}, Buffered samples: {audioPlayer.GetBufferedSampleCount()}");
-
-            // Start playback once buffer has warmed sufficiently
-            if (!audioPlayer.IsPlaying() && audioPlayer.GetBufferedSampleCount() >= startThreshold)
-            {
-                Debug.Log("🟢 Starting playback at warm buffer level");
-                var source = audioPlayer.GetComponent<AudioSource>();
-                source.Play();
-                audioPlayer.UnpausePlayback();
+                Debug.LogError($"UDP receive error: {ex.Message}");
             }
         }
     }

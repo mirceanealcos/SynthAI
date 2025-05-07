@@ -1006,7 +1006,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823d5d5c076b0e8498d3e752bdd0ba37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  websocketUrl: ws://localhost:8080/user/audio
+  udpPort: 9000
+  sampleRate: 48000
+  channels: 2
 --- !u!1 &1903474189
 GameObject:
   m_ObjectHideFlags: 0
