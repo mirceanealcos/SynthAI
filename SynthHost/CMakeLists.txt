@@ -37,9 +37,10 @@ add_executable(SynthHost main.cpp
         audio_engine/HeadlessAudioEngine.h
         audio_engine/utils/AudioRingBuffer.cpp
         audio_engine/utils/AudioRingBuffer.h
-        encoder/OpusEncoder.h
+        encoder/OpusEncoderWrapper.h
         websocket/WebSocketClient.h
-        websocket/WebSocketClient.cpp)
+        websocket/WebSocketClient.cpp
+        streaming/UDPAudioSender.h)
 
 target_compile_definitions(SynthHost
     PRIVATE
