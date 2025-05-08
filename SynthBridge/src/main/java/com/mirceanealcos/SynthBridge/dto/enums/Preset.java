@@ -1,0 +1,31 @@
+package com.mirceanealcos.SynthBridge.dto.enums;
+
+public enum Preset {
+    ANALOG_REESE_SWEEP,
+    VIBRATO_BASS,
+    COLONY,
+    ENGINE_HASH,
+    NUMBERNINE,
+    OFFRECORD,
+    SUBNET,
+    WELCOME,
+    LEAD_1984,
+    CRASHWAVE,
+    CURSED_BRASS,
+    DS61,
+    LEGATO_SAW_LEAD,
+    MINI,
+    MODULE,
+    RETRO_BASS_LEAD,
+    SAWKRAFT,
+    TIMECOP,
+    BLADE_SWIMMER,
+    BLESS,
+    LALA,
+    OUT_TO_PLAY,
+    RETROTOOTH,
+    SECONDS,
+    VISIONS,
+    RETROBIT,
+    TETRA
+}
