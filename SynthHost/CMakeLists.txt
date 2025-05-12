@@ -40,7 +40,9 @@ add_executable(SynthHost main.cpp
         encoder/OpusEncoderWrapper.h
         websocket/WebSocketClient.h
         websocket/WebSocketClient.cpp
-        streaming/UDPAudioSender.h)
+        streaming/UDPAudioSender.h
+        utils/StreamManager.cpp
+        utils/StreamManager.h)
 
 target_compile_definitions(SynthHost
     PRIVATE

@@ -81,10 +81,8 @@ void HeadlessAudioEngine::start()
     if (! plugin)
         return;
 
-    // Initialize stereo output to drive callbacks
     deviceManager.initialise (0, 2, nullptr, true);
 
-    // Attach MIDI input
     for (auto& dev : juce::MidiInput::getAvailableDevices())
     {
         if (dev.name.containsIgnoreCase ("Minilab3 MIDI"))

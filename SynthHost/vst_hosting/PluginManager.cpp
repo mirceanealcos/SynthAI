@@ -25,8 +25,7 @@ std::unique_ptr<AudioPluginInstance> PluginManager::loadPlugin(
 
     if (descriptions.size() == 0)
     {
-        std::cout<<"No plugin found at " + plugin.path<< std::endl;
-        return nullptr;
+        throw new std::runtime_error("No plugin found at " + plugin.path);
     }
 
     auto instance = formatManager.createPluginInstance(*descriptions[0],
@@ -36,8 +35,7 @@ std::unique_ptr<AudioPluginInstance> PluginManager::loadPlugin(
 
     if (instance == nullptr)
     {
-        std::cout<<"The plugin could not be instantiated."<< std::endl;
-        return nullptr;
+        throw new std::runtime_error("The plugin could not be instantiated.");
     }
     return instance;
 }
