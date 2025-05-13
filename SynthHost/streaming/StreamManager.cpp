@@ -20,11 +20,11 @@ StreamManager::~StreamManager() {
 
 
 void StreamManager::init() {
-    this->audioEngine = std::make_unique<HeadlessAudioEngine>(sampleRate, blockSize);
+    this->audioEngine = std::make_unique<HeadlessAudioEngine>(sampleRate, 2 * blockSize);
     juce::String error;
     std::unique_ptr<juce::AudioPluginInstance> serumInstance;
     try {
-        serumInstance = pluginManager.loadPlugin(PluginEnum::SERUM_PC, sampleRate, blockSize, error);
+        serumInstance = pluginManager.loadPlugin(PluginEnum::SERUM_PC, sampleRate, 2 * blockSize, error);
     } catch (std::runtime_error &e) {
         std::cout << e.what() << std::endl;
         throw;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class AudioPlayerStream : MonoBehaviour
 {
@@ -57,53 +58,35 @@ public class AudioPlayerStream : MonoBehaviour
     /// </summary>
     void OnAudioFilterRead(float[] data, int ch)
     {
-        if (!canPlay)
+    if (!canPlay)
+    {
+        Array.Clear(data, 0, data.Length);
+        return;
+    }
+
+    lock (lockObj)
+    {
+        int available = GetBufferedSampleCount();
+        int delta     = available - data.Length;
+        // Debug.Log($"🔊 OnAudioFilterRead: req={data.Length} buf={available} delta={delta} ch={ch}");
+
+        // if (available < data.Length)
+            // Debug.LogWarning($"⚠️ Underrun: only {available}/{data.Length} samples buffered");
+
+        for (int i = 0; i < data.Length; ++i)
         {
-            for (int i = 0; i < data.Length; ++i)
-                data[i] = 0f;
-            return;
-        }
-
-        lock (lockObj)
-        {
-            int available = GetBufferedSampleCount();
-            int delta     = available - data.Length;
-            // Debug.Log($"🔊 OnAudioFilterRead: requested {data.Length} | buffered {available} | delta {delta} | ch {ch}");
-
-            // if (available < data.Length)
-                // Debug.LogWarning($"⚠️ Underrun imminent: available {available} < need {data.Length}");
-
-            // Peek next sample for interpolation if underflow
-            float nextSample = available > 0
-                ? ringBuffer[readPos]
-                : lastSample;
-
-            for (int i = 0; i < data.Length; ++i)
+            if (available > 0)
             {
-                if (available > 1)
-                {
-                    float raw = ringBuffer[readPos];
-                    float output = (i == 0)
-                        ? 0.5f * (lastSample + raw)   // crossfade first sample
-                        : raw;
-
-                    data[i] = output;
-                    lastSample = output;
-
-                    readPos = (readPos + 1) % bufferSize;
-                    available--;
-                }
-                else
-                {
-                    // Sub-block underrun: interpolate soft tail
-                    float t = (data.Length > 1)
-                        ? (float)i / (data.Length - 1)
-                        : 0f;
-                    float interp = Mathf.Lerp(lastSample, nextSample, t);
-                    data[i] = interp;
-                    lastSample = interp;
-                }
+                data[i] = ringBuffer[readPos];
+                readPos = (readPos + 1) % bufferSize;
+                available--;
+            }
+            else
+            {
+                // underrun fallback: just output silence
+                data[i] = 0f;
             }
         }
+    }
     }
 }

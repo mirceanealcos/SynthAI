@@ -13,7 +13,7 @@ class InternalCallback;
 class HeadlessAudioEngine
 {
 public:
-    explicit HeadlessAudioEngine(double sampleRate = 48000.0, int blockSize = 1024);
+    explicit HeadlessAudioEngine(double sampleRate, int blockSize);
     ~HeadlessAudioEngine();
 
     void setPlugin(std::unique_ptr<juce::AudioPluginInstance> p);

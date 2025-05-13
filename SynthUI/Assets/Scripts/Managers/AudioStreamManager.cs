@@ -77,7 +77,7 @@ public class AudioStreamManager : MonoBehaviour
             }
             catch (Exception ex)
             {
-                // Debug.LogError($"UDP receive error: {ex.Message}");
+                Debug.LogError($"UDP receive error: {ex.Message}");
             }
         }
     }

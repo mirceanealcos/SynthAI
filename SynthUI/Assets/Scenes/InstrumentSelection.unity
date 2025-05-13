@@ -545,7 +545,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 86058211}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RETROTOOTH
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &86058211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1398,7 +1410,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 198066026}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BLADE_SWIMMER
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &198066026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,7 +1543,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 264368358}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LALA
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &264368358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,7 +1812,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 289777692}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LEAD_1984
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &289777692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1897,7 +1945,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 308015807}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RETROBIT
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &308015807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2425,7 +2485,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 355455290}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TETRA
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &355455290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2546,7 +2618,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 371870059}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SUBNET
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &371870059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2939,7 +3023,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 456046604}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: COLONY
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &456046604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3197,7 +3293,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 524990494}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OFFRECORD
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &524990494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3459,7 +3567,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 706252225}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WELCOME
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &706252225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3718,7 +3838,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 736847556}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RETRO_BASS_LEAD
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &736847556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4557,7 +4689,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 854011871}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MODULE
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &854011871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5222,7 +5366,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1119568652}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: NUMBERNINE
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1119568652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5615,7 +5771,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1270050395}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CURSED_BRASS
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1270050395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5919,7 +6087,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1332899628}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LEGATO_SAW_LEAD
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1332899628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6040,7 +6220,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1380722263}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DS61
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1380722263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6424,7 +6616,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1443652003}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BLESS
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1443652003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6678,7 +6882,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1457363704}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OUT_TO_PLAY
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1457363704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6975,7 +7191,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1601153421}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SAWKRAFT
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1601153421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7232,7 +7460,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1662814620}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MINI
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1662814620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7353,7 +7593,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1724533868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SECONDS
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1724533868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7956,7 +8208,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1946202242}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CRASHWAVE
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1946202242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8077,7 +8341,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1948335656}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ENGINE_HASH
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1948335656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8334,7 +8610,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2039063061}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: VISIONS
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2039063061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8661,7 +8949,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2133387195}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 183484171}
+        m_TargetAssemblyTypeName: PresetWebSocketClient, Assembly-CSharp
+        m_MethodName: SendPreset
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TIMECOP
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2133387195
 MonoBehaviour:
   m_ObjectHideFlags: 0

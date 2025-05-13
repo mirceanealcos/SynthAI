@@ -6,7 +6,7 @@
 class AudioRingBuffer
 {
 public:
-    AudioRingBuffer(int channels = 1, int capacitySamples = 48000); // 1 second default
+    AudioRingBuffer(int channels, int capacitySamples); // 1 second default
     ~AudioRingBuffer() = default;
 
     // Write from a JUCE AudioBuffer
@@ -14,9 +14,9 @@ public:
 
     // Read into a float array. E.g., 10ms (480 frames) for stereo => 960 samples
     int read(float* destination, int samplesToRead);
-
+    int availableSamples() const;
 private:
-    std::mutex mutex_;
+    mutable std::mutex mutex_;
     int channels_;
     std::vector<float> data_;
     int writePos_ = 0;

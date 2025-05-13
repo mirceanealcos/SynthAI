@@ -54,3 +54,12 @@ int AudioRingBuffer::read(float* destination, int samplesToRead)
 
     return samplesRead;
 }
+
+int AudioRingBuffer::availableSamples() const
+{
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (writePos_ >= readPos_)
+        return writePos_ - readPos_;
+    else
+        return totalSize_ - (readPos_ - writePos_);
+}
