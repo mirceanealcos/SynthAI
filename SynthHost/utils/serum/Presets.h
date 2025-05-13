@@ -57,6 +57,7 @@ public:
     static Preset RETROBIT;
     static Preset TETRA;
 
+    static Preset getFromString(std::string preset);
 };
 
 

@@ -68,10 +68,10 @@ public class AudioPlayerStream : MonoBehaviour
         {
             int available = GetBufferedSampleCount();
             int delta     = available - data.Length;
-            Debug.Log($"🔊 OnAudioFilterRead: requested {data.Length} | buffered {available} | delta {delta} | ch {ch}");
+            // Debug.Log($"🔊 OnAudioFilterRead: requested {data.Length} | buffered {available} | delta {delta} | ch {ch}");
 
-            if (available < data.Length)
-                Debug.LogWarning($"⚠️ Underrun imminent: available {available} < need {data.Length}");
+            // if (available < data.Length)
+                // Debug.LogWarning($"⚠️ Underrun imminent: available {available} < need {data.Length}");
 
             // Peek next sample for interpolation if underflow
             float nextSample = available > 0

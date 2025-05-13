@@ -4,11 +4,12 @@
 
 #include "StreamManager.h"
 
-StreamManager::StreamManager(int blockSize, int sampleRate, int port) {
+StreamManager::StreamManager(int blockSize, int sampleRate, int port, StreamID id) {
     this->blockSize = blockSize;
     this->sampleRate = sampleRate;
     this->port = port;
     this->running.store(false);
+    this->id = id;
     this->init();
 }
 
@@ -62,4 +63,8 @@ void StreamManager::stopStreaming() {
 
 void StreamManager::setPreset(Preset preset) {
     audioEngine->setPreset(preset);
+}
+
+StreamID StreamManager::getStreamID() {
+    return id;
 }

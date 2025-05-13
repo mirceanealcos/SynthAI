@@ -7,12 +7,13 @@
 #include <thread>
 
 #include "../audio_engine/HeadlessAudioEngine.h"
-#include "../streaming/UDPAudioSender.h"
+#include "UDPAudioSender.h"
+#include "../utils/StreamID.h"
 #include "../vst_hosting/PluginManager.h"
 
 class StreamManager {
 public:
-    explicit StreamManager(int blockSize = 512, int sampleRate = 48000, int port = 9000);
+    explicit StreamManager(int blockSize = 512, int sampleRate = 48000, int port = 9000, StreamID id = USER);
 
     ~StreamManager();
 
@@ -22,9 +23,12 @@ public:
 
     void setPreset(Preset preset);
 
+    StreamID getStreamID();
+
 private:
     void init();
 
+    StreamID id;
     std::unique_ptr<HeadlessAudioEngine> audioEngine;
     std::unique_ptr<UDPAudioSender> udpAudioSender;
     PluginManager pluginManager;

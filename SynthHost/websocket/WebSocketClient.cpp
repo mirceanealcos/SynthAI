@@ -1,100 +1,100 @@
 #include "WebSocketClient.h"
-#include <iostream>
 
-WebSocketClient::WebSocketClient(net::io_context &ioc, std::string const &host,
-                                 std::string const &port, std::string const &target)
-    : _ioc(ioc), _resolver(ioc), _socket(net::make_strand(ioc)),
-      _host(host), _port(port), _target(target) {}
+#include <iostream>
+#include <utility>
+
+WebSocketClient::WebSocketClient(net::io_context &ioContext, std::string host, std::string port, std::string url,
+                                 WebSocketClientID id)
+    : resolver(net::make_strand(ioContext)), socket(net::make_strand(ioContext)), host(std::move(host)),
+      port(std::move(port)),
+      url(std::move(url)), id(id) {
+}
 
 void WebSocketClient::run() {
-    _resolver.async_resolve(_host, _port,
-        beast::bind_front_handler(&WebSocketClient::onResolve, shared_from_this()));
+    resolver.async_resolve(host, port, beast::bind_front_handler(&WebSocketClient::onResolve, shared_from_this()));
+}
+
+
+void WebSocketClient::onJson(JsonHandler jsonHandler) {
+    this->jsonHandler = std::move(jsonHandler);
+}
+
+void WebSocketClient::sendJson(const json &json) {
+    auto stringJson = json.dump();
+    net::post(socket.get_executor(), [self = shared_from_this(), stringJson=std::move(stringJson)]() {
+        self->socket.async_write(net::buffer(stringJson), beast::bind_front_handler(&WebSocketClient::onWrite, self));
+    });
+}
+
+void WebSocketClient::close() {
+    if (closing) {
+        return;
+    }
+    closing = true;
+    net::post(socket.get_executor(), [self = shared_from_this()]() {
+        self->socket.async_close(websocket::close_code::normal,
+                                 beast::bind_front_handler(&WebSocketClient::onClose, self));
+    });
 }
 
 void WebSocketClient::onResolve(beast::error_code ec, tcp::resolver::results_type results) {
     if (ec) {
-        std::cerr << "Resolve error: " << ec.message() << "\n";
-        return;
+        return fail(ec, "resolve");
     }
-    net::async_connect(_socket.next_layer(), results,
-        beast::bind_front_handler(&WebSocketClient::onConnect, shared_from_this()));
+    net::async_connect(
+        socket.next_layer(),
+        results,
+        beast::bind_front_handler(
+            &WebSocketClient::onConnect,
+            shared_from_this()
+        )
+    );
 }
 
-void WebSocketClient::onConnect(beast::error_code ec, tcp::resolver::results_type::endpoint_type) {
-    if (ec) {
-        std::cerr << "Connect error: " << ec.message() << "\n";
-        return;
-    }
-    _socket.async_handshake(_host, _target,
-        beast::bind_front_handler(&WebSocketClient::onHandshake, shared_from_this()));
+void WebSocketClient::onConnect(beast::error_code ec, tcp::endpoint) {
+    if (ec) return fail(ec, "connect");
+    socket.async_handshake(host, url, beast::bind_front_handler(&WebSocketClient::onHandshake, shared_from_this()));
 }
 
 void WebSocketClient::onHandshake(beast::error_code ec) {
-    if (ec) {
-        std::cerr << "Handshake error: " << ec.message() << "\n";
-        return;
-    }
-    _connected = true;
+    if (ec) return fail(ec, "handshake");
     doRead();
 }
 
 void WebSocketClient::doRead() {
-    _socket.async_read(_buffer,
-        beast::bind_front_handler(&WebSocketClient::onRead, shared_from_this()));
+    socket.async_read(buffer, beast::bind_front_handler(&WebSocketClient::onRead, shared_from_this()));
 }
 
-void WebSocketClient::onRead(beast::error_code ec, std::size_t) {
+void WebSocketClient::onRead(beast::error_code ec, std::size_t bytes) {
     if (ec) {
-        std::cerr << "Read error: " << ec.message() << "\n";
-        _connected = false;
+        if (ec != websocket::error::closed) {
+            fail(ec, "read");
+        }
         return;
     }
-
-    auto const data = _buffer.data();
-    std::vector<uint8_t> v(
-        boost::asio::buffers_begin(data),
-        boost::asio::buffers_end(data)
-    );
-    if (onMessage) onMessage(v);
-    _buffer.consume(_buffer.size());
-    doRead();
-}
-
-void WebSocketClient::sendBinary(std::vector<uint8_t> data) {
-    if (!_connected) return;
-
-    // Schedule write safely on the strand
-    net::post(_socket.get_executor(), [self = shared_from_this(), data = std::move(data)]() mutable {
-        bool writeInProgress = !self->_writeQueue.empty();
-        self->_writeQueue.push_back(std::move(data));
-        if (!writeInProgress)
-            self->doWrite();
-    });
-}
-
-void WebSocketClient::doWrite() {
-    if (!_connected) return;
-    _socket.binary(true);
-    auto &front = _writeQueue.front();
-    _socket.async_write(net::buffer(front),
-        beast::bind_front_handler(&WebSocketClient::onWrite, shared_from_this()));
-}
-
-void WebSocketClient::onWrite(beast::error_code ec, std::size_t) {
-    if (ec) {
-        std::cerr << "Write error: " << ec.message() << "\n";
-        _connected = false;
-        return;
+    try {
+        auto message = beast::buffers_to_string(buffer.data());
+        auto j = json::parse(message);
+        if (jsonHandler) jsonHandler(j);
+    } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
     }
-
-    _writeQueue.pop_front();
-    if (!_writeQueue.empty()) doWrite();
+    buffer.consume(bytes);
+    if (!closing) doRead();
 }
 
-void WebSocketClient::close() {
-    _connected = false;
-    beast::error_code ec;
-    _socket.close(ws::close_code::normal, ec);
-    if (ec)
-        std::cerr << "Close error: " << ec.message() << "\n";
+void WebSocketClient::onWrite(beast::error_code ec, std::size_t bytes) {
+    if (ec) fail(ec, "write");
+}
+
+void WebSocketClient::onClose(beast::error_code ec) {
+    if (ec) fail(ec, "close");
+}
+
+void WebSocketClient::fail(beast::error_code ec, char const *what) {
+    std::cout << what << ": " << ec.message() << std::endl;
+}
+
+WebSocketClientID WebSocketClient::getID() {
+    return id;
 }

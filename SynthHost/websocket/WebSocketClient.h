@@ -5,58 +5,48 @@
 #ifndef WEBSOCKETCLIENT_H
 #define WEBSOCKETCLIENT_H
 
-#include <atomic>
-#include <deque>
-#include <boost/asio/buffers_iterator.hpp>
 #include <boost/beast/core.hpp>
+#include <boost/asio/connect.hpp>
 #include <boost/beast/websocket.hpp>
-#include <boost/asio/ip/tcp.hpp>
-#include <boost/asio/strand.hpp>
-#include <string>
-#include <vector>
+#include <boost/asio.hpp>
+#include <nlohmann/json.hpp>
 
-namespace net = boost::asio;
+#include "../utils/WebSocketClientID.h"
+
 namespace beast = boost::beast;
-namespace ws = beast::websocket;
+namespace websocket = beast::websocket;
+namespace net = boost::asio;
 using tcp = net::ip::tcp;
+using json = nlohmann::json;
 
 class WebSocketClient : public std::enable_shared_from_this<WebSocketClient> {
 public:
-
-    using OnBinaryMessage = std::function<void(std::vector<uint8_t> const&)>;
-
-    WebSocketClient(net::io_context& ioc,
-                         std::string const& host,
-                         std::string const& port,
-                         std::string const& target);
-
-    /// kick off the async connect/handshake chain
+    using JsonHandler = std::function<void(const json&)>;
+    WebSocketClient(net::io_context& ioContext, std::string host, std::string port, std::string url, WebSocketClientID id);
     void run();
+    void onJson(JsonHandler jsonHandler);
+    void sendJson(const json& json);
     void close();
-
-    /// queue up a binary frame to send
-    void sendBinary(std::vector<uint8_t> data);
-
-    OnBinaryMessage onMessage;
-
+    WebSocketClientID getID();
 private:
+    WebSocketClientID id;
+    tcp::resolver resolver;
+    websocket::stream<tcp::socket> socket;
+    beast::flat_buffer buffer;
+    std::string host;
+    std::string port;
+    std::string url;
+    JsonHandler jsonHandler;
+    bool closing = false;
     void onResolve(beast::error_code ec, tcp::resolver::results_type results);
-    void onConnect(beast::error_code ec, tcp::resolver::results_type::endpoint_type ep);
+    void onConnect(beast::error_code ec, tcp::endpoint);
     void onHandshake(beast::error_code ec);
     void doRead();
-    void onRead(beast::error_code ec, std::size_t bytes_transferred);
-    void doWrite();
-    void onWrite(beast::error_code ec, std::size_t bytes_transferred);
-    bool isConnected() const { return _connected && _socket.is_open(); }
-    net::io_context& _ioc;
-    tcp::resolver _resolver;
-    ws::stream<tcp::socket> _socket;
-    beast::flat_buffer _buffer;
-    std::deque<std::vector<uint8_t>> _writeQueue;
-    std::string _host;
-    std::string _port;
-    std::string _target;
-    std::atomic<bool> _connected { false };
+    void onRead(beast::error_code ec, std::size_t bytes);
+    void onWrite(beast::error_code ec, std::size_t bytes);
+    void onClose(beast::error_code ec);
+
+    static void fail(beast::error_code ec, char const* what);
 };
 
 #endif //WEBSOCKETCLIENT_H

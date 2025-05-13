@@ -22,7 +22,7 @@ public class AudioStreamManager : MonoBehaviour
         // Compute warm-up threshold: 3 × Unity’s DSP buffer (per channel)
         int dspSize             = AudioSettings.GetConfiguration().dspBufferSize;  // e.g. 512
         startThresholdSamples   = dspSize * 3 * channels;                       // e.g. 512*3*2 = 3072 floats
-        Debug.Log($"🎚 DSP buffer size: {dspSize} samples/ch → startThreshold = {startThresholdSamples} floats");
+        // Debug.Log($"🎚 DSP buffer size: {dspSize} samples/ch → startThreshold = {startThresholdSamples} floats");
 
         // Create player GameObject
         var go = new GameObject("AudioStreamPlayer");
@@ -60,24 +60,24 @@ public class AudioStreamManager : MonoBehaviour
                 Buffer.BlockCopy(data, 0, samples, 0, data.Length);
 
                 blockCount++;
-                Debug.Log($"📥 Received block #{blockCount}: {floatCount} floats");
+                // Debug.Log($"📥 Received block #{blockCount}: {floatCount} floats");
 
                 // Direct write to ring buffer
                 audioPlayer.WriteRawSamples(samples);
 
                 int buffered = audioPlayer.GetBufferedSampleCount();
-                Debug.Log($"   → Buffered after write: {buffered} floats");
+                // Debug.Log($"   → Buffered after write: {buffered} floats");
 
                 // Warm-up: unpause once we have enough
                 if (!audioPlayer.IsPlaying() && buffered >= startThresholdSamples)
                 {
-                    Debug.Log($"🟢 Buffer warmed ({buffered} ≥ {startThresholdSamples}). Unpausing.");
+                    // Debug.Log($"🟢 Buffer warmed ({buffered} ≥ {startThresholdSamples}). Unpausing.");
                     audioPlayer.UnpausePlayback();
                 }
             }
             catch (Exception ex)
             {
-                Debug.LogError($"UDP receive error: {ex.Message}");
+                // Debug.LogError($"UDP receive error: {ex.Message}");
             }
         }
     }

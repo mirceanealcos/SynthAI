@@ -6,6 +6,7 @@ find_package(Boost 1.88.0 REQUIRED
 )
 find_package(Opus CONFIG REQUIRED)
 find_package(Ogg CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -41,8 +42,13 @@ add_executable(SynthHost main.cpp
         websocket/WebSocketClient.h
         websocket/WebSocketClient.cpp
         streaming/UDPAudioSender.h
-        utils/StreamManager.cpp
-        utils/StreamManager.h)
+        streaming/StreamManager.cpp
+        streaming/StreamManager.h
+        controller/StreamController.cpp
+        controller/StreamController.h
+        utils/StreamID.h
+        utils/WebSocketClientID.h
+)
 
 target_compile_definitions(SynthHost
     PRIVATE
@@ -62,4 +68,5 @@ target_link_libraries(SynthHost
         Boost::chrono
         Boost::asio
         "${CMAKE_SOURCE_DIR}/modules/vcpkg/installed/x64-windows/lib/opus.lib"
+        nlohmann_json::nlohmann_json
 )
