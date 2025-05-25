@@ -20,7 +20,11 @@ public:
     void addStreamManager(int blockSize, int sampleRate, int port, StreamID id);
     std::shared_ptr<StreamManager> getStreamManager(StreamID id);
     void addWebSocketClient(string host, string port, string url, WebSocketClientID id, JsonMethod onJsonMethod);
+    void setMidiSenderClient(WebSocketClientID sender, StreamID streamer);
     void shutdown();
+
+    std::shared_ptr<WebSocketClient> getWebSocketClient(WebSocketClientID id);
+    std::shared_ptr<StreamManager> getStream(StreamID id);
 
     // handler methods
     void changePreset(const json& j);

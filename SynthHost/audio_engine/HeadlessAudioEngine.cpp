@@ -117,3 +117,9 @@ void HeadlessAudioEngine::stop()
     if (plugin)
         plugin->releaseResources();
 }
+
+void HeadlessAudioEngine::setMidiSenderClient(std::shared_ptr<WebSocketClient> sender)
+{
+    this->midiInputCollector.setMidiSenderClient(sender);
+}
+

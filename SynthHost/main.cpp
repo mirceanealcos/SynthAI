@@ -13,6 +13,8 @@ int main()
     StreamController controller{ioContext};
     controller.addStreamManager(BLOCK_SIZE, SAMPLE_RATE, 9000, USER);
     controller.addWebSocketClient("localhost", "8080", "/user/preset", PRESET_CHANGER, &StreamController::changePreset);
+    controller.addWebSocketClient("localhost", "8080", "/user/input", USER_INPUT, nullptr);
+    controller.setMidiSenderClient(USER_INPUT, USER);
     std::thread ioThread([&] { ioContext.run(); });
     std::cout << "Type `quit` + Enter to exit.\n";
     for (std::string line; std::getline(std::cin, line);)

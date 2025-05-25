@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <unordered_map>
 
-std::string presetDir = "D:/Projects/SynthAI/SynthHost/resources/presets/";
+std::string presetDir = "C:/Projects/SynthHost/resources/presets/";
 
 Preset Presets::ANALOG_REESE_SWEEP = Preset("Analog Reese Sweep",
                                             presetDir + "basses/analog_reese_sweep.vstpreset", "BASS");

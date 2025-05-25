@@ -6,7 +6,7 @@
 #define WEBSOCKETCLIENTID_H
 
 enum WebSocketClientID {
-    PRESET_CHANGER
+    PRESET_CHANGER, USER_INPUT
 };
 
 #endif //WEBSOCKETCLIENTID_H

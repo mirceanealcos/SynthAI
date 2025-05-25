@@ -13,6 +13,21 @@ import lombok.NoArgsConstructor;
 public class MidiEventDto {
 
     @JsonProperty("note")
-    private String note;
+    private Integer note;
+    @JsonProperty("timestamp")
+    private Long timestamp;
+    @JsonProperty("type")
+    private String type;
+    @JsonProperty("velocity")
+    private Integer velocity;
 
+    @Override
+    public String toString() {
+        return "MidiEventDto{" +
+                "note=" + note +
+                ", timestamp=" + timestamp +
+                ", type='" + type + '\'' +
+                ", velocity=" + velocity +
+                '}';
+    }
 }

@@ -25,6 +25,8 @@ public:
 
     StreamID getStreamID();
 
+    void setMidiSenderClient(std::shared_ptr<WebSocketClient> sender);
+
 private:
     void init();
 

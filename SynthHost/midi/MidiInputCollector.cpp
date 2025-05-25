@@ -43,6 +43,27 @@ void MidiInputCollector::logMidiMessage(const juce::MidiMessage& message)
 void MidiInputCollector::handleIncomingMidiMessage(juce::MidiInput *source, const juce::MidiMessage &message) {
     logMidiMessage(message);
     midiCollector.addMessageToQueue(message);
+    if (midiSenderClient != nullptr) {
+        json j;
+        auto tsSeconds = juce::Time::currentTimeMillis();
+        j["timestamp"] = tsSeconds;
+        if (message.isNoteOn()) {
+            j["type"] = "note_on";
+            j["note"] = message.getNoteNumber();
+            j["velocity"] = static_cast<int>(message.getVelocity() * 127.0f);
+        }
+        else if (message.isNoteOff())
+        {
+            j["type"] = "note_off";
+            j["note"] = message.getNoteNumber();
+            j["velocity"] = 0;
+        }
+        else
+        {
+            return;
+        }
+        midiSenderClient->sendJson(j);
+    }
 }
 
 void MidiInputCollector::removeNextBlockOfMessages(juce::MidiBuffer &destBuffer, int numSamples) {
@@ -52,3 +73,8 @@ void MidiInputCollector::removeNextBlockOfMessages(juce::MidiBuffer &destBuffer,
 juce::MidiMessageCollector &MidiInputCollector::getMidiMessageCollector() {
     return midiCollector;
 }
+
+void MidiInputCollector::setMidiSenderClient(std::shared_ptr<WebSocketClient> sender) {
+    this->midiSenderClient = sender;
+}
+

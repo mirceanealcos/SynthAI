@@ -56,5 +56,38 @@ void StreamController::changePreset(const json &j) {
     }
 }
 
+std::shared_ptr<WebSocketClient> StreamController::getWebSocketClient(WebSocketClientID id)
+{
+    for (auto client : wsClients)
+    {
+        if (client->getID() == id)
+        {
+            return client;
+        }
+    }
+    return nullptr;
+}
+
+std::shared_ptr<StreamManager> StreamController::getStream(StreamID id)
+{
+    for (auto stream : streams)
+    {
+        if (stream->getStreamID() == id)
+        {
+            return stream;
+        }
+    }
+    return nullptr;
+}
+
+void StreamController::setMidiSenderClient(WebSocketClientID sender, StreamID streamer)
+{
+    auto stream = getStream(streamer);
+    auto client = getWebSocketClient(sender);
+    if (client != nullptr && stream != nullptr)
+        stream->setMidiSenderClient(client);
+}
+
+
 
 

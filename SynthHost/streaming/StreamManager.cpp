@@ -24,7 +24,7 @@ void StreamManager::init() {
     juce::String error;
     std::unique_ptr<juce::AudioPluginInstance> serumInstance;
     try {
-        serumInstance = pluginManager.loadPlugin(PluginEnum::SERUM_PC, sampleRate, 2 * blockSize, error);
+        serumInstance = pluginManager.loadPlugin(PluginEnum::SERUM_LAPTOP, sampleRate, 2 * blockSize, error);
     } catch (std::runtime_error &e) {
         std::cout << e.what() << std::endl;
         throw;
@@ -67,4 +67,9 @@ void StreamManager::setPreset(Preset preset) {
 
 StreamID StreamManager::getStreamID() {
     return id;
+}
+
+void StreamManager::setMidiSenderClient(std::shared_ptr<WebSocketClient> sender)
+{
+    audioEngine->setMidiSenderClient(sender);
 }

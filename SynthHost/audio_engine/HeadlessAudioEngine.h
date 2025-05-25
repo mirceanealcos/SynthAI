@@ -18,6 +18,7 @@ public:
 
     void setPlugin(std::unique_ptr<juce::AudioPluginInstance> p);
     void setPreset(Preset preset);
+    void setMidiSenderClient(std::shared_ptr<WebSocketClient> sender);
 
     void start();
     void stop();
