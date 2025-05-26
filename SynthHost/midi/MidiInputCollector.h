@@ -16,10 +16,12 @@ public:
     void removeNextBlockOfMessages(juce::MidiBuffer& destBuffer, int numSamples);
     juce::MidiMessageCollector& getMidiMessageCollector();
     void setMidiSenderClient(std::shared_ptr<WebSocketClient> sender);
+    void setUserRole(std::string userRole);
 private:
     void logMidiMessage(const juce::MidiMessage& message);
     juce::MidiMessageCollector midiCollector;
     std::shared_ptr<WebSocketClient> midiSenderClient;
+    std::string userRole;
 };
 
 

@@ -20,6 +20,8 @@ public class MidiEventDto {
     private String type;
     @JsonProperty("velocity")
     private Integer velocity;
+    @JsonProperty("role")
+    private String role;
 
     @Override
     public String toString() {

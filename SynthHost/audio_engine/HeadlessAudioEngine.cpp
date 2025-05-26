@@ -65,6 +65,10 @@ HeadlessAudioEngine::~HeadlessAudioEngine()
     stop();
 }
 
+void HeadlessAudioEngine::setMidiRole(std::string role) {
+    this->midiInputCollector.setUserRole(role);
+}
+
 void HeadlessAudioEngine::setPlugin (std::unique_ptr<juce::AudioPluginInstance> p)
 {
     plugin = std::move (p);
@@ -74,6 +78,7 @@ void HeadlessAudioEngine::setPlugin (std::unique_ptr<juce::AudioPluginInstance> 
 void HeadlessAudioEngine::setPreset (Preset preset)
 {
     SerumEditor::loadSerumPreset (preset, plugin.get());
+    setMidiRole(preset.type);
 }
 
 void HeadlessAudioEngine::start()
@@ -103,6 +108,8 @@ void HeadlessAudioEngine::start()
                   << " | Rate: "    << device->getCurrentSampleRate()
                   << std::endl;
     }
+
+    setMidiRole("bass");
 }
 
 void HeadlessAudioEngine::stop()
@@ -122,4 +129,7 @@ void HeadlessAudioEngine::setMidiSenderClient(std::shared_ptr<WebSocketClient> s
 {
     this->midiInputCollector.setMidiSenderClient(sender);
 }
+
+
+
 

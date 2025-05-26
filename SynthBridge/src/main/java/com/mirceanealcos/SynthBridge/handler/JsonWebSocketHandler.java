@@ -47,6 +47,7 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         try {
             T json = mapper.readValue(message.getPayload(), payloadType);
+            log.info(json.toString());
             synchronized (sessions) {
                 for (WebSocketSession s : sessions) {
                     if (s.isOpen() && !session.equals(s)) {

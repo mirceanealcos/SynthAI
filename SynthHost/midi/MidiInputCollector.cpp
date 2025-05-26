@@ -78,3 +78,8 @@ void MidiInputCollector::setMidiSenderClient(std::shared_ptr<WebSocketClient> se
     this->midiSenderClient = sender;
 }
 
+void MidiInputCollector::setUserRole(std::string userRole) {
+    this->userRole = userRole;
+}
+
+

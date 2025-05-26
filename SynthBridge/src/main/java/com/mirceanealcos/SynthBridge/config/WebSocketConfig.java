@@ -24,8 +24,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(new JsonWebSocketHandler<>(PresetChangeDto.class, meterRegistry, "preset_handler"), "/user/preset")
-                .setAllowedOrigins("*")
                 .addHandler(new JsonWebSocketHandler<>(MidiEventDto.class, meterRegistry,  "user_midi_input_handler"), "/user/input")
+                .addHandler(new JsonWebSocketHandler<>(MidiEventDto.class, meterRegistry,  "ai_midi_output_handler"), "/composer/output")
                 .setAllowedOrigins("*");
     }
 

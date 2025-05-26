@@ -7,62 +7,63 @@
 #include <stdexcept>
 #include <unordered_map>
 
-std::string presetDir = "C:/Projects/SynthHost/resources/presets/";
+//std::string presetDir = "C:/Projects/SynthHost/resources/presets/";
+std::string presetDir = "D:/Projects/SynthAI/SynthHost/resources/presets/";
 
 Preset Presets::ANALOG_REESE_SWEEP = Preset("Analog Reese Sweep",
-                                            presetDir + "basses/analog_reese_sweep.vstpreset", "BASS");
+                                            presetDir + "basses/analog_reese_sweep.vstpreset", "bass");
 Preset Presets::VIBRATO_BASS = Preset("Vibrato Bass",
-                                      presetDir + "basses/analog_vibrato_bass.vstpreset", "BASS");
+                                      presetDir + "basses/analog_vibrato_bass.vstpreset", "bass");
 Preset Presets::COLONY = Preset("Colony",
-                                presetDir + "basses/colony.vstpreset", "BASS");
+                                presetDir + "basses/colony.vstpreset", "bass");
 Preset Presets::ENGINE_HASH = Preset("Engine Hash",
-                                     presetDir + "basses/engine_hash.vstpreset", "BASS");
+                                     presetDir + "basses/engine_hash.vstpreset", "bass");
 Preset Presets::NUMBERNINE = Preset("Numbernine",
-                                    presetDir + "basses/numbernine.vstpreset", "BASS");
+                                    presetDir + "basses/numbernine.vstpreset", "bass");
 Preset Presets::OFFRECORD = Preset("Offrecord",
-                                   presetDir + "basses/offrecord.vstpreset", "BASS");
+                                   presetDir + "basses/offrecord.vstpreset", "bass");
 Preset Presets::SUBNET = Preset("Subnet",
-                                presetDir + "basses/subnet.vstpreset", "BASS");
+                                presetDir + "basses/subnet.vstpreset", "bass");
 Preset Presets::WELCOME = Preset("Welcome",
-                                 presetDir + "basses/welcome.vstpreset", "BASS");
+                                 presetDir + "basses/welcome.vstpreset", "bass");
 Preset Presets::LEAD_1984 = Preset("1984",
-                                   presetDir + "leads/1984.vstpreset", "LEAD");
+                                   presetDir + "leads/1984.vstpreset", "lead");
 Preset Presets::CRASHWAVE = Preset("Crashwave",
-                                   presetDir + "leads/crashwave.vstpreset", "LEAD");
+                                   presetDir + "leads/crashwave.vstpreset", "lead");
 Preset Presets::CURSED_BRASS = Preset("Cursed Brass",
-                                      presetDir + "leads/cursed_brass.vstpreset", "LEAD");
+                                      presetDir + "leads/cursed_brass.vstpreset", "lead");
 Preset Presets::DS61 = Preset("DS61",
-                              presetDir + "leads/ds61.vstpreset", "LEAD");
+                              presetDir + "leads/ds61.vstpreset", "lead");
 Preset Presets::LEGATO_SAW_LEAD = Preset("Legato Saw Lead",
-                                         presetDir + "leads/legato_saw_lead.vstpreset", "LEAD");
+                                         presetDir + "leads/legato_saw_lead.vstpreset", "lead");
 Preset Presets::MINI = Preset("Mini",
-                              presetDir + "leads/mini.vstpreset", "LEAD");
+                              presetDir + "leads/mini.vstpreset", "lead");
 Preset Presets::MODULE = Preset("Module",
-                                presetDir + "leads/module.vstpreset", "LEAD");
+                                presetDir + "leads/module.vstpreset", "lead");
 Preset Presets::RETRO_BASS_LEAD = Preset("Retro Bass Lead",
-                                         presetDir + "leads/retro_bass_lead.vstpreset", "LEAD");
+                                         presetDir + "leads/retro_bass_lead.vstpreset", "lead");
 Preset Presets::SAWKRAFT = Preset("Sawkraft",
-                                  presetDir + "leads/sawkraft.vstpreset", "LEAD");
+                                  presetDir + "leads/sawkraft.vstpreset", "lead");
 Preset Presets::TIMECOP = Preset("Timecop",
-                                 presetDir + "leads/timecop.vstpreset", "LEAD");
+                                 presetDir + "leads/timecop.vstpreset", "lead");
 Preset Presets::BLADE_SWIMMER = Preset("Blade Swimmer",
-                                       presetDir + "pads/blade_swimmer.vstpreset", "PAD");
+                                       presetDir + "pads/blade_swimmer.vstpreset", "pad");
 Preset Presets::BLESS = Preset("Bless",
-                               presetDir + "pads/bless.vstpreset", "PAD");
+                               presetDir + "pads/bless.vstpreset", "pad");
 Preset Presets::LALA = Preset("Lala",
-                              presetDir + "pads/lala.vstpreset", "PAD");
+                              presetDir + "pads/lala.vstpreset", "pad");
 Preset Presets::OUT_TO_PLAY = Preset("Out To Play",
-                                     presetDir + "pads/out_to_play.vstpreset", "PAD");
+                                     presetDir + "pads/out_to_play.vstpreset", "pad");
 Preset Presets::RETROTOOTH = Preset("Retrotooth",
-                                    presetDir + "pads/retrotooth.vstpreset", "PAD");
+                                    presetDir + "pads/retrotooth.vstpreset", "pad");
 Preset Presets::SECONDS = Preset("Seconds",
-                                 presetDir + "pads/seconds.vstpreset", "PAD");
+                                 presetDir + "pads/seconds.vstpreset", "pad");
 Preset Presets::VISIONS = Preset("Visions",
-                                 presetDir + "pads/visions.vstpreset", "PAD");
+                                 presetDir + "pads/visions.vstpreset", "pad");
 Preset Presets::RETROBIT = Preset("Retrobit",
-                                  presetDir + "plucks/retrobit.vstpreset", "PLUCK");
+                                  presetDir + "plucks/retrobit.vstpreset", "pluck");
 Preset Presets::TETRA = Preset("Tetra",
-                               presetDir + "plucks/tetra.vstpreset", "PLUCK");
+                               presetDir + "plucks/tetra.vstpreset", "pluck");
 
 Preset Presets::getFromString(std::string name) {
     static const std::unordered_map<std::string, Preset> map = {
