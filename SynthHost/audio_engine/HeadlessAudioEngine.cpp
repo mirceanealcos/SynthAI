@@ -16,19 +16,33 @@ public:
         if (! owner->plugin)
             return;
 
-        // 1) Prepare a local stereo buffer for the plugin
         juce::AudioBuffer<float> pluginBuffer (numOutputChannels, numSamples);
         pluginBuffer.clear();
 
-        // 2) Fetch MIDI and process
         juce::MidiBuffer midi;
         owner->midiInputCollector.removeNextBlockOfMessages (midi, numSamples);
+
+        if (owner->shouldInjectAI) {
+            std::lock_guard<std::mutex> lock(owner->pendingMutex);
+            auto& queue = owner->pendingMidi;
+            std::vector<std::pair<int, juce::MidiMessage>> nextQueue;
+            nextQueue.reserve(queue.size());
+
+            for (auto& event: queue) {
+                int delay = event.first;
+                auto& msg = event.second;
+                if (delay < numSamples)
+                    midi.addEvent(msg, delay);
+                else
+                    nextQueue.emplace_back(delay - numSamples, msg);
+            }
+            queue.swap(nextQueue);
+        }
+
         owner->plugin->processBlock (pluginBuffer, midi);
 
-        // 3) Write full stereo data into ring buffer
         owner->ringBuffer->write (pluginBuffer);
 
-        // 4) Mute actual hardware output channels
         for (int ch = 0; ch < numOutputChannels; ++ch)
             juce::FloatVectorOperations::clear (outputs[ch], numSamples);
     }
@@ -88,14 +102,16 @@ void HeadlessAudioEngine::start()
 
     deviceManager.initialise (0, 2, nullptr, true);
 
-    for (auto& dev : juce::MidiInput::getAvailableDevices())
-    {
-        if (dev.name.containsIgnoreCase ("Minilab3 MIDI"))
+    if (!shouldInjectAI) {
+        for (auto& dev : juce::MidiInput::getAvailableDevices())
         {
-            deviceManager.setMidiInputDeviceEnabled (dev.identifier, true);
-            deviceManager.addMidiInputDeviceCallback (dev.identifier,
-                                                      &midiInputCollector);
-            break;
+            if (dev.name.containsIgnoreCase ("Minilab3 MIDI"))
+            {
+                deviceManager.setMidiInputDeviceEnabled (dev.identifier, true);
+                deviceManager.addMidiInputDeviceCallback (dev.identifier,
+                                                          &midiInputCollector);
+                break;
+            }
         }
     }
 
@@ -109,7 +125,6 @@ void HeadlessAudioEngine::start()
                   << std::endl;
     }
 
-    setMidiRole("bass");
 }
 
 void HeadlessAudioEngine::stop()
@@ -129,6 +144,18 @@ void HeadlessAudioEngine::setMidiSenderClient(std::shared_ptr<WebSocketClient> s
 {
     this->midiInputCollector.setMidiSenderClient(sender);
 }
+
+void HeadlessAudioEngine::enableAIMidiInjection(bool e) {
+    shouldInjectAI = e;
+}
+
+void HeadlessAudioEngine::enqueueMidi(const juce::MidiMessage &m, int delaySamples) {
+    std::lock_guard<std::mutex> lock(pendingMutex);
+    pendingMidi.emplace_back(delaySamples, m);
+}
+
+
+
 
 
 

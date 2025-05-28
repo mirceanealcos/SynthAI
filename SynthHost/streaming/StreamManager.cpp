@@ -4,13 +4,13 @@
 
 #include "StreamManager.h"
 
-StreamManager::StreamManager(int blockSize, int sampleRate, int port, StreamID id) {
+StreamManager::StreamManager(int blockSize, int sampleRate, int port, StreamID id, bool isAIEngine) {
     this->blockSize = blockSize;
     this->sampleRate = sampleRate;
     this->port = port;
     this->running.store(false);
     this->id = id;
-    this->init();
+    this->init(isAIEngine);
 }
 
 StreamManager::~StreamManager() {
@@ -19,7 +19,7 @@ StreamManager::~StreamManager() {
 }
 
 
-void StreamManager::init() {
+void StreamManager::init(bool isAIEngine) {
     this->audioEngine = std::make_unique<HeadlessAudioEngine>(sampleRate, 2 * blockSize);
     juce::String error;
     std::unique_ptr<juce::AudioPluginInstance> serumInstance;
@@ -29,6 +29,7 @@ void StreamManager::init() {
         std::cout << e.what() << std::endl;
         throw;
     }
+    audioEngine->enableAIMidiInjection(isAIEngine);
     audioEngine->setPlugin(std::move(serumInstance));
     audioEngine->start();
     udpAudioSender = std::make_unique<UDPAudioSender>("127.0.0.1", port);

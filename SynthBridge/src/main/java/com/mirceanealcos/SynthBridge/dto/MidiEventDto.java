@@ -30,6 +30,8 @@ public class MidiEventDto {
                 ", timestamp=" + timestamp +
                 ", type='" + type + '\'' +
                 ", velocity=" + velocity +
+                ", role='" + role + '\'' +
                 '}';
     }
+
 }

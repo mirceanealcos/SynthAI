@@ -58,6 +58,10 @@ public:
     static Preset TETRA;
 
     static Preset getFromString(std::string preset);
+    static Preset getRandomBass();
+    static Preset getRandomLead();
+    static Preset getRandomPad();
+    static Preset getRandomPluck();
 };
 
 

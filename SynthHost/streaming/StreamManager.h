@@ -13,7 +13,7 @@
 
 class StreamManager {
 public:
-    explicit StreamManager(int blockSize = 512, int sampleRate = 48000, int port = 9000, StreamID id = USER);
+    explicit StreamManager(int blockSize = 512, int sampleRate = 48000, int port = 9000, StreamID id = USER, bool isAIEngine = false);
 
     ~StreamManager();
 
@@ -27,8 +27,12 @@ public:
 
     void setMidiSenderClient(std::shared_ptr<WebSocketClient> sender);
 
+    double getSampleRate() { return sampleRate; }
+
+    HeadlessAudioEngine* getAudioEngine() { return audioEngine.get(); }
+
 private:
-    void init();
+    void init(bool isAIEngine);
 
     StreamID id;
     std::unique_ptr<HeadlessAudioEngine> audioEngine;

@@ -17,7 +17,7 @@ public:
     using JsonMethod = void (StreamController::*)(const json&);
 
     explicit StreamController(boost::asio::io_context& ioContext);
-    void addStreamManager(int blockSize, int sampleRate, int port, StreamID id);
+    void addStreamManager(int blockSize, int sampleRate, int port, StreamID id, bool isAIEngine);
     std::shared_ptr<StreamManager> getStreamManager(StreamID id);
     void addWebSocketClient(string host, string port, string url, WebSocketClientID id, JsonMethod onJsonMethod);
     void setMidiSenderClient(WebSocketClientID sender, StreamID streamer);
@@ -26,8 +26,11 @@ public:
     std::shared_ptr<WebSocketClient> getWebSocketClient(WebSocketClientID id);
     std::shared_ptr<StreamManager> getStream(StreamID id);
 
+    StreamID getStreamIDForRole(const std::string& role);
+
     // handler methods
     void changePreset(const json& j);
+    void handleComposeOutput(const json& j);
 
 private:
     boost::asio::io_context& ioContext;
