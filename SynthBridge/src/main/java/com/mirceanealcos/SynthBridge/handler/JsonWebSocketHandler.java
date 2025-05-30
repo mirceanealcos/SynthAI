@@ -25,12 +25,14 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
     private final Class<T> payloadType;
     private final Counter messageCounter;
     private final Counter errorCounter;
+    private final Counter disconnectCounter;
     private final Gauge activeSessionsGauge;
 
     public JsonWebSocketHandler(Class<T> payloadType, MeterRegistry meterRegistry, String handlerName) {
         this.payloadType = payloadType;
         this.messageCounter = meterRegistry.counter("total_messages", "handler", handlerName);
         this.errorCounter = meterRegistry.counter("total_errors", "handler", handlerName);
+        this.disconnectCounter = meterRegistry.counter("total_disconnects", "handler", handlerName);
         this.activeSessionsGauge = Gauge.builder("active_connections", sessions, Set::size)
                 .description("Currently active WebSocket connections")
                 .tag("handler", handlerName)
@@ -45,6 +47,7 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        messageCounter.increment();
         try {
             T json = mapper.readValue(message.getPayload(), payloadType);
             log.info(json.toString());
@@ -52,7 +55,7 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
                 for (WebSocketSession s : sessions) {
                     if (s.isOpen() && !session.equals(s)) {
                         s.sendMessage(new TextMessage(mapper.writeValueAsString(json)));
-                        messageCounter.increment();
+
                     }
                 }
             }
@@ -76,5 +79,6 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         log.info("Connection to " + session.getId() + " closed.");
         sessions.remove(session);
+        disconnectCounter.increment();
     }
 }
