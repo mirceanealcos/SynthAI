@@ -55,22 +55,19 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
                 for (WebSocketSession s : sessions) {
                     if (s.isOpen() && !session.equals(s)) {
                         s.sendMessage(new TextMessage(mapper.writeValueAsString(json)));
-
                     }
                 }
             }
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
             errorCounter.increment();
-            ErrorResponse errorResponse = new ErrorResponse("invalid payload");
-            session.sendMessage(new TextMessage(mapper.writeValueAsString(errorResponse)));
         }
     }
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        sessions.remove(session);
-        session.close(CloseStatus.SERVER_ERROR);
+//        sessions.remove(session);
+//        session.close(CloseStatus.SERVER_ERROR);
         log.error("Transport error: " + exception.getMessage());
         errorCounter.increment();
     }
