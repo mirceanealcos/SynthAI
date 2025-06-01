@@ -2,13 +2,14 @@ import asyncio
 import websockets
 
 WEBSOCKET_URL = "ws://localhost:8080/user/input"
-MESSAGE_COUNT = 5000
+MESSAGE_COUNT = 500
 CONCURRENCY = 2
 DELAY_BETWEEN_MESSAGES = 0.001
 
 async def flood_messages(uri, message_count, delay):
     async with websockets.connect(uri) as ws:
         print(f"[+] Connected to {uri}")
+        await asyncio.sleep(5)
         for i in range(message_count):
             payload = {
                 "note": 60,
