@@ -14,25 +14,31 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.time.Duration;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
 
     private static final Logger log = LoggerFactory.getLogger(JsonWebSocketHandler.class);
+    private static final Integer MAX_CONNECTION_COUNT = 10;
+    private static final Integer MAX_RECONNECTION_ATTEMPTS = 10;
+    private static final Integer MAX_ERROR_COUNT = 10;
     private static final Bandwidth MESSAGE_LIMIT = Bandwidth.builder()
             .capacity(100)
             .refillIntervally(100, Duration.ofSeconds(1))
             .build();
 
+    private final Map<String, AtomicInteger> reconnectionAttempts = Collections.synchronizedMap(new HashMap<>());
     private final ConcurrentMap<WebSocketSession, Bucket> buckets = new ConcurrentHashMap<>();
     private final Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<>());
     private final ObjectMapper mapper = new ObjectMapper();
     private final Class<T> payloadType;
+    private final String handlerName;
 
     private final Counter messageCounter;
     private final Counter errorCounter;
@@ -41,6 +47,7 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
 
     public JsonWebSocketHandler(Class<T> payloadType, MeterRegistry meterRegistry, String handlerName) {
         this.payloadType = payloadType;
+        this.handlerName = handlerName;
         this.messageCounter = meterRegistry.counter("total_messages", "handler", handlerName);
         this.errorCounter = meterRegistry.counter("total_errors", "handler", handlerName);
         this.disconnectCounter = meterRegistry.counter("total_disconnects", "handler", handlerName);
@@ -51,19 +58,42 @@ public class JsonWebSocketHandler<T> extends TextWebSocketHandler {
     }
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) {
-        log.info("Successfully established connection to " + session.getId());
+    public void afterConnectionEstablished(WebSocketSession session) throws IOException {
+        InetSocketAddress peerAddress = session.getRemoteAddress();
+        String peerIP = (peerAddress == null) ? "unknown" : peerAddress.getAddress().getHostAddress();
+        if (reconnectionAttempts.containsKey(peerIP)) {
+            AtomicInteger reconnectionCount = reconnectionAttempts.get(peerIP);
+            int count = reconnectionCount.incrementAndGet();
+            if (count > MAX_RECONNECTION_ATTEMPTS) {
+                log.warn("Blocking connection to " + peerIP + ", too many reconnection attempts.");
+                session.close(CloseStatus.POLICY_VIOLATION);
+                return;
+            }
+        }
+        else {
+            reconnectionAttempts.put(peerIP, new AtomicInteger(1));
+        }
+
+        synchronized (sessions) {
+            if (sessions.size() >= MAX_CONNECTION_COUNT) {
+                log.warn("Session limit reached on handler " + handlerName + ", ignoring connection to " + session.getId() + ".");
+                session.close(CloseStatus.POLICY_VIOLATION);
+                return;
+            }
+        }
         Bucket bucket = Bucket.builder()
                 .addLimit(MESSAGE_LIMIT)
                 .build();
         buckets.put(session, bucket);
         sessions.add(session);
+        log.info("Successfully established connection to " + session.getId());
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         synchronized (sessions) {
             if (!sessions.contains(session)) {
+                session.close();
                 return;
             }
         }
