@@ -51,12 +51,14 @@ void MidiInputCollector::handleIncomingMidiMessage(juce::MidiInput *source, cons
             j["type"] = "note_on";
             j["note"] = message.getNoteNumber();
             j["velocity"] = static_cast<int>(message.getVelocity() * 127.0f);
+            j["role"] = userRole;
         }
         else if (message.isNoteOff())
         {
             j["type"] = "note_off";
             j["note"] = message.getNoteNumber();
             j["velocity"] = 0;
+            j["role"] = userRole;
         }
         else
         {

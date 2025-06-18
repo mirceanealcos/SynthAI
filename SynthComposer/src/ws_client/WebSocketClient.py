@@ -4,84 +4,132 @@ import os
 import time
 import asyncio
 import json
+import re
 
-import numpy as np
 import torch
 import websockets
 
-from data.utils import parse_filename
-from utils.KeyDetector import KeyDetector
-from train_composer import ComposerModel
+from src.utils.KeyDetector import KeyDetector
+
+# Import our new RNN and its globals
+from src.composer.music_rnn import (
+    MusicRNN,
+    generate,
+    TOKEN2IDX,
+    IDX2TOKEN,
+    ROLES,
+    ROLE2IDX,
+    KEY2IDX,
+    IDX2KEY,        # we need to update both
+)
 
 # ——— CONFIG ——————————————————————————————————————————
+WS_URI_IN     = "ws://localhost:8080/user/input"
+WS_URI_OUT    = "ws://localhost:8080/composer/output"
+MODEL_PATH    = "../composer/music_rnn.pt"
+GENERATE_LENGTH = 128
+TIME_QUANT_MS = 10   # must match your music_rnn.py
 
-WS_URI_IN    = "ws://localhost:8080/user/input"
-WS_URI_OUT   = "ws://localhost:8080/composer/output"
-ROLENAME     = "bass"
-MODEL_PATH   = os.path.join("models", f"composer_train_{ROLENAME}.npz.pt")
-QUANT_DIR    = os.path.join("data", "quantized", ROLENAME)
+# ——— UTILITIES ——————————————————————————————————————————
 
-SEQ_LEN           = 128
-STEPS_PER_QUARTER = 16
-BAR_STEPS         = STEPS_PER_QUARTER * 4
+def buffer_to_seed_tokens(buffer):
+    if not buffer:
+        return []
+    tokens = []
+    prev_t = buffer[0][0]
+    for t, pitch, vel in buffer:
+        delta_ms = (t - prev_t) * 1000.0
+        steps = int(delta_ms / TIME_QUANT_MS + 0.5)
+        tokens.extend([TOKEN2IDX[f"TIME_SHIFT_{TIME_QUANT_MS}ms"]] * steps)
+        tok = f"NOTE_ON_{pitch}"
+        if tok in TOKEN2IDX:
+            tokens.append(TOKEN2IDX[tok])
+        prev_t = t
 
-# ——— BUILD KEY2IDX ————————————————————————————————————
+    # trim to seq_len=200 (as in training)
+    return tokens[-200:]
 
-key_names = set()
-for fn in os.listdir(QUANT_DIR):
-    if not fn.endswith(".npz"):
-        continue
-    info = parse_filename(fn.replace(".npz", ".mid"))
-    if info:
-        _, _, _, key_name = info
-        key_names.add(key_name)
-KEY2IDX = {k: i for i, k in enumerate(sorted(key_names))}
-
-# Only one role in this model
-ROLE2IDX = {ROLENAME: 0}
-
-# ——— INFER TEMPO & TIMING ————————————————————————————
-
-first_npz = next(fn for fn in os.listdir(QUANT_DIR) if fn.endswith(".npz"))
-tempo     = parse_filename(first_npz.replace(".npz", ".mid"))[2]
-quarter_sec = 60.0 / tempo
-step_sec    = quarter_sec / STEPS_PER_QUARTER
-window_secs = (SEQ_LEN / STEPS_PER_QUARTER) * quarter_sec
-
-# ——— MODEL LOADER & UTILITIES ——————————————————————————
-
-def load_model():
-    # Load role_vocab from dataset so it matches the checkpoint
-    data = np.load(os.path.join("data", f"train_{ROLENAME}.npz"))
-    role_vocab = int(data['X_role'].max()) + 1
-    model = ComposerModel(len(KEY2IDX), role_vocab)
-    model.load_state_dict(torch.load(MODEL_PATH, map_location="cpu"))
-    model.eval()
-    return model
-
-def events_to_roll(events):
+def token_stream_to_events(tokens, role, start_time):
     """
-    Convert buffered (t_sec, pitch, vel) events into a piano-roll (SEQ_LEN,128).
+    Given a list of token-indices or token-strings, expand into
+      [(event_time_sec, type, pitch, velocity), ...]
     """
-    roll = np.zeros((SEQ_LEN, 128), dtype=np.float32)
-    if not events:
-        return roll
-    t0 = events[-1][0] - window_secs
-    for t, pitch, vel in events:
-        idx = int((t - t0) / step_sec)
-        if 0 <= idx < SEQ_LEN:
-            roll[idx, pitch] = vel / 127.0
-    return roll
+    events = []
+    t = start_time
+    for item in tokens:
+        # Allow either int indices or string tokens
+        tok = IDX2TOKEN[item] if isinstance(item, int) else item
+
+        if tok.startswith("TIME_SHIFT_"):
+            # "TIME_SHIFT_10ms" → 10
+            ms_part = tok[len("TIME_SHIFT_"):-2]  # strip prefix & "ms"
+            t += int(ms_part) / 1000.0
+
+        elif tok.startswith("NOTE_ON_"):
+            # "NOTE_ON_60" → 60
+            pitch = int(tok[len("NOTE_ON_"):])
+            events.append((t, "note_on", pitch, 100))
+
+        elif tok.startswith("NOTE_OFF_"):
+            # "NOTE_OFF_60" → 60
+            pitch = int(tok[len("NOTE_OFF_"):])
+            events.append((t, "note_off", pitch, 0))
+
+    return events
+
+
+
+def normalize_key_name(raw_key: str) -> str:
+    """
+    Convert Detected keys like:
+      - "C major"    → "c"
+      - "c minor"    → "cmin"
+      - "C# major"   → "c#"
+      - "D# minor"   → "d#min"
+      - "Eb major"   → "eb"
+    """
+    k = raw_key.strip().lower()
+    parts = k.split()
+    if len(parts) == 2:
+        tonic, quality = parts
+        # normalize synonyms
+        if quality in ("major", "maj"):
+            return tonic
+        elif quality in ("minor", "min"):
+            return tonic + "min"
+    # fallback: lowercase, no spaces
+    return k.replace(" ", "")
 
 # ——— MAIN ASYNC LOOP —————————————————————————————
 
 async def run():
-    model       = load_model()
-    keydet      = KeyDetector()
-    buffer      = []    # (t_sec, pitch, vel)
-    pending_offs= []    # (send_time_sec, role, pitch)
-    last_bar    = time.time()
-    current_key = None  # until detected
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # 1) Load checkpoint (with key2idx) before building the model
+    ckpt = torch.load(MODEL_PATH, map_location=device)
+    saved_keys = ckpt.get("key2idx", None)
+    if saved_keys is None:
+        raise RuntimeError("Checkpoint missing 'key2idx'; re-save your model with key2idx included.")
+    # Update the globals in music_rnn
+    KEY2IDX.clear(); KEY2IDX.update(saved_keys)
+    IDX2KEY.clear(); IDX2KEY.update({v:k for k,v in saved_keys.items()})
+    print(f"🔑 Restored {len(KEY2IDX)} keys from checkpoint")
+
+    # 2) Instantiate with correct num_keys
+    model = MusicRNN(
+        vocab_size = len(TOKEN2IDX),
+        num_roles  = len(ROLES),
+        num_keys   = len(KEY2IDX)
+    ).to(device)
+    model.load_state_dict(ckpt["model_state"])
+    model.eval()
+    print("✅ Loaded RNN checkpoint")
+
+    keydet       = KeyDetector()
+    buffer       = []    # (t_sec, pitch, vel)
+    pending_offs = []    # (send_time_sec, role, pitch)
+    last_gen     = time.time()
+    current_key  = None
 
     async with websockets.connect(WS_URI_IN) as ws_in, \
                websockets.connect(WS_URI_OUT) as ws_out:
@@ -90,7 +138,7 @@ async def run():
             evt = json.loads(msg)
             now = time.time()
 
-            # 1) flush any pending note_offs
+            # flush pending note_offs
             due = [off for off in pending_offs if off[0] <= now]
             pending_offs[:] = [off for off in pending_offs if off[0] > now]
             for send_t, role, pitch in due:
@@ -98,64 +146,65 @@ async def run():
                     "type":      "note_off",
                     "role":      role,
                     "note":      pitch,
+                    "velocity":  0,
                     "timestamp": int(send_t * 1000)
                 }))
 
-            # 2) key detection
+            # key detection
             keydet.feed_event(evt)
-            detected = keydet.estimate_key()
-            if detected:
-                current_key = detected
-                print(f"🎹 Key changed → {current_key}")
+            det = keydet.estimate_key()
+            if det:
+                norm = normalize_key_name(det)
+                if norm in KEY2IDX:
+                    current_key = norm
+                    print(f"🎹 Key → {det}  (normalized to '{current_key}')")
+                else:
+                    print(f"⚠️ Detected key '{det}' normalized to '{norm}', which is not in model keys")
 
-            # 3) buffer note_on
+
+            # buffer user note_on
             if evt.get("type") == "note_on":
                 buffer.append((
-                    evt["timestamp"]/1000.0,
+                    evt["timestamp"] / 1000.0,
                     evt["note"],
                     evt["velocity"]
                 ))
 
-            # 4) skip generation until we have a valid trained key
-            if current_key is None:
-                continue
-            if current_key not in KEY2IDX:
-                print(f"⚠️  Key '{current_key}' not in model keys; skipping")
+            # wait until we have a valid key
+            if current_key is None or current_key not in KEY2IDX:
                 continue
 
-            # 5) every bar, run the model
-            if now - last_bar >= BAR_STEPS * step_sec:
-                last_bar = now
+            # generate every second
+            if now - last_gen >= 1.0:
+                last_gen = now
 
-                # prepare inputs
-                roll   = events_to_roll(buffer)
-                x_user = torch.from_numpy(roll[None,:,:]).float()
-                k_idx  = torch.tensor([KEY2IDX[current_key]], dtype=torch.long)
-                r_idx  = torch.tensor([ROLE2IDX[ROLENAME]], dtype=torch.long)
+                seed = buffer_to_seed_tokens(buffer)
+                if not seed:
+                    continue
+                for role in ROLES:
+                    if role == evt["role"]:
+                        continue
 
-                with torch.no_grad():
-                    out = model(x_user, k_idx, r_idx).squeeze(0).numpy()
-
-                # reshape to (3 roles, SEQ_LEN, 128)
-                out = out.reshape(SEQ_LEN, 3, 128).transpose(1,0,2)
-                t0  = now + step_sec
-                out_roles = [r for r in ["bass","lead","pad","pluck"] if r != ROLENAME]
-
-                # emit note_on and schedule note_off
-                for i, role in enumerate(out_roles):
-                    for step in range(SEQ_LEN):
-                        pitches = np.where(out[i, step] > 0.5)[0]
-                        for p in pitches:
-                            t_on = t0 + step * step_sec
-                            await ws_out.send(json.dumps({
-                                "type":      "note_on",
-                                "role":      role,
-                                "note":      int(p),
-                                "velocity":  int(out[i,step,p]*127),
-                                "timestamp": int(t_on * 1000)
-                            }))
-                            # schedule its note_off one 16th later
-                            pending_offs.append((t_on+step_sec, role, int(p)))
+                    tok_idxs = generate(
+                        model,
+                        seed,
+                        role,
+                        current_key,
+                        GENERATE_LENGTH,
+                        device=device,
+                        temp=1.0
+                    )
+                    evs = token_stream_to_events(tok_idxs, role, start_time=now)
+                    for t, typ, pitch, vel in evs:
+                        await ws_out.send(json.dumps({
+                            "type":      typ,
+                            "role":      role,
+                            "note":      pitch,
+                            "velocity":  vel,
+                            "timestamp": int(t * 1000)
+                        }))
+                        if typ == "note_on":
+                            pending_offs.append((t + 0.1, role, pitch))
 
                 buffer.clear()
 
