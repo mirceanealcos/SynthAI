@@ -4,12 +4,20 @@
 
 #include "Presets.h"
 
+#include <chrono>
 #include <random>
 #include <stdexcept>
 #include <unordered_map>
 
-std::string presetDir = "C:/Projects/SynthHost/resources/presets/";
-// std::string presetDir = "D:/Projects/SynthAI/SynthHost/resources/presets/";
+
+int getRandomNumberInRange(int min, int max) {
+    auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    std::mt19937 gen(seed);
+    std::uniform_int_distribution<> dist(min, max);
+    return dist(gen);
+}
+// std::string presetDir = "C:/Projects/SynthHost/resources/presets/";
+std::string presetDir = "D:/Projects/SynthAI/SynthHost/resources/presets/";
 
 Preset Presets::ANALOG_REESE_SWEEP = Preset("Analog Reese Sweep",
                                             presetDir + "basses/analog_reese_sweep.vstpreset", "bass");
@@ -105,10 +113,7 @@ Preset Presets::getFromString(std::string name) {
 }
 
 Preset Presets::getRandomBass() {
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 gen(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(1, 8);
-    int presetIndex = distr(gen);
+    int presetIndex = getRandomNumberInRange(1,8);
     if (presetIndex == 1)
         return ANALOG_REESE_SWEEP;
     if (presetIndex == 2)
@@ -129,10 +134,7 @@ Preset Presets::getRandomBass() {
 }
 
 Preset Presets::getRandomLead() {
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 gen(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(1, 10);
-    int presetIndex = distr(gen);
+    int presetIndex = getRandomNumberInRange(1,10);
     if (presetIndex == 1)
         return LEAD_1984;
     if (presetIndex == 2)
@@ -157,10 +159,7 @@ Preset Presets::getRandomLead() {
 }
 
 Preset Presets::getRandomPad() {
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 gen(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(1, 7);
-    int presetIndex = distr(gen);
+    int presetIndex = getRandomNumberInRange(1,7);
     if (presetIndex == 1)
         return BLADE_SWIMMER;
     if (presetIndex == 2)
@@ -179,16 +178,15 @@ Preset Presets::getRandomPad() {
 }
 
 Preset Presets::getRandomPluck() {
-    std::random_device rd; // obtain a random number from hardware
-    std::mt19937 gen(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(1, 7);
-    int presetIndex = distr(gen);
+    int presetIndex = getRandomNumberInRange(1,2);
     if (presetIndex == 1)
         return RETROBIT;
     if (presetIndex == 2)
         return TETRA;
     return RETROBIT;
 }
+
+
 
 
 
